@@ -1,0 +1,142 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 自定义动画和过渡效果 */
+@layer components {
+  /* 按钮悬停效果 */
+  .btn-hover {
+    @apply transition-all duration-300 ease-in-out;
+  }
+  
+  .btn-hover:hover {
+    @apply transform scale-105 shadow-md;
+  }
+  
+  /* 卡片悬停效果 */
+  .card-hover {
+    @apply transition-all duration-300 ease-in-out;
+  }
+  
+  .card-hover:hover {
+    @apply transform translate-y-[-5px] shadow-lg;
+  }
+  
+  /* 链接悬停效果 */
+  .link-hover {
+    @apply transition-all duration-200 ease-in-out;
+  }
+  
+  .link-hover:hover {
+    @apply text-primary-600;
+  }
+  
+  /* 导航项悬停效果 */
+  .nav-item-hover {
+    @apply transition-all duration-200 ease-in-out relative;
+  }
+  
+  .nav-item-hover::after {
+    @apply content-[''] absolute bottom-0 left-0 w-0 h-0.5 bg-primary-500 transition-all duration-300;
+  }
+  
+  .nav-item-hover:hover::after {
+    @apply w-full;
+  }
+  
+  /* 输入框焦点效果 */
+  .input-focus {
+    @apply transition-all duration-200 ease-in-out border border-neutral-300;
+  }
+  
+  .input-focus:focus {
+    @apply border-primary-500 ring-1 ring-primary-500 outline-none;
+  }
+  
+  /* 淡入淡出动画 */
+  .fade-in {
+    @apply animate-[fadeIn_0.5s_ease-in-out];
+  }
+  
+  .fade-out {
+    @apply animate-[fadeOut_0.5s_ease-in-out];
+  }
+}
+
+/* 自定义动画关键帧 */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+/* 主题颜色变量 - 蓝色主题（默认） */
+:root {
+  --color-primary: #1890ff;
+  --color-primary-light: #40a9ff;
+  --color-primary-dark: #096dd9;
+  --color-secondary: #5bc726;
+  --color-secondary-light: #78d24e;
+  --color-secondary-dark: #4db11f;
+  --color-accent: #f5222d;
+  --color-accent-light: #ff4d4f;
+  --color-accent-dark: #cf1322;
+}
+
+/* 绿色主题 */
+.theme-green {
+  --color-primary: #52c41a;
+  --color-primary-light: #73d13d;
+  --color-primary-dark: #389e0d;
+  --color-secondary: #1890ff;
+  --color-secondary-light: #40a9ff;
+  --color-secondary-dark: #096dd9;
+  --color-accent: #fa8c16;
+  --color-accent-light: #ffa940;
+  --color-accent-dark: #d46b08;
+}
+
+/* 紫色主题 */
+.theme-purple {
+  --color-primary: #722ed1;
+  --color-primary-light: #9254de;
+  --color-primary-dark: #531dab;
+  --color-secondary: #13c2c2;
+  --color-secondary-light: #36cfc9;
+  --color-secondary-dark: #08979c;
+  --color-accent: #eb2f96;
+  --color-accent-light: #f759ab;
+  --color-accent-dark: #c41d7f;
+}
+
+/* 橙色主题 */
+.theme-orange {
+  --color-primary: #fa8c16;
+  --color-primary-light: #ffa940;
+  --color-primary-dark: #d46b08;
+  --color-secondary: #1890ff;
+  --color-secondary-light: #40a9ff;
+  --color-secondary-dark: #096dd9;
+  --color-accent: #f5222d;
+  --color-accent-light: #ff4d4f;
+  --color-accent-dark: #cf1322;
+}
+
+/* 深色主题 */
+.theme-dark {
+  --color-primary: #177ddc;
+  --color-primary-light: #1f9eff;
+  --color-primary-dark: #0e5aa7;
+  --color-secondary: #49aa19;
+  --color-secondary-light: #6abe39;
+  --color-secondary-dark: #3c8618;
+  --color-accent: #a61d24;
+  --color-accent-light: #d32029;
+  --color-accent-dark: #791a1f;
+  --bg-color: #141414;
+  --text-color: #f0f0f0;
+}

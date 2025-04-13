@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200px" height="200px" viewBox="0 0 200 200" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>404 Error</title>
+    <g id="404-Error" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="404" transform="translate(10.000000, 50.000000)" fill-rule="nonzero">
+            <path d="M0,80 L180,80" id="Path" stroke="#E0E0E0" stroke-width="2" stroke-linecap="round"></path>
+            <path d="M37.5,0 L37.5,80" id="Path" stroke="#E0E0E0" stroke-width="2" stroke-linecap="round"></path>
+            <path d="M75,0 L75,80" id="Path" stroke="#E0E0E0" stroke-width="2" stroke-linecap="round"></path>
+            <path d="M112.5,0 L112.5,80" id="Path" stroke="#E0E0E0" stroke-width="2" stroke-linecap="round"></path>
+            <path d="M150,0 L150,80" id="Path" stroke="#E0E0E0" stroke-width="2" stroke-linecap="round"></path>
+            <path d="M40,20 L60,20 L60,60 L40,60 L40,20 Z" id="Path" fill="#409EFF"></path>
+            <path d="M70,20 L90,20 L90,60 L70,60 L70,20 Z" id="Path" fill="#409EFF"></path>
+            <path d="M100,20 L120,20 L120,60 L100,60 L100,20 Z" id="Path" fill="#409EFF"></path>
+            <text id="404" font-family="Arial-BoldMT, Arial" font-size="48" font-weight="bold" fill="#333333">
+                <tspan x="30" y="50">404</tspan>
+            </text>
+            <text id="Page-Not-Found" font-family="ArialMT, Arial" font-size="16" font-weight="normal" fill="#666666">
+                <tspan x="30" y="100">Page Not Found</tspan>
+            </text>
+        </g>
+    </g>
+</svg>
