@@ -59,6 +59,7 @@ service.interceptors.response.use(
       
       return Promise.reject(new Error(res.message || '请求失败'))
     } else {
+      // 直接返回数据部分，简化数据处理
       return res
     }
   },

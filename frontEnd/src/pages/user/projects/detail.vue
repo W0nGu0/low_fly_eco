@@ -14,7 +14,7 @@
             <el-carousel height="400px" indicator-position="outside" arrow="always">
               <el-carousel-item v-for="(img, index) in projectImages" :key="index">
                 <div class="carousel-img-container">
-                  <img :src="img.url" :alt="project.name" class="carousel-img">
+                  <img :src="getImageUrl(img.url)" :alt="project.name" class="carousel-img">
                 </div>
               </el-carousel-item>
             </el-carousel>
@@ -155,7 +155,7 @@
                     <div v-for="(review, index) in project.reviews" :key="index" class="review-item p-4 mb-4 border-b">
                       <div class="review-header flex justify-between mb-3">
                         <div class="reviewer-info flex items-center">
-                          <el-avatar :size="40" :src="review.avatar"></el-avatar>
+                          <el-avatar :size="40" :src="getImageUrl(review.avatar)"></el-avatar>
                           <div class="ml-3">
                             <div class="reviewer-name font-medium">{{ review.name }}</div>
                             <div class="review-date text-sm text-gray-500">{{ review.date }}</div>
@@ -172,7 +172,7 @@
                         <div v-for="(img, imgIndex) in review.images" :key="imgIndex" class="review-image-item mr-2 mb-2">
                           <el-image
                             style="width: 80px; height: 80px"
-                            :src="img"
+                            :src="getImageUrl(img)"
                             :preview-src-list="review.images">
                           </el-image>
                         </div>
@@ -218,8 +218,7 @@
             <div class="map-container" style="height: 300px; background-color: #f5f5f5;">
               <!-- 这里使用背景图模拟地图，实际项目中应该集成地图API -->
               <div class="flex justify-center items-center h-full">
-                <img src="@/assets/images/projects/map-placeholder.jpg" 
-                  alt="地图位置" class="w-full h-full object-cover" />
+                <img :src="mapImage" alt="地图位置" class="w-full h-full object-cover" />
               </div>
             </div>
             <div class="location-address mt-4">
@@ -242,7 +241,7 @@
                 class="related-item flex mb-4 pb-4 border-b cursor-pointer"
                 @click="goToProject(item.id)">
                 <div class="related-image mr-3" style="width: 80px; height: 60px;">
-                  <img :src="item.coverImage" :alt="item.name" class="w-full h-full object-cover rounded">
+                  <img :src="getImageUrl(item.coverImage)" :alt="item.name" class="w-full h-full object-cover rounded">
                 </div>
                 <div class="related-info flex-1">
                   <div class="related-name font-medium mb-1 line-clamp-1">{{ item.name }}</div>
@@ -262,6 +261,7 @@ import { ref, reactive, onMounted, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { Location, Timer, Star, Check, Phone } from '@element-plus/icons-vue'
+import { getImageUrl } from '@/utils/imageHelper'
 
 const route = useRoute()
 const router = useRouter()
@@ -773,6 +773,8 @@ const fetchProjectDetails = async () => {
   // const response = await fetch(`/api/projects/${projectId.value}`)
   // project.value = await response.json()
 }
+
+const mapImage = ref(getImageUrl('@/assets/images/projects/map-placeholder.jpg'))
 
 onMounted(() => {
   fetchProjectDetails()

@@ -195,6 +195,9 @@
         </div>
       </div>
     </section>
+
+    <!-- 测试组件 -->
+    <!-- <ImageTest class="mt-8" /> -->
   </div>
 </template>
 
@@ -202,6 +205,8 @@
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useProjectStore } from '@/store/project'
+// import ImageTest from '@/components/ImageTest.vue'
+import { getImageUrl } from '@/utils/imageHelper'
 
 const router = useRouter()
 const projectStore = useProjectStore()
@@ -211,21 +216,21 @@ const bannerList = ref([
   {
     title: '热气球观光',
     description: '乘坐热气球，俯瞰城市美景，体验自由飞翔的感觉',
-    image: '@/assets/images/banners/banner1.jpg',
+    image: getImageUrl('@/assets/images/projects/hot-air-balloon.jpg'),
     link: '/user/projects?category=1',
     buttonText: '立即预约'
   },
   {
     title: '直升机游览',
     description: '乘坐专业直升机，从空中欣赏城市风光',
-    image: '@/assets/images/banners/banner2.jpg',
+    image: getImageUrl('@/assets/images/projects/helicopter.jpg'),
     link: '/user/projects?category=2',
     buttonText: '立即预约'
   },
   {
     title: '无人机体验',
     description: '亲自操控无人机，体验科技带来的乐趣',
-    image: '@/assets/images/banners/banner1.jpg',
+    image: getImageUrl('@/assets/images/projects/drone.jpg'),
     link: '/user/projects?category=3',
     buttonText: '立即预约'
   }
@@ -271,7 +276,7 @@ const popularProjects = ref([
     id: 1,
     name: '城市热气球观光之旅',
     brief: '乘坐热气球，俯瞰整座城市的美景，体验自由飞翔的感觉',
-    coverImage: '@/assets/images/projects/hot-air-balloon.jpg',
+    coverImage: getImageUrl('@/assets/images/projects/hot-air-balloon.jpg'),
     categoryId: 1,
     location: '北京市朝阳区',
     duration: 60,
@@ -281,7 +286,7 @@ const popularProjects = ref([
     id: 2,
     name: '直升机空中游览',
     brief: '乘坐专业直升机，从空中欣赏城市风光，拍摄绝美照片',
-    coverImage: '@/assets/images/projects/helicopter.jpg',
+    coverImage: getImageUrl('@/assets/images/projects/helicopter.jpg'),
     categoryId: 2,
     location: '上海市浦东新区',
     duration: 30,
@@ -291,7 +296,7 @@ const popularProjects = ref([
     id: 3,
     name: '专业无人机操控体验',
     brief: '专业人员指导，学习操控无人机，感受科技带来的乐趣',
-    coverImage: '@/assets/images/projects/drone.jpg',
+    coverImage: getImageUrl('@/assets/images/projects/drone.jpg'),
     categoryId: 3,
     location: '广州市天河区',
     duration: 120,
@@ -303,7 +308,7 @@ const popularProjects = ref([
 const reviews = ref([
   {
     name: '张先生',
-    avatar: '@/assets/images/users/user1.jpg',
+    avatar: getImageUrl('@/assets/images/users/user1.jpg'),
     rating: 5,
     content: '热气球观光太棒了！第一次体验，非常震撼，服务人员专业又细心，全程感觉非常安全，拍出来的照片也很美，值得推荐！',
     projectId: 1,
@@ -311,7 +316,7 @@ const reviews = ref([
   },
   {
     name: '李女士',
-    avatar: '@/assets/images/users/user2.jpg',
+    avatar: getImageUrl('@/assets/images/users/user2.jpg'),
     rating: 4,
     content: '直升机游览体验很不错，看到了平时看不到的景色，只是时间有点短，希望能延长一些。总体来说是很棒的体验！',
     projectId: 2,
@@ -319,7 +324,7 @@ const reviews = ref([
   },
   {
     name: '王先生',
-    avatar: '@/assets/images/users/user1.jpg',
+    avatar: getImageUrl('@/assets/images/users/user1.jpg'),
     rating: 5,
     content: '无人机操控体验很有趣，教练非常专业，教得很细致，从零基础到能够自己操控，感觉很有成就感！',
     projectId: 3,

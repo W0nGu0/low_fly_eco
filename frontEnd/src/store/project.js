@@ -1,6 +1,40 @@
 import { defineStore } from 'pinia'
 import { getProjects, getProjectById, getProjectsByCategory } from '../api/project'
 
+// 简单的图片路径处理函数
+function processImagePath(path) {
+  if (!path) return '';
+  
+  // 处理以@开头的路径
+  if (path.startsWith('@/assets/')) {
+    return path.replace('@/assets/', '/src/assets/');
+  }
+  
+  return path;
+}
+
+// 处理对象中的图片路径
+function processObjectImages(obj, imageKeys) {
+  if (!obj || typeof obj !== 'object') return obj;
+  
+  const result = { ...obj };
+  
+  for (const key of imageKeys) {
+    if (result[key]) {
+      result[key] = processImagePath(result[key]);
+    }
+  }
+  
+  return result;
+}
+
+// 处理数组中所有对象的图片路径
+function processArrayImages(array, imageKeys) {
+  if (!Array.isArray(array)) return array;
+  
+  return array.map(item => processObjectImages(item, imageKeys));
+}
+
 export const useProjectStore = defineStore('project', {
   state: () => ({
     projects: [],
@@ -17,12 +51,19 @@ export const useProjectStore = defineStore('project', {
   }),
   
   getters: {
-    getProjectsInCategory: (state) => (categoryId) => {
-      return state.projects.filter(project => project.categoryId === categoryId)
+    getProjectById: (state) => (id) => {
+      const project = state.projects.find(project => project.id === Number(id))
+      return project ? processObjectImages(project, ['coverImage']) : null
     },
     
     getPopularProjects: (state) => {
-      return state.projects.filter(project => project.isPopular)
+      const popularProjects = state.projects.filter(project => project.isPopular)
+      return processArrayImages(popularProjects, ['coverImage'])
+    },
+    
+    getProjectsByCategory: (state) => (categoryId) => {
+      const filteredProjects = state.projects.filter(project => project.categoryId === Number(categoryId))
+      return processArrayImages(filteredProjects, ['coverImage'])
     }
   },
   
@@ -32,8 +73,8 @@ export const useProjectStore = defineStore('project', {
       this.loading = true
       this.error = null
       try {
-        const { data } = await getProjects()
-        this.projects = data
+        const data = await getProjects()
+        this.projects = processArrayImages(data, ['coverImage'])
         return data
       } catch (error) {
         this.error = error.message
@@ -48,8 +89,8 @@ export const useProjectStore = defineStore('project', {
       this.loading = true
       this.error = null
       try {
-        const { data } = await getProjectById(id)
-        this.currentProject = data
+        const data = await getProjectById(id)
+        this.currentProject = processObjectImages(data, ['coverImage'])
         return data
       } catch (error) {
         this.error = error.message
@@ -64,7 +105,7 @@ export const useProjectStore = defineStore('project', {
       this.loading = true
       this.error = null
       try {
-        const { data } = await getProjectsByCategory(categoryId)
+        const data = await getProjectsByCategory(categoryId)
         return data
       } catch (error) {
         this.error = error.message
@@ -76,6 +117,10 @@ export const useProjectStore = defineStore('project', {
     
     // 重置当前项目
     resetCurrentProject() {
+      this.currentProject = null
+    },
+    
+    clearCurrentProject() {
       this.currentProject = null
     }
   }

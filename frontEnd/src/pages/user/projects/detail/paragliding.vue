@@ -18,13 +18,13 @@
     <div class="project-gallery">
       <el-carousel height="400px">
         <el-carousel-item>
-          <img src="@/assets/images/projects/hot-air-balloon.jpg" alt="滑翔伞体验" class="carousel-image">
+          <img src="/src/assets/images/projects/hot-air-balloon.jpg" alt="滑翔伞体验" class="carousel-image">
         </el-carousel-item>
         <el-carousel-item>
-          <img src="@/assets/images/projects/helicopter.jpg" alt="滑翔伞体验视角" class="carousel-image">
+          <img src="/src/assets/images/projects/helicopter.jpg" alt="滑翔伞体验视角" class="carousel-image">
         </el-carousel-item>
         <el-carousel-item>
-          <img src="@/assets/images/projects/drone.jpg" alt="滑翔伞海岸线视角" class="carousel-image">
+          <img src="/src/assets/images/projects/drone.jpg" alt="滑翔伞海岸线视角" class="carousel-image">
         </el-carousel-item>
       </el-carousel>
     </div>
@@ -108,7 +108,7 @@
               <div class="review-item">
                 <div class="review-header">
                   <div class="reviewer">
-                    <el-avatar :size="40" src="@/assets/images/users/user1.jpg"></el-avatar>
+                    <el-avatar :size="40" src="/src/assets/images/users/user1.jpg"></el-avatar>
                     <div class="reviewer-name">陈先生</div>
                   </div>
                   <div class="review-rating">
@@ -122,7 +122,7 @@
               <div class="review-item">
                 <div class="review-header">
                   <div class="reviewer">
-                    <el-avatar :size="40" src="@/assets/images/users/user2.jpg"></el-avatar>
+                    <el-avatar :size="40" src="/src/assets/images/users/user2.jpg"></el-avatar>
                     <div class="reviewer-name">林女士</div>
                   </div>
                   <div class="review-rating">
