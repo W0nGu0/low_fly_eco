@@ -14,6 +14,14 @@
       class="login-form"
       @submit.prevent="handleLogin"
     >
+      <!-- 添加用户类型选择 -->
+      <el-form-item class="user-type-selector">
+        <el-radio-group v-model="loginForm.userType" size="large">
+          <el-radio-button label="user">用户登录</el-radio-button>
+          <el-radio-button label="admin">管理员登录</el-radio-button>
+        </el-radio-group>
+      </el-form-item>
+
       <el-form-item prop="username">
         <el-input
           v-model="loginForm.username"
@@ -82,7 +90,8 @@ const userStore = useUserStore()
 const loginFormRef = ref(null)
 const loginForm = reactive({
   username: '',
-  password: ''
+  password: '',
+  userType: 'user' // 默认为普通用户
 })
 
 // 记住我选项
@@ -123,8 +132,22 @@ const handleLogin = async () => {
 
       ElMessage.success('登录成功')
 
-      // 登录成功后跳转到首页或之前尝试访问的页面
-      const redirect = router.currentRoute.value.query?.redirect || '/user/home'
+      // 根据用户类型跳转到不同的页面
+      let redirectPath = '/user/home'
+      
+      // 如果选择的是管理员登录
+      if (loginForm.userType === 'admin') {
+        redirectPath = '/admin/home'
+        
+        // 检查是否是管理员账号
+        if (loginForm.username !== 'admin') {
+          ElMessage.warning('您使用的是普通用户账号，即将跳转到用户首页')
+          redirectPath = '/user/home'
+        }
+      }
+
+      // 登录成功后跳转到对应页面或之前尝试访问的页面
+      const redirect = router.currentRoute.value.query?.redirect || redirectPath
       router.push(redirect)
     } catch (error) {
       ElMessage.error(error.message || '登录失败，请重试')
@@ -355,5 +378,43 @@ const handleLogin = async () => {
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
+}
+
+/* 用户类型选择器样式 */
+.user-type-selector {
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+:deep(.el-radio-group) {
+  width: 100%;
+  display: flex;
+}
+
+:deep(.el-radio-button) {
+  flex: 1;
+}
+
+:deep(.el-radio-button__inner) {
+  width: 100%;
+  border-color: rgba(82, 196, 26, 0.3);
+  background-color: rgba(255, 255, 255, 0.6);
+  color: #666;
+  transition: all 0.3s;
+}
+
+:deep(.el-radio-button__original-radio:checked + .el-radio-button__inner) {
+  background-color: #52c41a;
+  border-color: #52c41a;
+  color: white;
+  box-shadow: -1px 0 0 0 #52c41a;
+}
+
+:deep(.el-radio-button:first-child .el-radio-button__inner) {
+  border-radius: 4px 0 0 4px;
+}
+
+:deep(.el-radio-button:last-child .el-radio-button__inner) {
+  border-radius: 0 4px 4px 0;
 }
 </style>

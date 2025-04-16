@@ -1,0 +1,16 @@
+{
+  "/api/*": "/$1",
+  "/user/login": "/users?username=:username",
+  "/user/register": "/users",
+  "/projects": "/projects",
+  "/projects/:id": "/projects/:id",
+  "/projects/category": "/projects?categoryId=:categoryId",
+  "/orders": "/orders",
+  "/orders/:id": "/orders/:id",
+  "/orders/user": "/orders",
+  "/orders/:id/cancel": "/orders/:id",
+  "/orders/:id/pay": "/orders/:id",
+  "/orders/:id/voucher": "/orders/:id",
+  "/orders/:id/refund": "/orders/:id",
+  "/admin/orders": "/orders"
+} 

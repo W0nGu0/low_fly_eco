@@ -3,7 +3,7 @@ import { ElMessage } from 'element-plus'
 
 // 创建axios实例
 const service = axios.create({
-  baseURL: '/api', // 使用代理解决跨域问题
+  baseURL: 'http://localhost:5000', // 直接连接到json-server地址
   timeout: 15000 // 请求超时时间
 })
 

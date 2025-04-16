@@ -158,6 +158,43 @@
         </div>
       </div>
     </section>
+
+    <!-- 添加特色项目部分 -->
+    <section class="special-projects-section section">
+      <div class="container">
+        <h2 class="section-title">特色项目</h2>
+        <p class="section-subtitle">尝试我们的精选体验</p>
+        
+        <div class="special-projects">
+          <el-row :gutter="20">
+            <el-col :xs="24" :sm="12" :md="12" :lg="12">
+              <el-card class="special-project-card" @click="navigateToSpecialProject('paragliding')">
+                <div class="special-project-image">
+                  <img src="@/assets/images/projects/hot-air-balloon.jpg" alt="滑翔伞体验">
+                  <div class="special-project-overlay">
+                    <h3>海岸线滑翔伞体验</h3>
+                    <p>从高处起飞，体验海岸线的壮丽景色</p>
+                    <el-button type="primary" size="small">查看详情</el-button>
+                  </div>
+                </div>
+              </el-card>
+            </el-col>
+            <el-col :xs="24" :sm="12" :md="12" :lg="12">
+              <el-card class="special-project-card" @click="navigateToSpecialProject('drone')">
+                <div class="special-project-image">
+                  <img src="@/assets/images/projects/drone.jpg" alt="无人机体验">
+                  <div class="special-project-overlay">
+                    <h3>专业无人机飞行体验</h3>
+                    <p>学习操控高端无人机，体验科技带来的乐趣</p>
+                    <el-button type="primary" size="small">查看详情</el-button>
+                  </div>
+                </div>
+              </el-card>
+            </el-col>
+          </el-row>
+        </div>
+      </div>
+    </section>
   </div>
 </template>
 
@@ -174,23 +211,23 @@ const bannerList = ref([
   {
     title: '热气球观光',
     description: '乘坐热气球，俯瞰城市美景，体验自由飞翔的感觉',
-    image: '../../../assets/images/banners/banner1.jpg',
+    image: '@/assets/images/banners/banner1.jpg',
     link: '/user/projects?category=1',
     buttonText: '立即预约'
   },
   {
     title: '直升机游览',
     description: '乘坐专业直升机，从空中欣赏城市风光',
-    image: '../../../assets/images/banners/banner2.jpg',
+    image: '@/assets/images/banners/banner2.jpg',
     link: '/user/projects?category=2',
-    buttonText: '了解更多'
+    buttonText: '立即预约'
   },
   {
     title: '无人机体验',
     description: '亲自操控无人机，体验科技带来的乐趣',
-    image: '../../../assets/images/banners/banner1.jpg',
+    image: '@/assets/images/banners/banner1.jpg',
     link: '/user/projects?category=3',
-    buttonText: '立即体验'
+    buttonText: '立即预约'
   }
 ])
 
@@ -234,7 +271,7 @@ const popularProjects = ref([
     id: 1,
     name: '城市热气球观光之旅',
     brief: '乘坐热气球，俯瞰整座城市的美景，体验自由飞翔的感觉',
-    coverImage: '../../../assets/images/projects/hot-air-balloon.jpg',
+    coverImage: '@/assets/images/projects/hot-air-balloon.jpg',
     categoryId: 1,
     location: '北京市朝阳区',
     duration: 60,
@@ -244,7 +281,7 @@ const popularProjects = ref([
     id: 2,
     name: '直升机空中游览',
     brief: '乘坐专业直升机，从空中欣赏城市风光，拍摄绝美照片',
-    coverImage: '../../../assets/images/projects/helicopter.jpg',
+    coverImage: '@/assets/images/projects/helicopter.jpg',
     categoryId: 2,
     location: '上海市浦东新区',
     duration: 30,
@@ -254,7 +291,7 @@ const popularProjects = ref([
     id: 3,
     name: '专业无人机操控体验',
     brief: '专业人员指导，学习操控无人机，感受科技带来的乐趣',
-    coverImage: '../../../assets/images/projects/drone.jpg',
+    coverImage: '@/assets/images/projects/drone.jpg',
     categoryId: 3,
     location: '广州市天河区',
     duration: 120,
@@ -266,7 +303,7 @@ const popularProjects = ref([
 const reviews = ref([
   {
     name: '张先生',
-    avatar: '../../../assets/images/users/user1.jpg',
+    avatar: '@/assets/images/users/user1.jpg',
     rating: 5,
     content: '热气球观光太棒了！第一次体验，非常震撼，服务人员专业又细心，全程感觉非常安全，拍出来的照片也很美，值得推荐！',
     projectId: 1,
@@ -274,7 +311,7 @@ const reviews = ref([
   },
   {
     name: '李女士',
-    avatar: '../../../assets/images/users/user2.jpg',
+    avatar: '@/assets/images/users/user2.jpg',
     rating: 4,
     content: '直升机游览体验很不错，看到了平时看不到的景色，只是时间有点短，希望能延长一些。总体来说是很棒的体验！',
     projectId: 2,
@@ -282,7 +319,7 @@ const reviews = ref([
   },
   {
     name: '王先生',
-    avatar: '../../../assets/images/users/user1.jpg',
+    avatar: '@/assets/images/users/user1.jpg',
     rating: 5,
     content: '无人机操控体验很有趣，教练非常专业，教得很细致，从零基础到能够自己操控，感觉很有成就感！',
     projectId: 3,
@@ -353,6 +390,15 @@ function navigateToCategory(categoryId) {
 // 查看项目详情
 function goToDetail(projectId) {
   router.push(`/user/projects/${projectId}`)
+}
+
+// 导航到特殊项目
+function navigateToSpecialProject(type) {
+  if (type === 'paragliding') {
+    router.push('/user/projects/detail/paragliding')
+  } else if (type === 'drone') {
+    router.push('/user/projects/detail/drone')
+  }
 }
 
 // 生命周期钩子
@@ -684,5 +730,53 @@ onMounted(() => {
     margin-right: 0;
     margin-bottom: 15px;
   }
+}
+
+/* 特色项目样式 */
+.special-projects {
+  margin-top: 30px;
+}
+
+.special-project-card {
+  cursor: pointer;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.special-project-image {
+  position: relative;
+  height: 250px;
+  overflow: hidden;
+}
+
+.special-project-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.special-project-card:hover .special-project-image img {
+  transform: scale(1.05);
+}
+
+.special-project-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 20px;
+  background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0));
+  color: #fff;
+}
+
+.special-project-overlay h3 {
+  margin: 0 0 10px 0;
+  font-size: 18px;
+}
+
+.special-project-overlay p {
+  margin: 0 0 15px 0;
+  font-size: 14px;
 }
 </style>

@@ -1,0 +1,258 @@
+{
+  "projects": [
+    {
+      "id": 1,
+      "name": "城市热气球观光之旅",
+      "brief": "乘坐热气球，俯瞰整座城市的美景，体验自由飞翔的感觉",
+      "coverImage": "/src/assets/images/projects/hot-air-balloon.jpg",
+      "categoryId": 1,
+      "location": "北京市朝阳区",
+      "duration": 60,
+      "price": 688,
+      "weekendPrice": 888,
+      "holidayPrice": 1088,
+      "maxBookingsPerDay": 30,
+      "bookingCount": 128,
+      "status": "active",
+      "rating": 4.8,
+      "reviewCount": 128,
+      "isPopular": true,
+      "description": "体验城市热气球之旅，俯瞰整座城市的美景，感受自由飞翔的感觉。在专业飞行员的指导下，乘坐热气球缓缓升空，欣赏城市全景，拍摄精美照片。全程约60分钟，包含飞行前安全培训、飞行体验和飞行后的庆祝仪式。",
+      "suitablePeople": "适合所有年龄段的人群，尤其是摄影爱好者、情侣和家庭。不适合恐高症患者、孕妇和2岁以下的婴儿。",
+      "suitableTags": ["家庭", "情侣", "摄影爱好者", "休闲娱乐"]
+    },
+    {
+      "id": 2,
+      "name": "直升机空中游览",
+      "brief": "乘坐专业直升机，从空中欣赏城市风光，拍摄绝美照片",
+      "coverImage": "/src/assets/images/projects/helicopter.jpg",
+      "categoryId": 2,
+      "location": "上海市浦东新区",
+      "duration": 30,
+      "price": 1280,
+      "weekendPrice": 1580,
+      "holidayPrice": 1880,
+      "maxBookingsPerDay": 20,
+      "bookingCount": 92,
+      "status": "active",
+      "rating": 4.6,
+      "reviewCount": 92,
+      "isPopular": true,
+      "description": "乘坐专业直升机，从空中俯瞰上海的现代化都市景观。体验包括30分钟的空中游览，飞行员将带您穿越上海标志性建筑，提供独特的视角欣赏陆家嘴金融区、外滩和黄浦江等景点。全程配备高清通讯设备，方便与飞行员交流。",
+      "suitablePeople": "适合8岁以上、身体健康的人群。不适合孕妇、心脏病患者和严重恐高症患者。",
+      "suitableTags": ["都市观光", "摄影爱好者", "奢华体验", "生日特别体验"]
+    },
+    {
+      "id": 3,
+      "name": "专业无人机飞行体验",
+      "brief": "在专业教练指导下，学习操控高端无人机，体验科技带来的乐趣",
+      "coverImage": "/src/assets/images/projects/drone.jpg",
+      "categoryId": 3,
+      "location": "广州市天河区",
+      "duration": 120,
+      "price": 399,
+      "weekendPrice": 499,
+      "holidayPrice": 599,
+      "maxBookingsPerDay": 15,
+      "bookingCount": 75,
+      "status": "active",
+      "rating": 4.5,
+      "reviewCount": 65,
+      "isPopular": true,
+      "description": "在专业无人机教练的指导下，学习操控高端无人机的基本技能。课程包括无人机原理讲解、基础飞行技巧训练、简单特技动作学习和航拍技巧指导。使用最新款DJI专业无人机，配备高清图传系统，让您在地面就能看到空中视角。",
+      "suitablePeople": "适合12岁以上对科技和航拍感兴趣的人群。不需要任何飞行经验，教练会提供全程指导。",
+      "suitableTags": ["科技爱好者", "摄影爱好者", "技能学习", "亲子活动"]
+    },
+    {
+      "id": 4,
+      "name": "海岸线滑翔伞体验",
+      "brief": "从高处起飞，在专业教练陪同下体验滑翔伞飞行，欣赏壮丽的海岸线风光",
+      "coverImage": "/src/assets/images/projects/paragliding.jpg",
+      "categoryId": 4,
+      "location": "厦门市思明区",
+      "duration": 90,
+      "price": 880,
+      "weekendPrice": 1080,
+      "holidayPrice": 1280,
+      "maxBookingsPerDay": 10,
+      "bookingCount": 58,
+      "status": "active",
+      "rating": 4.9,
+      "reviewCount": 47,
+      "isPopular": true,
+      "description": "体验刺激的海岸线滑翔伞飞行，从高处起飞，在专业教练陪同下滑翔于厦门美丽的海岸线上空。整个体验约90分钟，包括地面培训、装备准备和20-30分钟的实际飞行时间。专业摄影师全程跟拍，为您留下珍贵回忆。",
+      "suitablePeople": "适合16-60岁身体健康的人群。不适合孕妇、心脏病患者、高血压患者和体重超过100kg的人群。",
+      "suitableTags": ["冒险爱好者", "自然风光", "极限运动", "情侣活动"]
+    },
+    {
+      "id": 5,
+      "name": "山地动力伞飞行",
+      "brief": "配备专业动力伞设备，在山区上空翱翔，体验极限运动的刺激",
+      "coverImage": "/src/assets/images/projects/powered-paragliding.jpg",
+      "categoryId": 5,
+      "location": "杭州市临安区",
+      "duration": 60,
+      "price": 1100,
+      "weekendPrice": 1300,
+      "holidayPrice": 1500,
+      "maxBookingsPerDay": 8,
+      "bookingCount": 42,
+      "status": "active",
+      "rating": 4.7,
+      "reviewCount": 36,
+      "isPopular": false,
+      "description": "动力伞是一种背负式的飞行器，通过马达提供动力，让您能够在空中自由翱翔。本体验在杭州临安的山区进行，让您俯瞰壮丽的山林景色。飞行持续约30分钟，全程由专业飞行员掌控，您只需放松享受飞行的乐趣。",
+      "suitablePeople": "适合18-55岁身体健康的人群。不适合孕妇、心脏病患者、高血压患者和体重超过90kg的人群。",
+      "suitableTags": ["冒险爱好者", "极限运动", "自然探索", "独特体验"]
+    },
+    {
+      "id": 6,
+      "name": "高空跳伞极限体验",
+      "brief": "从3000米高空跳下，体验自由落体的极限挑战，专业教练全程陪伴",
+      "coverImage": "/src/assets/images/projects/skydiving.jpg",
+      "categoryId": 4,
+      "location": "海南省三亚市",
+      "duration": 180,
+      "price": 2980,
+      "weekendPrice": 3280,
+      "holidayPrice": 3580,
+      "maxBookingsPerDay": 5,
+      "bookingCount": 39,
+      "status": "active",
+      "rating": 4.9,
+      "reviewCount": 29,
+      "isPopular": false,
+      "description": "体验刺激的高空跳伞，从3000米高空跳下，感受自由落体的极限挑战。全程由国际专业教练一对一陪伴，采用双人跳伞模式，确保安全。您将体验约40秒的自由落体和约5分钟的滑翔降落过程，欣赏三亚壮观的海岸线和城市风光。",
+      "suitablePeople": "适合18-55岁身体健康、追求刺激的年轻人和冒险爱好者。不适合孕妇、心脏病患者、高血压患者、癫痫患者和有严重脊椎问题的人群。体重限制在45-95公斤之间。",
+      "suitableTags": ["冒险爱好者", "极限运动爱好者", "年轻人", "寻求刺激的人群"]
+    }
+  ],
+  "banners": [
+    {
+      "id": 1,
+      "title": "低空飞行体验",
+      "subtitle": "探索城市上空的奇妙视角",
+      "image": "/src/assets/images/banners/banner1.jpg",
+      "link": "/projects"
+    },
+    {
+      "id": 2,
+      "title": "热气球观光",
+      "subtitle": "体验自由飞翔的感觉",
+      "image": "/src/assets/images/banners/banner2.jpg",
+      "link": "/projects"
+    }
+  ],
+  "categories": [
+    { "id": 1, "name": "热气球观光", "description": "乘坐热气球，静静地在空中欣赏美景", "icon": "el-icon-sunny" },
+    { "id": 2, "name": "直升机游览", "description": "乘坐直升机，快速穿梭于城市上空", "icon": "el-icon-heavy-rain" },
+    { "id": 3, "name": "无人机体验", "description": "操控无人机，体验科技飞行的乐趣", "icon": "el-icon-lightning" },
+    { "id": 4, "name": "滑翔伞", "description": "体验滑翔伞的刺激与自由", "icon": "el-icon-umbrella" },
+    { "id": 5, "name": "动力伞", "description": "感受动力伞带来的速度与激情", "icon": "el-icon-wind-power" }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "username": "admin",
+      "role": "admin",
+      "token": "admin-token",
+      "avatar": "/src/assets/images/users/user1.jpg"
+    },
+    {
+      "id": 2,
+      "username": "user",
+      "password": "user123",
+      "role": "user",
+      "token": "user-token",
+      "avatar": "/src/assets/images/users/user2.jpg"
+    }
+  ],
+  "orders": [
+    {
+      "id": 1,
+      "orderNumber": "ORD20230815001",
+      "projectId": 1,
+      "projectName": "城市热气球观光之旅",
+      "projectImage": "/src/assets/images/projects/hot-air-balloon.jpg",
+      "bookingTime": "2023-08-15 10:00-11:00",
+      "createTime": "2023-08-10 14:32:45",
+      "peopleCount": 2,
+      "contactName": "张三",
+      "contactPhone": "13812345678",
+      "status": "completed",
+      "amount": 1376,
+      "hasReview": true
+    },
+    {
+      "id": 2,
+      "orderNumber": "ORD20230820002",
+      "projectId": 2,
+      "projectName": "直升机空中游览",
+      "projectImage": "/src/assets/images/projects/helicopter.jpg",
+      "bookingTime": "2023-08-20 14:00-15:00",
+      "createTime": "2023-08-12 09:15:22",
+      "peopleCount": 1,
+      "contactName": "张三",
+      "contactPhone": "13812345678",
+      "status": "booked",
+      "amount": 1280
+    },
+    {
+      "id": 3,
+      "orderNumber": "ORD20230825003",
+      "projectId": 3,
+      "projectName": "专业无人机操控体验",
+      "projectImage": "/src/assets/images/projects/drone.jpg",
+      "bookingTime": "2023-08-25 15:00-17:00",
+      "createTime": "2023-08-15 16:45:10",
+      "peopleCount": 3,
+      "contactName": "张三",
+      "contactPhone": "13812345678",
+      "status": "pending",
+      "amount": 1197
+    }
+  ],
+  "reviews": [
+    {
+      "id": 1,
+      "orderId": 1,
+      "projectId": 1,
+      "userId": 2,
+      "username": "张三",
+      "avatar": "/src/assets/images/users/user2.jpg",
+      "rating": 5,
+      "content": "体验非常棒！热气球飞行让人惊叹，视野非常开阔，看到了整个城市的美景。服务人员专业又热情，全程感觉很安全。强烈推荐给想要尝试新鲜事物的朋友们！",
+      "createTime": "2023-08-16 09:23:45",
+      "images": [
+        "/src/assets/images/reviews/review1-1.jpg",
+        "/src/assets/images/reviews/review1-2.jpg"
+      ]
+    },
+    {
+      "id": 2,
+      "orderId": null,
+      "projectId": 2,
+      "userId": 3,
+      "username": "李四",
+      "avatar": "/src/assets/images/users/user3.jpg",
+      "rating": 4,
+      "content": "直升机体验很刺激，看到了平时看不到的城市风景，非常震撼！唯一遗憾的是时间有点短，希望下次能有更长的飞行时间。",
+      "createTime": "2023-07-28 16:45:22",
+      "images": [
+        "/src/assets/images/reviews/review2-1.jpg"
+      ]
+    },
+    {
+      "id": 3,
+      "orderId": null,
+      "projectId": 3,
+      "userId": 4,
+      "username": "王五",
+      "avatar": "/src/assets/images/users/user4.jpg",
+      "rating": 5,
+      "content": "无人机操控体验超级有趣！教练很专业，耐心教学，让我这个小白也能快速上手。拍出来的航拍照片很美，值得体验！",
+      "createTime": "2023-08-01 10:12:33",
+      "images": []
+    }
+  ]
+} 

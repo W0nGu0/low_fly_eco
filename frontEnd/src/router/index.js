@@ -1,46 +1,76 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 
+// 用户端页面
+import UserLayout from '@/pages/user/layout/index.vue'
+import UserHome from '@/pages/user/home/index.vue'
+import UserProjects from '@/pages/user/projects/index.vue'
+import UserProjectDetail from '@/pages/user/projects/detail.vue'
+import ParaglidingDetail from '@/pages/user/projects/detail/paragliding.vue'
+import DroneDetail from '@/pages/user/projects/detail/drone.vue'
+
+// 管理端页面
+import AdminLayout from '@/pages/admin/layout/index.vue'
+import AdminHome from '@/pages/admin/home/index.vue'
+import AdminLogin from '@/pages/admin/login/index.vue'
+
 // 布局组件
-const UserLayout = () => import('../pages/common/layout/index.vue')
-const AdminLayout = () => import('../pages/admin/layout/index.vue')
 const AuthLayout = () => import('../pages/common/auth/Layout.vue')
+// 登录页面
+const Login = () => import('../pages/common/auth/login.vue')
 
 // 路由配置
 const routes = [
   {
+    // 根路径重定向到登录页面
     path: '/',
     component: AuthLayout,
     children: [
       {
         path: '',
         name: 'Login',
-        component: () => import('../pages/common/auth/login.vue'),
+        component: Login,
         meta: { title: '登录' }
       }
     ]
   },
   {
+    // 用户相关路由
     path: '/user',
     component: UserLayout,
-    redirect: '/user/home',
     children: [
       {
+        path: '',
+        redirect: '/user/home'
+      },
+      {
         path: 'home',
-        name: 'Home',
-        component: () => import('../pages/user/home/index.vue'),
-        meta: { title: '首页', icon: 'home' }
+        component: UserHome,
+        name: 'UserHome',
+        meta: { title: '首页' }
       },
       {
         path: 'projects',
-        name: 'Projects',
-        component: () => import('../pages/user/projects/index.vue'),
-        meta: { title: '飞行项目', icon: 'projects' }
+        component: UserProjects,
+        name: 'UserProjects',
+        meta: { title: '项目列表' }
       },
       {
-        path: 'projects/:id',
-        name: 'ProjectDetail',
-        component: () => import('../pages/user/projects/detail.vue'),
-        meta: { title: '项目详情', icon: 'detail' },
+        path: 'projects/detail/paragliding',
+        component: ParaglidingDetail,
+        name: 'ParaglidingDetail',
+        meta: { title: '滑翔伞体验' }
+      },
+      {
+        path: 'projects/detail/drone',
+        component: DroneDetail,
+        name: 'DroneDetail',
+        meta: { title: '无人机体验' }
+      },
+      {
+        path: 'projects/detail/:id',
+        component: UserProjectDetail,
+        name: 'UserProjectDetail',
+        meta: { title: '项目详情' },
         props: true
       },
       {
@@ -78,51 +108,37 @@ const routes = [
     ]
   },
   {
+    // 管理员相关路由
     path: '/admin',
     component: AdminLayout,
-    redirect: '/admin/dashboard',
-    meta: { requiresAuth: true, requiresAdmin: true },
     children: [
       {
-        path: 'dashboard',
-        name: 'AdminDashboard',
-        component: () => import('../pages/admin/dashboard/index.vue'),
-        meta: { title: '管理面板' }
+        path: '',
+        redirect: '/admin/home'
       },
       {
-        path: 'projects',
-        name: 'AdminProjects',
-        component: () => import('../pages/admin/projects/index.vue'),
-        meta: { title: '项目管理' }
-      },
-      {
-        path: 'orders',
-        name: 'AdminOrders',
-        component: () => import('../pages/admin/orders/index.vue'),
-        meta: { title: '订单管理' }
-      },
-      {
-        path: 'reviews',
-        name: 'AdminReviews',
-        component: () => import('../pages/admin/reviews/index.vue'),
-        meta: { title: '评价管理' }
-      },
-      {
-        path: 'users',
-        name: 'AdminUsers',
-        component: () => import('../pages/admin/users/index.vue'),
-        meta: { title: '用户管理' }
+        path: 'home',
+        component: AdminHome,
+        name: 'AdminHome',
+        meta: { title: '管理首页', requiresAuth: true }
       }
     ]
   },
   {
+    path: '/admin/login',
+    component: AdminLogin,
+    name: 'AdminLogin',
+    meta: { title: '管理员登录' }
+  },
+  {
     path: '/auth',
     component: AuthLayout,
-    redirect: '/',
     children: [
       {
         path: 'login',
-        redirect: '/',
+        component: Login,
+        name: 'AuthLogin',
+        meta: { title: '用户登录' }
       },
       {
         path: 'register',
@@ -147,7 +163,7 @@ const routes = [
   },
   {
     path: '/:pathMatch(.*)*',
-    redirect: '/404'
+    redirect: '/'
   }
 ]
 
@@ -156,35 +172,21 @@ const router = createRouter({
   routes
 })
 
-// 全局前置守卫
-router.beforeEach((to, _, next) => {
+// 路由拦截器
+router.beforeEach((to, from, next) => {
   // 设置页面标题
-  document.title = to.meta.title ? `${to.meta.title} - 低空飞行体验预约系统` : '低空飞行体验预约系统'
-
-  // 判断该路由是否需要登录权限
-  if (to.matched.some(record => record.meta.requiresAuth)) {
-    const token = localStorage.getItem('token')
+  document.title = to.meta.title ? `${to.meta.title} - 低空飞行体验` : '低空飞行体验'
+  
+  // 管理端权限验证
+  if (to.meta.requiresAuth) {
+    const token = localStorage.getItem('admin_token')
     if (!token) {
-      next({
-        path: '/',
-        query: { redirect: to.fullPath }
-      })
-    } else {
-      // 判断是否需要管理员权限
-      if (to.matched.some(record => record.meta.requiresAdmin)) {
-        const userInfo = JSON.parse(localStorage.getItem('userInfo') || '{}')
-        if (userInfo.role !== 'admin') {
-          next({ path: '/404' })
-        } else {
-          next()
-        }
-      } else {
-        next()
-      }
+      next({ name: 'AdminLogin', query: { redirect: to.fullPath } })
+      return
     }
-  } else {
-    next()
   }
+  
+  next()
 })
 
 export default router
