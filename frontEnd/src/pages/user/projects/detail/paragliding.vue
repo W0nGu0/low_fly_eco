@@ -2,15 +2,15 @@
   <div class="project-detail-container">
     <div class="project-header">
       <div class="project-title">
-        <h1>海岸线滑翔伞体验</h1>
+        <h1>悬崖滑翔伞体验</h1>
         <div class="project-tags">
           <el-tag type="success">滑翔伞</el-tag>
-          <el-tag type="info">90分钟</el-tag>
-          <el-tag type="warning">800米</el-tag>
+          <el-tag type="info">120分钟</el-tag>
+          <el-tag type="warning">800米高度</el-tag>
         </div>
       </div>
       <div class="project-price">
-        <div class="price">¥880</div>
+        <div class="price">¥1580</div>
         <div class="per-person">每人起</div>
       </div>
     </div>
@@ -18,13 +18,7 @@
     <div class="project-gallery">
       <el-carousel height="400px">
         <el-carousel-item>
-          <img src="/src/assets/images/projects/hot-air-balloon.jpg" alt="滑翔伞体验" class="carousel-image">
-        </el-carousel-item>
-        <el-carousel-item>
-          <img src="/src/assets/images/projects/helicopter.jpg" alt="滑翔伞体验视角" class="carousel-image">
-        </el-carousel-item>
-        <el-carousel-item>
-          <img src="/src/assets/images/projects/drone.jpg" alt="滑翔伞海岸线视角" class="carousel-image">
+          <img :src="getImageUrl('@/assets/images/projects/paragliding.jpg')" alt="悬崖滑翔伞" class="carousel-image">
         </el-carousel-item>
       </el-carousel>
     </div>
@@ -35,105 +29,134 @@
           <el-tab-pane label="项目概述">
             <div class="overview">
               <h2>项目介绍</h2>
-              <p>从厦门海岸线高处起飞，在专业教练陪同下体验滑翔伞飞行，欣赏壮丽的海岸线风光。飞行高度约800米，可俯瞰整个海湾美景，拍摄绝美照片。滑翔伞是一项轻型航空运动，利用气流升力滑翔于空中，安全性高且操作简单。我们提供专业的双人滑翔伞体验，教练会带您完成整个飞行过程，您无需任何飞行经验即可参与。</p>
+              <p>从800米高的悬崖起飞，体验自由翱翔的感觉。在专业教练的陪伴下，您将乘坐双人滑翔伞飞越海岸线，俯瞰壮美的自然风光。这是一次零门槛的高空体验，无需专业知识即可轻松上手。您可以选择刺激的特技飞行，也可以选择舒适的巡航飞行，体验约15-20分钟的空中之旅。</p>
               
               <h2>项目亮点</h2>
               <ul class="highlights">
-                <li>专业教练一对一指导，确保安全</li>
-                <li>体验从800米高处滑翔的刺激与自由</li>
-                <li>欣赏厦门海岸线绝美风景</li>
-                <li>获取独特视角的航拍照片</li>
-                <li>全套专业装备提供，无需自备</li>
+                <li>壮观的悬崖起飞点</li>
+                <li>无需经验，零门槛体验</li>
+                <li>专业教练全程陪伴</li>
+                <li>俯瞰绝美海岸线风光</li>
+                <li>提供航拍和特技飞行选项</li>
+                <li>获得专业飞行证书</li>
               </ul>
 
               <h2>行程安排</h2>
               <div class="itinerary">
                 <h3>体验流程</h3>
-                <p>1. 签到与安全讲解（15分钟）</p>
-                <p>2. 装备穿戴与准备（15分钟）</p>
-                <p>3. 前往起飞点（20分钟）</p>
-                <p>4. 起飞与滑翔体验（20-30分钟）</p>
-                <p>5. 安全着陆与装备卸除（10分钟）</p>
-                <p>6. 拍照留念与体验分享（10分钟）</p>
+                <p>1. 签到与安全培训（30分钟）</p>
+                <p>2. 装备穿戴与检查（15分钟）</p>
+                <p>3. 交通接送至起飞点（30分钟）</p>
+                <p>4. 滑翔伞准备与起飞（15分钟）</p>
+                <p>5. 空中飞行体验（15-20分钟）</p>
+                <p>6. 安全着陆与装备卸除（10分钟）</p>
+                <p>7. 证书颁发与照片分享（10分钟）</p>
               </div>
 
               <h2>包含服务</h2>
               <ul class="includes">
-                <li><el-icon><Check /></el-icon> 专业滑翔伞教练指导</li>
-                <li><el-icon><Check /></el-icon> 全套滑翔伞装备</li>
-                <li><el-icon><Check /></el-icon> 安全头盔与保护装备</li>
-                <li><el-icon><Check /></el-icon> 高清航拍照片（5张电子版）</li>
-                <li><el-icon><Check /></el-icon> 意外保险</li>
-                <li><el-icon><Check /></el-icon> 起飞点往返接送</li>
+                <li><el-icon><Check /></el-icon> 专业滑翔伞装备使用</li>
+                <li><el-icon><Check /></el-icon> 国际认证教练一对一指导</li>
+                <li><el-icon><Check /></el-icon> 往返起飞点交通接送</li>
+                <li><el-icon><Check /></el-icon> 飞行证书</li>
+                <li><el-icon><Check /></el-icon> 基本照片（5张电子版）</li>
+                <li><el-icon><Check /></el-icon> 安全保险</li>
               </ul>
 
               <h2>不包含项目</h2>
               <ul class="excludes">
-                <li><el-icon><Close /></el-icon> 往返交通费用</li>
+                <li><el-icon><Close /></el-icon> 酒店至集合点交通费用</li>
                 <li><el-icon><Close /></el-icon> 个人消费</li>
-                <li><el-icon><Close /></el-icon> 高清视频拍摄（可选额外购买）</li>
-                <li><el-icon><Close /></el-icon> 个人旅游保险</li>
+                <li><el-icon><Close /></el-icon> 高清视频拍摄（可选购498元）</li>
+                <li><el-icon><Close /></el-icon> 特技飞行体验（可选购300元）</li>
               </ul>
             </div>
           </el-tab-pane>
           <el-tab-pane label="注意事项">
             <div class="notes">
-              <h2>注意事项</h2>
+              <h2>参与条件</h2>
               <ul>
-                <li>参与者需要身体健康，无心脏病、高血压、癫痫等疾病</li>
-                <li>体重限制：40-100kg</li>
-                <li>7岁以上儿童可在监护人陪同下参加，65岁以下健康老人可参加</li>
-                <li>孕妇、醉酒者不得参与</li>
-                <li>活动受天气影响较大，如遇不适合飞行的天气，将安排改期或全额退款</li>
-                <li>请提前24小时预约，并保持手机畅通</li>
+                <li>参与者年龄限制：6-65岁；未满18周岁需监护人现场签字</li>
+                <li>体重限制：30-110kg</li>
+                <li>孕妇、心脏病、高血压、癫痫患者禁止参加</li>
+                <li>酒后及身体不适者不宜参加</li>
               </ul>
               
-              <h2>装备要求</h2>
+              <h2>注意事项</h2>
               <ul>
-                <li>穿着舒适的运动鞋和休闲服装</li>
-                <li>长发的参与者请提前扎好头发</li>
-                <li>可携带小型相机（需系绳固定）</li>
-                <li>建议带墨镜和防晒霜</li>
-                <li>不建议携带贵重物品，如必须携带请自行保管</li>
+                <li>活动受天气影响较大，若因天气原因取消，可免费改期或全额退款</li>
+                <li>起飞前请不要吃太饱，以免影响体验</li>
+                <li>请提前3天预约，并保持手机畅通</li>
+                <li>活动地点海拔较高，请做好防晒与保暖措施</li>
+                <li>起飞过程中请配合教练指令，确保安全</li>
+              </ul>
+              
+              <h2>装备建议</h2>
+              <ul>
+                <li>穿着舒适运动服装和运动鞋</li>
+                <li>长发需扎起</li>
+                <li>带上太阳镜、帽子和防晒用品</li>
+                <li>自备相机或手机（有专用固定绳）</li>
+              </ul>
+              
+              <h2>取消政策</h2>
+              <ul>
+                <li>活动前7天取消：全额退款</li>
+                <li>活动前3-7天取消：退款80%</li>
+                <li>活动前1-3天取消：退款50%</li>
+                <li>活动当天取消：不予退款</li>
+                <li>因天气原因取消：全额退款或免费改期</li>
               </ul>
             </div>
           </el-tab-pane>
           <el-tab-pane label="评价">
             <div class="reviews">
-              <h2>用户评价 (47)</h2>
+              <h2>用户评价 (56)</h2>
               <div class="review-stats">
-                <div class="average-rating">4.9 <el-rate v-model="averageRating" disabled /></div>
+                <div class="average-rating">4.8 <el-rate v-model="averageRating" disabled /></div>
               </div>
               
               <div class="review-item">
                 <div class="review-header">
                   <div class="reviewer">
-                    <el-avatar :size="40" src="/src/assets/images/users/user1.jpg"></el-avatar>
-                    <div class="reviewer-name">陈先生</div>
+                    <el-avatar :size="40" :src="getImageUrl('@/assets/images/users/user3.jpg')"></el-avatar>
+                    <div class="reviewer-name">王先生</div>
                   </div>
                   <div class="review-rating">
                     <el-rate v-model="highRating" disabled />
-                    <div class="review-date">2023-08-25</div>
+                    <div class="review-date">2023-09-05</div>
                   </div>
                 </div>
-                <div class="review-content">太棒了！这是我第一次尝试滑翔伞，起初有点紧张，但教练非常专业，让我很快就放松下来。从高空俯瞰厦门的海岸线，景色美得无法形容！飞行过程很平稳，一点都不恐怖，反而非常享受那种自由翱翔的感觉。强烈推荐给想要尝试新鲜刺激体验的朋友们！</div>
+                <div class="review-content">作为一个有轻微恐高的人，这次体验真的让我惊喜！教练李教练非常专业和耐心，起飞前详细讲解了注意事项，飞行中一直鼓励我放松享受。起飞那一刻有点紧张，但一旦飞起来，那种自由感和视野真的无与伦比！从悬崖上俯瞰海岸线的景色太震撼了，我选择了特技飞行，虽然刺激但很安全。着陆也很平稳，整个过程大约15分钟，但这绝对是我假期中最难忘的15分钟！强烈推荐给想尝试轻度冒险的朋友们！</div>
+                <div class="review-images">
+                  <el-image
+                    style="width: 100px; height: 100px; margin-right: 10px;"
+                    :src="getImageUrl('@/assets/images/reviews/review1-1.jpg')"
+                    :preview-src-list="[getImageUrl('@/assets/images/reviews/review1-1.jpg')]"
+                  />
+                  <el-image
+                    style="width: 100px; height: 100px;"
+                    :src="getImageUrl('@/assets/images/reviews/review1-2.jpg')"
+                    :preview-src-list="[getImageUrl('@/assets/images/reviews/review1-2.jpg')]"
+                  />
+                </div>
               </div>
 
               <div class="review-item">
                 <div class="review-header">
                   <div class="reviewer">
-                    <el-avatar :size="40" src="/src/assets/images/users/user2.jpg"></el-avatar>
-                    <div class="reviewer-name">林女士</div>
+                    <el-avatar :size="40" :src="getImageUrl('@/assets/images/users/user4.jpg')"></el-avatar>
+                    <div class="reviewer-name">陈女士</div>
                   </div>
                   <div class="review-rating">
-                    <el-rate v-model="highRating" disabled />
-                    <div class="review-date">2023-08-18</div>
+                    <el-rate :value="4" disabled />
+                    <div class="review-date">2023-08-22</div>
                   </div>
                 </div>
-                <div class="review-content">带家人一起来体验的，连最胆小的妈妈都玩得很开心！教练技术一流，全程很稳，起飞和降落都很平稳。拍出来的照片绝美，朋友圈都炸了！唯一的建议是可以再飞久一点，感觉时间过得太快了，还没过瘾就结束了。总之，值得一试！</div>
+                <div class="review-content">带着12岁的儿子一起体验的，他超级兴奋！整个活动组织得很好，从安全培训到装备穿戴都很专业。教练很有耐心，特别照顾小朋友的感受。唯一的小遗憾是等待时间有点长，可能是因为周末人多。飞行体验本身非常棒，景色美丽，感觉非常安全。孩子说这是他度过的最棒的一天！建议提前预约避开人多的时段。</div>
                 <div class="merchant-reply mt-3 p-3 bg-gray-50 rounded-lg">
                   <div class="reply-header text-sm font-medium mb-1">商家回复：</div>
-                  <div class="reply-content text-sm">感谢您和家人的参与！我们很高兴听到大家都玩得开心。关于飞行时间的建议，我们已经在考虑推出时间更长的高级套餐，敬请期待！</div>
+                  <div class="reply-content text-sm">感谢陈女士的评价！我们很高兴您和孩子喜欢这次体验。关于等待时间的问题，我们正在优化预约系统，未来会提供更精确的时间段选择。您的建议对我们很有价值，欢迎您和家人再次光临！</div>
                 </div>
               </div>
             </div>
@@ -151,24 +174,25 @@
                 type="date" 
                 placeholder="选择日期"
                 style="width: 100%"
+                :disabled-date="disabledDate"
               />
             </el-form-item>
             <el-form-item label="人数">
               <el-input-number 
                 v-model="participants" 
                 :min="1" 
-                :max="10"
+                :max="5"
                 style="width: 100%"
               />
             </el-form-item>
             <el-form-item>
               <div class="booking-total">
                 <span>总价:</span>
-                <span class="total-price">¥{{ 880 * participants }}</span>
+                <span class="total-price">¥{{ 1580 * participants }}</span>
               </div>
             </el-form-item>
             <el-form-item>
-              <el-button type="primary" style="width: 100%">立即预订</el-button>
+              <el-button type="success" style="width: 100%" @click="handleBooking">立即预订</el-button>
             </el-form-item>
           </el-form>
         </div>
@@ -187,15 +211,47 @@
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { Check, Close, Phone, Message } from '@element-plus/icons-vue';
+import { ElMessage } from 'element-plus';
+import { getImageUrl } from '@/utils/imageHelper';
 
 const router = useRouter();
 const bookingDate = ref('');
 const participants = ref(1);
-const averageRating = ref(4.9);
+const averageRating = ref(4.8);
 const highRating = ref(5);
 
-function goBack() {
-  router.go(-1);
+// 禁用过去的日期
+const disabledDate = (date) => {
+  return date < new Date();
+};
+
+// 处理预订
+function handleBooking() {
+  if (!bookingDate.value) {
+    ElMessage.warning('请选择出发日期');
+    return;
+  }
+  
+  // 创建预订信息
+  const bookingInfo = {
+    projectId: 1,
+    projectName: '悬崖滑翔伞体验',
+    date: bookingDate.value.toISOString().split('T')[0],
+    price: 1580,
+    participants: participants.value,
+    totalPrice: 1580 * participants.value,
+  };
+
+  // 存储预订信息到本地存储
+  localStorage.setItem('currentBooking', JSON.stringify(bookingInfo));
+
+  // 显示成功消息
+  ElMessage.success('预订信息已保存，正在跳转到预订页面...');
+  
+  // 跳转到预订页面
+  setTimeout(() => {
+    router.push(`/user/booking/1?date=${bookingInfo.date}&participants=${participants.value}`);
+  }, 1500);
 }
 </script>
 
@@ -230,7 +286,7 @@ function goBack() {
 .price {
   font-size: 28px;
   font-weight: bold;
-  color: #f56c6c;
+  color: #67c23a;
 }
 
 .per-person {
@@ -257,6 +313,10 @@ function goBack() {
 
 .project-main {
   flex: 1;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  padding: 20px;
 }
 
 .booking-sidebar {
@@ -264,48 +324,95 @@ function goBack() {
 }
 
 .booking-card, .contact-card {
-  background-color: #f5f7fa;
+  background-color: #fff;
   border-radius: 8px;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
   padding: 20px;
   margin-bottom: 20px;
+}
+
+.booking-card h2, .contact-card h3 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  color: #2c3e50;
 }
 
 .booking-total {
   display: flex;
   justify-content: space-between;
-  font-size: 16px;
-  margin: 10px 0;
+  align-items: center;
+  font-weight: bold;
+  margin-bottom: 10px;
 }
 
 .total-price {
-  font-size: 24px;
-  font-weight: bold;
-  color: #f56c6c;
+  color: #67c23a;
+  font-size: 22px;
 }
 
 .overview h2, .notes h2 {
   margin-top: 30px;
   margin-bottom: 15px;
+  color: #2c3e50;
   font-size: 20px;
 }
 
-.highlights, .includes, .excludes {
-  padding-left: 20px;
+.overview h2:first-child {
+  margin-top: 0;
 }
 
-.itinerary {
+.overview p {
+  line-height: 1.6;
   margin-bottom: 15px;
 }
 
-.itinerary h3 {
-  margin-bottom: 5px;
-  font-size: 16px;
+.highlights, .includes, .excludes {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 20px 0;
 }
 
-.reviews .review-item {
+.highlights li, .includes li, .excludes li {
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  align-items: center;
+}
+
+.highlights li:before {
+  content: "✓";
+  color: #67c23a;
+  margin-right: 10px;
+}
+
+.includes .el-icon, .excludes .el-icon {
+  margin-right: 10px;
+}
+
+.includes .el-icon {
+  color: #67c23a;
+}
+
+.excludes .el-icon {
+  color: #f56c6c;
+}
+
+.review-stats {
+  display: flex;
   margin-bottom: 20px;
+}
+
+.average-rating {
+  display: flex;
+  align-items: center;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.review-item {
+  border-bottom: 1px solid #eee;
   padding-bottom: 20px;
-  border-bottom: 1px solid #eaeaea;
+  margin-bottom: 20px;
 }
 
 .review-header {
@@ -317,10 +424,10 @@ function goBack() {
 .reviewer {
   display: flex;
   align-items: center;
-  gap: 10px;
 }
 
 .reviewer-name {
+  margin-left: 10px;
   font-weight: bold;
 }
 
@@ -336,22 +443,42 @@ function goBack() {
 
 .review-content {
   line-height: 1.6;
+  margin-bottom: 10px;
+}
+
+.review-images {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 10px;
 }
 
 .contact-card p {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin: 10px 0;
+  margin-bottom: 10px;
 }
 
-@media (max-width: 992px) {
+.contact-card .el-icon {
+  margin-right: 10px;
+  color: #67c23a;
+}
+
+@media (max-width: 768px) {
   .project-content {
     flex-direction: column;
   }
   
   .booking-sidebar {
     width: 100%;
+  }
+  
+  .project-header {
+    flex-direction: column;
+  }
+  
+  .project-price {
+    text-align: left;
+    margin-top: 10px;
   }
 }
 </style> 

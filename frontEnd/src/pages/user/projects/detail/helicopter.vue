@@ -2,15 +2,15 @@
   <div class="project-detail-container">
     <div class="project-header">
       <div class="project-title">
-        <h1>专业无人机飞行体验</h1>
+        <h1>直升机空中游览</h1>
         <div class="project-tags">
-          <el-tag type="success">无人机体验</el-tag>
-          <el-tag type="info">120分钟</el-tag>
-          <el-tag type="warning">专业教练指导</el-tag>
+          <el-tag type="success">直升机游览</el-tag>
+          <el-tag type="info">30分钟</el-tag>
+          <el-tag type="warning">专业飞行员</el-tag>
         </div>
       </div>
       <div class="project-price">
-        <div class="price">¥399</div>
+        <div class="price">¥1280</div>
         <div class="per-person">每人起</div>
       </div>
     </div>
@@ -18,7 +18,7 @@
     <div class="project-gallery">
       <el-carousel height="400px">
         <el-carousel-item>
-          <img :src="getImageUrl('@/assets/images/projects/drone.jpg')" alt="无人机体验" class="carousel-image">
+          <img :src="getImageUrl('@/assets/images/projects/helicopter.jpg')" alt="直升机游览" class="carousel-image">
         </el-carousel-item>
       </el-carousel>
     </div>
@@ -29,44 +29,43 @@
           <el-tab-pane label="项目概述">
             <div class="overview">
               <h2>项目介绍</h2>
-              <p>在专业教练指导下，学习操控高端无人机，体验科技带来的乐趣。本课程专为无人机爱好者、摄影爱好者以及希望接触航拍技术的人士设计。我们提供最新型号的专业航拍无人机，配备4K高清摄像头，让您在掌握基本飞行技巧的同时，也能拍摄出令人惊艳的航拍作品。全程由持证专业教练一对一指导，确保安全飞行。</p>
+              <p>乘坐专业豪华直升机，从空中鸟瞰上海的壮丽景色。我们的航线覆盖浦东金融区、外滩、东方明珠等上海标志性景点，为您提供独特的视角欣赏这座国际大都市。直升机配备全景玻璃舱，视野极佳，是摄影爱好者的绝佳选择。全程约30分钟，由经验丰富的专业飞行员驾驶，确保安全舒适的飞行体验。</p>
               
               <h2>项目亮点</h2>
               <ul class="highlights">
-                <li>使用价值上万的专业航拍无人机</li>
-                <li>专业教练一对一指导，从零基础开始学习</li>
-                <li>掌握基本飞行技巧和航拍构图技巧</li>
-                <li>广州城市绝佳航拍点体验</li>
-                <li>获取专属航拍作品电子版</li>
-                <li>颁发无人机初级飞行证书</li>
+                <li>全方位俯瞰上海城市天际线</li>
+                <li>专业飞行员讲解沿途景点</li>
+                <li>全景玻璃舱，视野极佳</li>
+                <li>空中拍摄绝美城市照片</li>
+                <li>获赠高清航拍照片和飞行证书</li>
               </ul>
 
               <h2>行程安排</h2>
               <div class="itinerary">
                 <h3>体验流程</h3>
-                <p>1. 签到与无人机安全知识讲解（20分钟）</p>
-                <p>2. 无人机基本结构介绍与操作示范（15分钟）</p>
-                <p>3. 模拟器训练（15分钟）</p>
-                <p>4. 实际操作练习 - 基础动作（30分钟）</p>
-                <p>5. 实际操作练习 - 航拍技巧（30分钟）</p>
-                <p>6. 成果展示与分享、颁发证书（10分钟）</p>
+                <p>1. 值机登记（15分钟）</p>
+                <p>2. 安全培训（15分钟）</p>
+                <p>3. 乘坐指引（10分钟）</p>
+                <p>4. 空中游览（30分钟）</p>
+                <p>5. 安全降落（5分钟）</p>
+                <p>6. 留影纪念（15分钟）</p>
               </div>
 
               <h2>包含服务</h2>
               <ul class="includes">
-                <li><el-icon><Check /></el-icon> 专业无人机使用</li>
-                <li><el-icon><Check /></el-icon> 专业教练一对一指导</li>
-                <li><el-icon><Check /></el-icon> 无人机保险</li>
-                <li><el-icon><Check /></el-icon> 航拍作品电子版（10张）</li>
-                <li><el-icon><Check /></el-icon> 无人机初级飞行证书</li>
-                <li><el-icon><Check /></el-icon> 矿泉水一瓶</li>
+                <li><el-icon><Check /></el-icon> 直升机乘坐费用</li>
+                <li><el-icon><Check /></el-icon> 专业飞行员讲解</li>
+                <li><el-icon><Check /></el-icon> 安全头盔与设备</li>
+                <li><el-icon><Check /></el-icon> 高清航拍照片（5张电子版）</li>
+                <li><el-icon><Check /></el-icon> 飞行纪念证书</li>
+                <li><el-icon><Check /></el-icon> 意外保险</li>
               </ul>
 
               <h2>不包含项目</h2>
               <ul class="excludes">
                 <li><el-icon><Close /></el-icon> 往返交通费用</li>
                 <li><el-icon><Close /></el-icon> 个人消费</li>
-                <li><el-icon><Close /></el-icon> 无人机高级课程</li>
+                <li><el-icon><Close /></el-icon> 额外航线延长费用</li>
                 <li><el-icon><Close /></el-icon> 个人旅游保险</li>
               </ul>
             </div>
@@ -75,47 +74,48 @@
             <div class="notes">
               <h2>注意事项</h2>
               <ul>
-                <li>参与者需年满12周岁，未成年人需由监护人陪同</li>
-                <li>无需任何飞行经验，零基础也可参加</li>
-                <li>请提前30分钟到达，迟到超过15分钟将视为自动放弃</li>
-                <li>如因天气原因（大风、暴雨等）无法进行活动，将安排改期或全额退款</li>
-                <li>体验区域严格遵守当地无人机飞行管理规定</li>
-                <li>请至少提前24小时预约</li>
+                <li>参与者需年满8周岁，65岁以下，身体健康</li>
+                <li>体重限制：每人不超过120kg</li>
+                <li>孕妇、心脏病、高血压患者不宜参加</li>
+                <li>请提前45分钟到达，迟到超过15分钟将视为自动放弃</li>
+                <li>如因天气原因（大风、暴雨、大雾）无法起飞，将安排改期或全额退款</li>
+                <li>请至少提前3天预约</li>
               </ul>
               
               <h2>装备建议</h2>
               <ul>
-                <li>建议穿着舒适的休闲服装和平底鞋</li>
-                <li>如有需要可自带墨镜（强光下操作屏幕会更清晰）</li>
-                <li>可自带SD卡（如需原始素材）</li>
-                <li>建议带防晒用品（户外活动可能有长时间日晒）</li>
+                <li>建议穿着舒适的衣物，避免穿着裙装</li>
+                <li>平底鞋（请勿穿高跟鞋）</li>
+                <li>可自带相机、手机拍摄（需系绳固定）</li>
+                <li>建议携带墨镜（阳光强烈时可用）</li>
+                <li>严禁携带打火机、烟花等危险物品</li>
               </ul>
             </div>
           </el-tab-pane>
           <el-tab-pane label="评价">
             <div class="reviews">
-              <h2>用户评价 (65)</h2>
+              <h2>用户评价 (92)</h2>
               <div class="review-stats">
-                <div class="average-rating">4.5 <el-rate v-model="averageRating" disabled /></div>
+                <div class="average-rating">4.6 <el-rate v-model="averageRating" disabled /></div>
               </div>
               
               <div class="review-item">
                 <div class="review-header">
                   <div class="reviewer">
                     <el-avatar :size="40" :src="getImageUrl('@/assets/images/users/user1.jpg')"></el-avatar>
-                    <div class="reviewer-name">王先生</div>
+                    <div class="reviewer-name">李先生</div>
                   </div>
                   <div class="review-rating">
                     <el-rate v-model="highRating" disabled />
-                    <div class="review-date">2023-08-22</div>
+                    <div class="review-date">2023-08-20</div>
                   </div>
                 </div>
-                <div class="review-content">非常棒的体验！作为一个无人机小白，在教练的指导下竟然很快就能操控自如了。拍出来的画面也很震撼，角度独特，朋友圈发出去获赞无数。教练专业又有耐心，讲解很细致，还教了很多拍摄的小技巧。强烈推荐给喜欢摄影的朋友！</div>
+                <div class="review-content">这是我第一次乘坐直升机，感觉太震撼了！从空中看上海完全是另一番景象，尤其是看到陆家嘴和外滩的全景，简直美不胜收。飞行员很专业，全程讲解很详细，还会根据我们的要求调整角度，让我们拍到最好的照片。全程30分钟，感觉有点短，但是体验非常值得。强烈推荐给想要看不一样上海的朋友们！</div>
                 <div class="review-images">
                   <el-image
                     style="width: 100px; height: 100px; margin-right: 10px;"
-                    :src="getImageUrl('@/assets/images/reviews/review3-1.jpg')"
-                    :preview-src-list="[getImageUrl('@/assets/images/reviews/review3-1.jpg')]"
+                    :src="getImageUrl('@/assets/images/reviews/review2-1.jpg')"
+                    :preview-src-list="[getImageUrl('@/assets/images/reviews/review2-1.jpg')]"
                   />
                 </div>
               </div>
@@ -124,17 +124,17 @@
                 <div class="review-header">
                   <div class="reviewer">
                     <el-avatar :size="40" :src="getImageUrl('@/assets/images/users/user2.jpg')"></el-avatar>
-                    <div class="reviewer-name">赵女士</div>
+                    <div class="reviewer-name">王女士</div>
                   </div>
                   <div class="review-rating">
                     <el-rate :value="4" disabled />
-                    <div class="review-date">2023-08-15</div>
+                    <div class="review-date">2023-08-05</div>
                   </div>
                 </div>
-                <div class="review-content">给儿子预订的生日礼物，他超级喜欢！教练很有耐心，特别适合孩子学习。不过两个小时时间有点短，刚刚上手就结束了，希望能有进阶课程。总体来说性价比很高，值得体验！</div>
+                <div class="review-content">带父母来体验的，他们玩得很开心！起飞前有点紧张，但飞起来后就被美景吸引了。价格确实偏高，但考虑到直升机的运营成本，也算合理。服务人员态度很好，飞行员经验丰富，让人很放心。唯一的小遗憾是天气不够晴朗，有点雾气，影响了远处的视野。总体来说值得体验一次！</div>
                 <div class="merchant-reply mt-3 p-3 bg-gray-50 rounded-lg">
                   <div class="reply-header text-sm font-medium mb-1">商家回复：</div>
-                  <div class="reply-content text-sm">感谢您的评价！我们确实有无人机进阶课程，下次可以直接咨询前台，会有专门的课程顾问为您介绍详细信息。</div>
+                  <div class="reply-content text-sm">感谢您和父母的参与！我们很高兴听到您的家人享受了这次飞行。关于天气问题，我们确实会尽量选择晴朗的天气起飞，但上海的天气有时难以预测。我们会在预约时提供更详细的天气信息，帮助客人选择最佳飞行日期。</div>
                 </div>
               </div>
             </div>
@@ -159,14 +159,14 @@
               <el-input-number 
                 v-model="participants" 
                 :min="1" 
-                :max="10"
+                :max="6"
                 style="width: 100%"
               />
             </el-form-item>
             <el-form-item>
               <div class="booking-total">
                 <span>总价:</span>
-                <span class="total-price">¥{{ 399 * participants }}</span>
+                <span class="total-price">¥{{ 1280 * participants }}</span>
               </div>
             </el-form-item>
             <el-form-item>
@@ -195,7 +195,7 @@ import { getImageUrl } from '@/utils/imageHelper';
 const router = useRouter();
 const bookingDate = ref('');
 const participants = ref(1);
-const averageRating = ref(4.5);
+const averageRating = ref(4.6);
 const highRating = ref(5);
 
 // 禁用过去的日期
@@ -212,12 +212,12 @@ function handleBooking() {
   
   // 创建预订信息
   const bookingInfo = {
-    projectId: 3,
-    projectName: '专业无人机飞行体验',
+    projectId: 2,
+    projectName: '直升机空中游览',
     date: bookingDate.value.toISOString().split('T')[0],
-    price: 399,
+    price: 1280,
     participants: participants.value,
-    totalPrice: 399 * participants.value,
+    totalPrice: 1280 * participants.value,
   };
 
   // 存储预订信息到本地存储
@@ -228,7 +228,7 @@ function handleBooking() {
   
   // 跳转到预订页面
   setTimeout(() => {
-    router.push(`/user/booking/3?date=${bookingInfo.date}&participants=${participants.value}`);
+    router.push(`/user/booking/2?date=${bookingInfo.date}&participants=${participants.value}`);
   }, 1500);
 }
 </script>

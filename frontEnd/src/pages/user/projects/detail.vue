@@ -194,7 +194,7 @@
           <!-- 预约日历 -->
           <div class="booking-calendar card mb-6 p-6">
             <h3 class="text-xl font-semibold mb-4">选择日期</h3>
-            <el-calendar v-model="selectedDate">
+            <el-calendar v-model="selectedDate" :disabled-date="isDateDisabled">
               <template #dateCell="{ data }">
                 <div class="calendar-cell">
                   <div class="calendar-day">{{ data.day.split('-')[2] }}</div>
@@ -276,17 +276,39 @@ const bookingForm = ref({
 const projectId = computed(() => Number(route.params.id))
 
 // 项目图片
-const projectImages = ref([
-  { url: '@/assets/images/projects/hot-air-balloon.jpg' },
-  { url: '@/assets/images/projects/helicopter.jpg' },
-  { url: '@/assets/images/projects/drone.jpg' },
-  { url: '@/assets/images/projects/paragliding.jpg' },
-  { url: '@/assets/images/projects/powered-paragliding.jpg' },
-  { url: '@/assets/images/projects/skydiving.jpg' }
-])
+const projectImages = computed(() => {
+  // 根据项目ID返回对应的图片数组
+  const images = [];
+  if (projectId.value === 1) {
+    // 热气球项目
+    images.push({ url: '@/assets/images/projects/hot-air-balloon.jpg' });
+  } else if (projectId.value === 2) {
+    // 直升机项目
+    images.push({ url: '@/assets/images/projects/helicopter.jpg' });
+  } else if (projectId.value === 3) {
+    // 无人机项目
+    images.push({ url: '@/assets/images/projects/drone.jpg' });
+  } else if (projectId.value === 4) {
+    // 滑翔伞项目
+    images.push({ url: '@/assets/images/projects/paragliding.jpg' });
+  } else if (projectId.value === 5) {
+    // 动力伞项目
+    images.push({ url: '@/assets/images/projects/powered-paragliding.jpg' });
+  } else if (projectId.value === 6) {
+    // 高空跳伞项目
+    images.push({ url: '@/assets/images/projects/skydiving.jpg' });
+  }
+  return images;
+})
 
 // 选择日期
 const selectedDate = ref(new Date())
+const isDateDisabled = (date) => {
+  // 禁用过去的日期
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  return date < today;
+}
 
 // 分类数据
 const categories = ref([
@@ -706,7 +728,7 @@ const totalPrice = computed(() => {
 
 // 是否可预约
 const isProjectAvailable = computed(() => {
-  return project.value.availableDates && project.value.availableDates.length > 0
+  return true; // 默认所有项目都可预约
 })
 
 // 获取分类名称
@@ -734,27 +756,29 @@ function goBack() {
 
 // 处理预订
 function bookNow() {
-  if (!bookingForm.value.startDate) {
+  // 检查是否已选择日期
+  if (!selectedDate.value) {
     ElMessage.warning('请选择出发日期')
     return
   }
 
-  ElMessageBox.confirm(
-    `您即将预订${project.value.name}，总价¥${totalPrice.value}，是否确认？`,
-    '确认预订',
-    {
-      confirmButtonText: '确认',
-      cancelButtonText: '取消',
-      type: 'info'
-    }
-  ).then(() => {
-    // 模拟预订成功
-    ElMessage.success('预订成功！我们将尽快与您联系确认详情')
-    // 这里可以跳转到订单页面
-    // router.push('/user/orders')
-  }).catch(() => {
-    // 用户取消预订
-  })
+  // 格式化日期
+  const formattedDate = selectedDate.value.toISOString().split('T')[0];
+
+  // 创建预订信息
+  const bookingInfo = {
+    projectId: projectId.value,
+    projectName: project.value.name,
+    date: formattedDate,
+    price: project.value.price,
+    totalPrice: project.value.price,
+  };
+
+  // 存储预订信息到本地存储
+  localStorage.setItem('currentBooking', JSON.stringify(bookingInfo));
+
+  // 跳转到预订页面
+  router.push(`/user/booking/${projectId.value}?date=${formattedDate}`);
 }
 
 // 添加到收藏

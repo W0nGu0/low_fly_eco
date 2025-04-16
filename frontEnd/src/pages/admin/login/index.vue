@@ -63,8 +63,8 @@ const handleLogin = () => {
         // 存储token
         localStorage.setItem('admin_token', 'admin-token')
         
-        // 跳转到管理首页或指定页面
-        const redirect = route.query.redirect || '/admin/home'
+        // 跳转到控制台或指定页面
+        const redirect = route.query.redirect || '/admin/dashboard'
         router.push(redirect)
         
         ElMessage.success('登录成功')

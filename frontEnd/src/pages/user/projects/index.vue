@@ -68,7 +68,7 @@
           <el-col :xs="24" :sm="12" :lg="8" v-for="(project, index) in filteredProjects" :key="project.id">
             <div class="project-card card mb-6 cursor-pointer" @click="goToDetail(project.id)">
               <div class="project-image">
-                <img :src="project.coverImage" :alt="project.name" class="w-full h-full object-cover">
+                <img :src="getImageUrl(project.coverImage)" :alt="project.name" class="w-full h-full object-cover">
                 <div class="project-category-tag">{{ getCategoryName(project.categoryId) }}</div>
               </div>
               <div class="project-info p-5">
@@ -134,6 +134,7 @@
 import { ref, computed, onMounted, watch } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useProjectStore } from '@/store/project'
+import { getImageUrl, processArrayImageUrls } from '@/utils/imageHelper'
 
 const router = useRouter()
 const route = useRoute()
@@ -358,7 +359,29 @@ function handlePageChange(page) {
 
 // 导航方法
 function goToDetail(projectId) {
-  router.push(`/user/projects/detail/${projectId}`)
+  // 根据项目ID映射到对应的详情页路由
+  switch(projectId) {
+    case 1:
+      router.push('/user/projects/detail/hot-air-balloon');
+      break;
+    case 2:
+      router.push('/user/projects/detail/helicopter');
+      break;
+    case 3:
+      router.push('/user/projects/detail/drone');
+      break;
+    case 4:
+      router.push('/user/projects/detail/paragliding');
+      break;
+    case 5:
+      router.push('/user/projects/detail/powered-paragliding');
+      break;
+    case 6:
+      router.push('/user/projects/detail/skydiving');
+      break;
+    default:
+      router.push(`/user/projects/detail/${projectId}`);
+  }
 }
 
 // 从URL参数中获取分类过滤器
@@ -376,6 +399,9 @@ function initFromUrlParams() {
 onMounted(() => {
   // 从URL参数初始化筛选
   initFromUrlParams()
+  
+  // 处理项目列表中的图片路径
+  allProjects.value = processArrayImageUrls(allProjects.value, ['coverImage']);
   
   // 这里应该调用API获取项目列表
   // projectStore.fetchProjects().then(() => {

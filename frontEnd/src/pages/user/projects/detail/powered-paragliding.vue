@@ -2,23 +2,23 @@
   <div class="project-detail-container">
     <div class="project-header">
       <div class="project-title">
-        <h1>专业无人机飞行体验</h1>
+        <h1>山地动力伞飞行</h1>
         <div class="project-tags">
-          <el-tag type="success">无人机体验</el-tag>
-          <el-tag type="info">120分钟</el-tag>
-          <el-tag type="warning">专业教练指导</el-tag>
+          <el-tag type="success">动力伞</el-tag>
+          <el-tag type="info">60分钟</el-tag>
+          <el-tag type="warning">500米高空</el-tag>
         </div>
       </div>
       <div class="project-price">
-        <div class="price">¥399</div>
-        <div class="per-person">每人起</div>
+        <div class="price">¥1580</div>
+        <div class="price-tag">人均</div>
       </div>
     </div>
 
     <div class="project-gallery">
       <el-carousel height="400px">
         <el-carousel-item>
-          <img :src="getImageUrl('@/assets/images/projects/drone.jpg')" alt="无人机体验" class="carousel-image">
+          <img :src="getImageUrl('@/assets/images/projects/powered-paragliding.jpg')" alt="动力伞飞行" class="carousel-image">
         </el-carousel-item>
       </el-carousel>
     </div>
@@ -29,93 +29,112 @@
           <el-tab-pane label="项目概述">
             <div class="overview">
               <h2>项目介绍</h2>
-              <p>在专业教练指导下，学习操控高端无人机，体验科技带来的乐趣。本课程专为无人机爱好者、摄影爱好者以及希望接触航拍技术的人士设计。我们提供最新型号的专业航拍无人机，配备4K高清摄像头，让您在掌握基本飞行技巧的同时，也能拍摄出令人惊艳的航拍作品。全程由持证专业教练一对一指导，确保安全飞行。</p>
+              <p>动力伞飞行是一项结合了滑翔伞和动力引擎的空中运动，让您在山区上空自由翱翔。与普通滑翔伞不同，动力伞配备专业发动机，可以自主起飞和控制飞行高度，不依赖气流和地形条件。本次体验在杭州临安山区进行，您将在专业教练的带领下，从平地起飞，升空至约500米高度，俯瞰壮丽的山峦和湖泊景色，体验真正的"空中漫步"。</p>
               
               <h2>项目亮点</h2>
               <ul class="highlights">
-                <li>使用价值上万的专业航拍无人机</li>
-                <li>专业教练一对一指导，从零基础开始学习</li>
-                <li>掌握基本飞行技巧和航拍构图技巧</li>
-                <li>广州城市绝佳航拍点体验</li>
-                <li>获取专属航拍作品电子版</li>
-                <li>颁发无人机初级飞行证书</li>
+                <li>配备专业动力伞设备，自主控制飞行</li>
+                <li>平地起飞，操作简单安全</li>
+                <li>资深教练一对一指导</li>
+                <li>飞越杭州临安山区自然风光</li>
+                <li>提供航拍和特技飞行选项</li>
+                <li>专业飞行摄影记录整个过程</li>
               </ul>
 
               <h2>行程安排</h2>
               <div class="itinerary">
                 <h3>体验流程</h3>
-                <p>1. 签到与无人机安全知识讲解（20分钟）</p>
-                <p>2. 无人机基本结构介绍与操作示范（15分钟）</p>
-                <p>3. 模拟器训练（15分钟）</p>
-                <p>4. 实际操作练习 - 基础动作（30分钟）</p>
-                <p>5. 实际操作练习 - 航拍技巧（30分钟）</p>
-                <p>6. 成果展示与分享、颁发证书（10分钟）</p>
+                <p>1. 签到与安全培训（30分钟）</p>
+                <p>2. 动力伞原理讲解（15分钟）</p>
+                <p>3. 装备穿戴与检查（15分钟）</p>
+                <p>4. 起飞准备与指导（10分钟）</p>
+                <p>5. 动力伞飞行体验（约30分钟）</p>
+                <p>6. 安全着陆与装备卸除（10分钟）</p>
+                <p>7. 飞行回顾与证书颁发（10分钟）</p>
               </div>
 
               <h2>包含服务</h2>
               <ul class="includes">
-                <li><el-icon><Check /></el-icon> 专业无人机使用</li>
+                <li><el-icon><Check /></el-icon> 专业动力伞设备使用</li>
+                <li><el-icon><Check /></el-icon> 安全头盔与飞行服</li>
                 <li><el-icon><Check /></el-icon> 专业教练一对一指导</li>
-                <li><el-icon><Check /></el-icon> 无人机保险</li>
-                <li><el-icon><Check /></el-icon> 航拍作品电子版（10张）</li>
-                <li><el-icon><Check /></el-icon> 无人机初级飞行证书</li>
-                <li><el-icon><Check /></el-icon> 矿泉水一瓶</li>
+                <li><el-icon><Check /></el-icon> 基础航拍照片（3张电子版）</li>
+                <li><el-icon><Check /></el-icon> 飞行纪念证书</li>
+                <li><el-icon><Check /></el-icon> 个人意外保险</li>
               </ul>
 
               <h2>不包含项目</h2>
               <ul class="excludes">
                 <li><el-icon><Close /></el-icon> 往返交通费用</li>
-                <li><el-icon><Close /></el-icon> 个人消费</li>
-                <li><el-icon><Close /></el-icon> 无人机高级课程</li>
-                <li><el-icon><Close /></el-icon> 个人旅游保险</li>
+                <li><el-icon><Close /></el-icon> 餐饮及个人消费</li>
+                <li><el-icon><Close /></el-icon> 专业视频拍摄（可选购598元）</li>
+                <li><el-icon><Close /></el-icon> 特技飞行体验（可选购300元）</li>
               </ul>
             </div>
           </el-tab-pane>
           <el-tab-pane label="注意事项">
             <div class="notes">
+              <h2>参与条件</h2>
+              <ul>
+                <li>参与者年龄限制：16-60岁；未满18周岁需监护人现场签字</li>
+                <li>体重限制：50-100kg</li>
+                <li>身高限制：150-190cm</li>
+                <li>孕妇、心脏病、高血压、癫痫患者禁止参加</li>
+                <li>近期有骨折、扭伤等身体不适者不宜参与</li>
+              </ul>
+              
               <h2>注意事项</h2>
               <ul>
-                <li>参与者需年满12周岁，未成年人需由监护人陪同</li>
-                <li>无需任何飞行经验，零基础也可参加</li>
-                <li>请提前30分钟到达，迟到超过15分钟将视为自动放弃</li>
-                <li>如因天气原因（大风、暴雨等）无法进行活动，将安排改期或全额退款</li>
-                <li>体验区域严格遵守当地无人机飞行管理规定</li>
-                <li>请至少提前24小时预约</li>
+                <li>活动受天气影响较大，如遇雨天、大风（风速超过4级）等不适合飞行的天气，将安排改期或全额退款</li>
+                <li>飞行前2小时内不建议大量进食</li>
+                <li>请提前72小时预约，并保持手机畅通</li>
+                <li>请按照教练指示操作，确保飞行安全</li>
+                <li>山区早晚温差大，请注意保暖</li>
               </ul>
               
               <h2>装备建议</h2>
               <ul>
-                <li>建议穿着舒适的休闲服装和平底鞋</li>
-                <li>如有需要可自带墨镜（强光下操作屏幕会更清晰）</li>
-                <li>可自带SD卡（如需原始素材）</li>
-                <li>建议带防晒用品（户外活动可能有长时间日晒）</li>
+                <li>穿着长袖长裤（防止擦伤）</li>
+                <li>运动鞋或登山鞋（禁止穿凉鞋、高跟鞋）</li>
+                <li>带上墨镜、防晒霜（高空紫外线强）</li>
+                <li>随身物品需妥善固定，建议不携带贵重物品</li>
+                <li>可自备相机或手机（需系绳固定）</li>
+              </ul>
+              
+              <h2>取消政策</h2>
+              <ul>
+                <li>活动前7天取消：全额退款</li>
+                <li>活动前3-7天取消：退款80%</li>
+                <li>活动前24-72小时取消：退款50%</li>
+                <li>活动前24小时内取消：不予退款</li>
+                <li>因天气等不可抗力因素取消：可免费改期或全额退款</li>
               </ul>
             </div>
           </el-tab-pane>
           <el-tab-pane label="评价">
             <div class="reviews">
-              <h2>用户评价 (65)</h2>
+              <h2>用户评价 (36)</h2>
               <div class="review-stats">
-                <div class="average-rating">4.5 <el-rate v-model="averageRating" disabled /></div>
+                <div class="average-rating">4.7 <el-rate v-model="averageRating" disabled /></div>
               </div>
               
               <div class="review-item">
                 <div class="review-header">
                   <div class="reviewer">
-                    <el-avatar :size="40" :src="getImageUrl('@/assets/images/users/user1.jpg')"></el-avatar>
-                    <div class="reviewer-name">王先生</div>
+                    <el-avatar :size="40" :src="getImageUrl('@/assets/images/users/user3.jpg')"></el-avatar>
+                    <div class="reviewer-name">黄先生</div>
                   </div>
                   <div class="review-rating">
                     <el-rate v-model="highRating" disabled />
-                    <div class="review-date">2023-08-22</div>
+                    <div class="review-date">2023-08-15</div>
                   </div>
                 </div>
-                <div class="review-content">非常棒的体验！作为一个无人机小白，在教练的指导下竟然很快就能操控自如了。拍出来的画面也很震撼，角度独特，朋友圈发出去获赞无数。教练专业又有耐心，讲解很细致，还教了很多拍摄的小技巧。强烈推荐给喜欢摄影的朋友！</div>
+                <div class="review-content">动力伞比我想象的要刺激很多！起飞时发动机的声音很震撼，一旦升空，视野瞬间开阔，杭州的山水尽收眼底。教练王教练非常专业，让我对整个飞行过程充满信心。风景真的太美了，特别是飞过千岛湖附近时，那种感觉无法用语言形容。虽然价格不便宜，但绝对值回票价，打算下次带家人一起来体验。唯一遗憾是飞行时间有点短，希望下次能多飞一会儿！</div>
                 <div class="review-images">
                   <el-image
                     style="width: 100px; height: 100px; margin-right: 10px;"
-                    :src="getImageUrl('@/assets/images/reviews/review3-1.jpg')"
-                    :preview-src-list="[getImageUrl('@/assets/images/reviews/review3-1.jpg')]"
+                    :src="getImageUrl('@/assets/images/reviews/review5-1.jpg')"
+                    :preview-src-list="[getImageUrl('@/assets/images/reviews/review5-1.jpg')]"
                   />
                 </div>
               </div>
@@ -124,17 +143,17 @@
                 <div class="review-header">
                   <div class="reviewer">
                     <el-avatar :size="40" :src="getImageUrl('@/assets/images/users/user2.jpg')"></el-avatar>
-                    <div class="reviewer-name">赵女士</div>
+                    <div class="reviewer-name">张女士</div>
                   </div>
                   <div class="review-rating">
                     <el-rate :value="4" disabled />
-                    <div class="review-date">2023-08-15</div>
+                    <div class="review-date">2023-07-22</div>
                   </div>
                 </div>
-                <div class="review-content">给儿子预订的生日礼物，他超级喜欢！教练很有耐心，特别适合孩子学习。不过两个小时时间有点短，刚刚上手就结束了，希望能有进阶课程。总体来说性价比很高，值得体验！</div>
+                <div class="review-content">作为一个有些怕高的人，起初很忐忑，但教练很有耐心，一步步指导我完成起飞。飞起来后完全忘记了恐惧，只剩下对美景的惊叹。动力伞比滑翔伞更容易上手，不需要从高处起飞，整个过程都很平稳。服务很周到，提前一天还收到了天气提醒。拍摄的照片也很棒，就是价格偏高了些。总体来说，是一次难忘的体验，推荐给想尝试飞行但又怕高的朋友。</div>
                 <div class="merchant-reply mt-3 p-3 bg-gray-50 rounded-lg">
                   <div class="reply-header text-sm font-medium mb-1">商家回复：</div>
-                  <div class="reply-content text-sm">感谢您的评价！我们确实有无人机进阶课程，下次可以直接咨询前台，会有专门的课程顾问为您介绍详细信息。</div>
+                  <div class="reply-content text-sm">感谢张女士的评价！克服恐高是一件很不容易的事，我们为您感到骄傲！关于价格问题，由于设备维护和燃油成本不断上升，我们的价格确实比一般项目高一些，但我们会不断提升服务质量，让每位客人都感到值得。期待您再次光临！</div>
                 </div>
               </div>
             </div>
@@ -159,14 +178,14 @@
               <el-input-number 
                 v-model="participants" 
                 :min="1" 
-                :max="10"
+                :max="4"
                 style="width: 100%"
               />
             </el-form-item>
             <el-form-item>
               <div class="booking-total">
                 <span>总价:</span>
-                <span class="total-price">¥{{ 399 * participants }}</span>
+                <span class="total-price">¥{{ 1580 * participants }}</span>
               </div>
             </el-form-item>
             <el-form-item>
@@ -195,7 +214,7 @@ import { getImageUrl } from '@/utils/imageHelper';
 const router = useRouter();
 const bookingDate = ref('');
 const participants = ref(1);
-const averageRating = ref(4.5);
+const averageRating = ref(4.7);
 const highRating = ref(5);
 
 // 禁用过去的日期
@@ -212,12 +231,12 @@ function handleBooking() {
   
   // 创建预订信息
   const bookingInfo = {
-    projectId: 3,
-    projectName: '专业无人机飞行体验',
+    projectId: 5,
+    projectName: '山地动力伞飞行',
     date: bookingDate.value.toISOString().split('T')[0],
-    price: 399,
+    price: 1580,
     participants: participants.value,
-    totalPrice: 399 * participants.value,
+    totalPrice: 1580 * participants.value,
   };
 
   // 存储预订信息到本地存储
@@ -228,7 +247,7 @@ function handleBooking() {
   
   // 跳转到预订页面
   setTimeout(() => {
-    router.push(`/user/booking/3?date=${bookingInfo.date}&participants=${participants.value}`);
+    router.push(`/user/booking/5?date=${bookingInfo.date}&participants=${participants.value}`);
   }, 1500);
 }
 </script>
@@ -267,7 +286,7 @@ function handleBooking() {
   color: #67c23a;
 }
 
-.per-person {
+.price-tag {
   color: #909399;
   font-size: 14px;
 }
@@ -459,4 +478,4 @@ function handleBooking() {
     margin-top: 10px;
   }
 }
-</style> 
+</style>

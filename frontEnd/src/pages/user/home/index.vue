@@ -170,7 +170,7 @@
             <el-col :xs="24" :sm="12" :md="12" :lg="12">
               <el-card class="special-project-card" @click="navigateToSpecialProject('paragliding')">
                 <div class="special-project-image">
-                  <img src="@/assets/images/projects/hot-air-balloon.jpg" alt="滑翔伞体验">
+                  <img :src="getImageUrl('@/assets/images/projects/hot-air-balloon.jpg')" alt="滑翔伞体验">
                   <div class="special-project-overlay">
                     <h3>海岸线滑翔伞体验</h3>
                     <p>从高处起飞，体验海岸线的壮丽景色</p>
@@ -182,7 +182,7 @@
             <el-col :xs="24" :sm="12" :md="12" :lg="12">
               <el-card class="special-project-card" @click="navigateToSpecialProject('drone')">
                 <div class="special-project-image">
-                  <img src="@/assets/images/projects/drone.jpg" alt="无人机体验">
+                  <img :src="getImageUrl('@/assets/images/projects/drone.jpg')" alt="无人机体验">
                   <div class="special-project-overlay">
                     <h3>专业无人机飞行体验</h3>
                     <p>学习操控高端无人机，体验科技带来的乐趣</p>
@@ -394,7 +394,29 @@ function navigateToCategory(categoryId) {
 
 // 查看项目详情
 function goToDetail(projectId) {
-  router.push(`/user/projects/${projectId}`)
+  // 根据项目ID映射到对应的详情页路由
+  switch(projectId) {
+    case 1:
+      router.push('/user/projects/detail/hot-air-balloon');
+      break;
+    case 2:
+      router.push('/user/projects/detail/helicopter');
+      break;
+    case 3:
+      router.push('/user/projects/detail/drone');
+      break;
+    case 4:
+      router.push('/user/projects/detail/paragliding');
+      break;
+    case 5:
+      router.push('/user/projects/detail/powered-paragliding');
+      break;
+    case 6:
+      router.push('/user/projects/detail/skydiving');
+      break;
+    default:
+      router.push(`/user/projects/detail/${projectId}`);
+  }
 }
 
 // 导航到特殊项目

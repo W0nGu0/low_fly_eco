@@ -5,7 +5,7 @@
       <div class="container header-inner">
         <div class="logo">
           <router-link to="/user/home">
-            <img src="@/assets/images/logo.png" alt="低空飞行体验" class="logo-img">
+            <img :src="logoUrl" alt="低空飞行体验" class="logo-img">
             <span class="logo-text">低空飞行体验</span>
           </router-link>
         </div>
@@ -80,6 +80,7 @@
 import { computed, ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { ElMessageBox } from 'element-plus'
+import { getImageUrl } from '@/utils/imageHelper'
 
 const router = useRouter()
 const route = useRoute()
@@ -88,6 +89,8 @@ const route = useRoute()
 const isLoggedIn = ref(false)
 const username = ref('张三')
 const userAvatar = ref('/src/assets/images/users/user2.jpg')
+
+const logoUrl = getImageUrl('@/assets/images/logo.png')
 
 // 获取当前激活的菜单
 const activeMenu = computed(() => {

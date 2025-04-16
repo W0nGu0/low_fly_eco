@@ -38,6 +38,21 @@ import { onMounted } from 'vue'
 </script>
 
 <style>
+:root {
+  /* 系统主题色 */
+  --primary-color: #1890ff;
+  --primary-hover: #40a9ff;
+  --primary-active: #096dd9;
+  --primary-bg: #e6f7ff;
+  --primary-light: #1890ff12;
+  
+  /* 功能色 */
+  --success-color: #52c41a;
+  --warning-color: #faad14;
+  --error-color: #f5222d;
+  --info-color: #1890ff;
+}
+
 /* 全局样式 */
 body {
   font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;

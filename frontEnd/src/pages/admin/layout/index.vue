@@ -2,28 +2,29 @@
   <div class="admin-layout">
     <el-container class="container">
       <!-- 侧边栏 -->
-      <el-aside width="220px" class="aside">
+      <el-aside :width="isCollapse ? '64px' : '220px'" class="aside">
         <div class="logo">
-          <img src="@/assets/images/logo.png" alt="低空飞行体验" class="logo-img">
-          <span class="logo-text">管理系统</span>
+          <img :src="logoUrl" alt="低空飞行体验" class="logo-img">
+          <span class="logo-text" v-if="!isCollapse">管理系统</span>
         </div>
         <el-menu
           :default-active="activeMenu"
           background-color="#304156"
           text-color="#bfcbd9"
-          active-text-color="#409EFF"
+          active-text-color="#1890ff"
+          :collapse="isCollapse"
           router
           unique-opened
           class="menu"
         >
-          <el-menu-item index="/admin/home">
-            <i class="el-icon-s-home"></i>
-            <span>首页</span>
+          <el-menu-item index="/admin/dashboard">
+            <el-icon><DataLine /></el-icon>
+            <template #title>控制台</template>
           </el-menu-item>
           
           <el-sub-menu index="1">
             <template #title>
-              <i class="el-icon-s-goods"></i>
+              <el-icon><Goods /></el-icon>
               <span>项目管理</span>
             </template>
             <el-menu-item index="/admin/projects">项目列表</el-menu-item>
@@ -32,7 +33,7 @@
           
           <el-sub-menu index="2">
             <template #title>
-              <i class="el-icon-s-order"></i>
+              <el-icon><Document /></el-icon>
               <span>订单管理</span>
             </template>
             <el-menu-item index="/admin/orders">订单列表</el-menu-item>
@@ -41,20 +42,20 @@
           
           <el-sub-menu index="3">
             <template #title>
-              <i class="el-icon-user"></i>
+              <el-icon><User /></el-icon>
               <span>用户管理</span>
             </template>
             <el-menu-item index="/admin/users">用户列表</el-menu-item>
           </el-sub-menu>
           
           <el-menu-item index="/admin/reviews">
-            <i class="el-icon-chat-dot-round"></i>
-            <span>评价管理</span>
+            <el-icon><ChatDotRound /></el-icon>
+            <template #title>评价管理</template>
           </el-menu-item>
           
           <el-menu-item index="/admin/settings">
-            <i class="el-icon-setting"></i>
-            <span>系统设置</span>
+            <el-icon><Setting /></el-icon>
+            <template #title>系统设置</template>
           </el-menu-item>
         </el-menu>
       </el-aside>
@@ -64,9 +65,12 @@
         <!-- 头部 -->
         <el-header class="header">
           <div class="header-left">
-            <i class="el-icon-menu toggle-sidebar" @click="toggleSidebar"></i>
+            <el-icon class="toggle-sidebar" @click="toggleSidebar">
+              <Fold v-if="!isCollapse" />
+              <Expand v-else />
+            </el-icon>
             <el-breadcrumb separator="/">
-              <el-breadcrumb-item :to="{ path: '/admin/home' }">首页</el-breadcrumb-item>
+              <el-breadcrumb-item :to="{ path: '/admin/dashboard' }">控制台</el-breadcrumb-item>
               <el-breadcrumb-item v-if="currentRoute.meta && currentRoute.meta.title">
                 {{ currentRoute.meta.title }}
               </el-breadcrumb-item>
@@ -93,11 +97,6 @@
         <el-main class="main">
           <router-view></router-view>
         </el-main>
-        
-        <!-- 底部 -->
-        <el-footer class="footer">
-          Copyright © 2023 低空飞行体验管理系统
-        </el-footer>
       </el-container>
     </el-container>
   </div>
@@ -107,6 +106,11 @@
 import { ref, computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { ElMessageBox } from 'element-plus'
+import { getImageUrl } from '@/utils/imageHelper'
+import { 
+  DataLine, Goods, Document, User, ChatDotRound, 
+  Setting, Fold, Expand 
+} from '@element-plus/icons-vue'
 
 const router = useRouter()
 const route = useRoute()
@@ -114,9 +118,12 @@ const route = useRoute()
 // 侧边栏是否折叠
 const isCollapse = ref(false)
 
+// 图片处理
+const logoUrl = getImageUrl('@/assets/images/logo.png')
+
 // 当前管理员信息
 const adminName = ref('管理员')
-const adminAvatar = ref('/src/assets/images/users/user1.jpg')
+const adminAvatar = ref(getImageUrl('@/assets/images/users/user1.jpg'))
 
 // 切换侧边栏折叠状态
 const toggleSidebar = () => {
@@ -155,24 +162,33 @@ const handleCommand = (command) => {
 <style scoped>
 .admin-layout {
   height: 100vh;
+  display: flex;
+  overflow: hidden;
 }
 
 .container {
   height: 100%;
+  width: 100%;
 }
 
 .aside {
   background-color: #304156;
   height: 100%;
   overflow-x: hidden;
+  transition: width 0.3s;
+  position: relative;
+  z-index: 10;
+  box-shadow: 2px 0 6px rgba(0, 21, 41, 0.35);
 }
 
 .logo {
   height: 60px;
   display: flex;
   align-items: center;
-  padding-left: 20px;
+  justify-content: center;
   background-color: #2b3649;
+  padding-left: 20px;
+  overflow: hidden;
 }
 
 .logo-img {
@@ -184,6 +200,7 @@ const handleCommand = (command) => {
   color: #fff;
   font-size: 18px;
   font-weight: bold;
+  white-space: nowrap;
 }
 
 .menu {
@@ -199,6 +216,9 @@ const handleCommand = (command) => {
   justify-content: space-between;
   padding: 0 20px;
   height: 60px;
+  box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
+  position: relative;
+  z-index: 9;
 }
 
 .header-left {
@@ -210,6 +230,7 @@ const handleCommand = (command) => {
   margin-right: 20px;
   font-size: 20px;
   cursor: pointer;
+  color: #606266;
 }
 
 .header-right {
@@ -240,13 +261,18 @@ const handleCommand = (command) => {
   flex: 1;
 }
 
-.footer {
-  height: 40px;
-  line-height: 40px;
-  text-align: center;
-  font-size: 12px;
-  color: #909399;
-  background-color: #fff;
-  border-top: 1px solid #e6e6e6;
+:deep(.el-menu-item.is-active) {
+  background-color: #1890ff12 !important;
+  color: #1890ff !important;
+  border-right: 3px solid #1890ff;
+}
+
+:deep(.el-menu--collapse) {
+  width: 64px;
+}
+
+:deep(.el-menu--collapse .el-sub-menu__title span,
+       .el-menu--collapse .el-menu-item span) {
+  display: none;
 }
 </style>
