@@ -6,7 +6,7 @@
       <el-row :gutter="30">
         <!-- 左侧个人信息卡片 -->
         <el-col :md="8" :sm="24">
-          <div class="profile-card card p-6 mb-6 rounded-xl shadow-sm bg-white animate__animated animate__fadeInLeft hover:shadow-lg transition-all duration-300">
+          <div class="profile-card card p-6 mb-6 rounded-xl shadow-sm bg-white animate__animated animate__fadeInLeft hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
             <div class="user-avatar-container text-center mb-6">
               <el-avatar 
                 :size="120" 
@@ -104,13 +104,13 @@
           <div style="height: 2.5rem;"></div>
           
           <!-- 最近预订 -->
-          <div class="recent-orders card p-6 rounded-xl shadow-sm bg-white animate__animated animate__fadeInUp hover:shadow-lg transition-all duration-300">
+          <div class="recent-orders card p-6 rounded-xl shadow-sm bg-white animate__animated animate__fadeInUp hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
             <div class="section-header flex justify-between items-center mb-4">
               <h2 class="text-xl font-bold text-emerald-800 flex items-center">
                 <i class="el-icon-document mr-2 text-emerald-500"></i>
                 最近预订
               </h2>
-              <router-link to="/user/orders" class="text-emerald-500 hover:text-emerald-600 transition-colors flex items-center">
+              <router-link to="/user/orders" class="view-all-btn">
                 查看全部 <i class="el-icon-arrow-right ml-1"></i>
               </router-link>
             </div>
@@ -167,13 +167,13 @@
           <div style="height: 2.5rem;"></div>
           
           <!-- 我的评价 -->
-          <div class="my-reviews card p-6 rounded-xl shadow-sm bg-white animate__animated animate__fadeInUp hover:shadow-lg transition-all duration-300" style="animation-delay: 0.2s">
+          <div class="my-reviews card p-6 rounded-xl shadow-sm bg-white animate__animated animate__fadeInUp hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
             <div class="section-header flex justify-between items-center mb-4">
               <h2 class="text-xl font-bold text-emerald-800 flex items-center">
                 <i class="el-icon-star-on mr-2 text-emerald-500"></i>
                 我的评价
               </h2>
-              <router-link to="/user/feedback" class="text-emerald-500 hover:text-emerald-600 transition-colors flex items-center">
+              <router-link to="/user/feedback" class="view-all-btn">
                 查看全部 <i class="el-icon-arrow-right ml-1"></i>
               </router-link>
             </div>
@@ -320,7 +320,7 @@ const userInfo = ref({
   nickname: '张三',
   phone: '138****1234',
   email: 'zhangsan@example.com',
-  avatar: '@/assets/images/default-avatar.png',
+  avatar: '@/assets/images/avatars/avatar3.jpg',
   level: '黄金会员',
   registerDate: '2023-01-15'
 })
@@ -534,7 +534,7 @@ const changeAvatar = () => {
 
 // 添加头像加载错误处理
 const handleAvatarError = () => {
-  userInfo.value.avatar = getImageUrl('@/assets/images/default-avatar.png')
+  userInfo.value.avatar = getImageUrl('@/assets/images/avatars/avatar3.jpg')
 }
 
 // 页面加载时初始化
@@ -550,13 +550,19 @@ onMounted(() => {
 
 <style scoped>
 .profile-container {
-  min-height: calc(100vh - 64px - 280px);
+  min-height: calc(100vh - 64px - 180px);
 }
 
 .card {
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 24px 0 rgba(0, 0, 0, 0.15);
 }
 
 .user-info .label {
@@ -593,6 +599,12 @@ onMounted(() => {
 .stats-card {
   background-size: 200% 200%;
   animation: gradientBG 5s ease infinite;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.stats-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 24px 0 rgba(0, 0, 0, 0.2);
 }
 
 /* 响应式调整 */
@@ -612,5 +624,38 @@ onMounted(() => {
 .user-actions .el-button {
   height: 40px;
   margin: 0; /* 移除默认的按钮边距 */
+}
+
+.view-all-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  background-color: #e6f7f1;
+  color: #10b981;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.view-all-btn:hover {
+  background-color: #d1f5e9;
+  transform: translateY(-1px);
+}
+
+.view-all-btn i {
+  transition: transform 0.3s ease;
+}
+
+.view-all-btn:hover i {
+  transform: translateX(2px);
+}
+
+/* 添加卡片内容缩放效果 */
+.profile-card:hover .user-avatar-container,
+.recent-orders:hover .section-header,
+.my-reviews:hover .section-header {
+  transform: scale(1.02);
+  transition: transform 0.3s ease;
 }
 </style>
