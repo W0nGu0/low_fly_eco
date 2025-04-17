@@ -420,7 +420,7 @@ async function viewOrderDetail(orderId) {
 
 // 去支付
 function goToPay(orderId) {
-  router.push(`/user/payment/${orderId}`)
+  router.push(`/user/payment?orderId=${orderId}`)
 }
 
 // 取消订单
@@ -696,25 +696,19 @@ h1 {
 }
 
 .order-price .order-actions {
-  width: 100%;
-}
-
-.order-actions .el-button + .el-button {
-  margin-left: 0;
-  margin-top: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 120px;
 }
 
 .order-actions .el-button {
-  width: 100%;
-  border-radius: 0.5rem;
-  font-weight: 500;
-  transition: all 0.3s ease;
-  margin: 0;
-}
-
-.order-actions .el-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(22, 163, 74, 0.25);
+  width: 120px !important;  /* 统一按钮宽度 */
+  height: 32px !important;  /* 统一按钮高度 */
+  padding: 0 12px !important;  /* 统一内边距 */
+  font-size: 14px !important;  /* 统一字体大小 */
+  border-radius: 4px !important;  /* 统一圆角 */
+  margin: 0 !important;  /* 移除默认边距 */
 }
 
 .el-button--primary {
