@@ -336,7 +336,10 @@ const project = reactive({
 // 预约信息
 const bookingDate = ref('')
 const peopleCount = ref(1)
-const totalPrice = ref(project.price)
+const totalPrice = computed(() => {
+  const unitPrice = getUnitPrice()
+  return unitPrice * peopleCount.value
+})
 const selectedTimeSlot = ref('')
 
 // 时间段数据
@@ -731,7 +734,10 @@ async function loadProjectDetails(projectId) {
 }
 
 // 生命周期钩子
-onMounted(() => {
+onMounted(async () => {
+  // 先加载项目详情
+  await loadProjectDetails(props.id);
+  
   // 从URL参数中获取预选的日期和人数
   const dateParam = route.query.date;
   const participantsParam = route.query.participants;
@@ -749,12 +755,7 @@ onMounted(() => {
     while (participants.length < peopleCount.value) {
       addParticipant();
     }
-    // 重新计算价格
-    calculatePrice();
   }
-  
-  // 加载项目详情
-  loadProjectDetails(props.id);
 });
 </script>
 
