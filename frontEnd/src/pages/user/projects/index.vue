@@ -186,7 +186,7 @@ const allProjects = ref([
   {
     id: 2,
     name: '直升机空中游览',
-    brief: '乘坐专业直升机，从空中欣赏城市风光，拍摄绝美照片',
+    brief: '专业飞行员驾驶直升机，搭载游客从空中欣赏城市风光，拍摄绝美照片',
     coverImage: '@/assets/images/projects/helicopter.jpg',
     categoryId: 2,
     location: '上海市浦东新区',
