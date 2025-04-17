@@ -1,7 +1,7 @@
 <template>
-  <div class="projects-page bg-gray-50 min-h-screen">
+  <div class="projects-page bg-emerald-50 min-h-screen">
     <div class="container mx-auto px-4 py-8">
-      <h1 class="text-3xl font-bold mb-8 text-gray-800 animate__animated animate__fadeInDown">飞行体验项目</h1>
+      <h1 class="text-3xl font-bold mb-8 text-emerald-800 animate__animated animate__fadeInDown">飞行体验项目</h1>
       
       <!-- 搜索和筛选区域 -->
       <div class="search-filter-container mb-12 p-6 rounded-xl shadow-sm bg-white animate__animated animate__fadeInUp">
@@ -425,6 +425,11 @@ watch(
 </script>
 
 <style scoped>
+.projects-page {
+  background-color: #f0fdf4;
+  min-height: calc(100vh - 64px);
+}
+
 .project-image {
   height: 200px; /* 固定图片高度 */
   position: relative;
@@ -442,7 +447,7 @@ watch(
   position: absolute;
   top: 1rem;
   left: 1rem;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(22, 163, 74, 0.9);
   color: #fff;
   padding: 0.5rem 1rem;
   border-radius: 2rem;
@@ -456,7 +461,7 @@ watch(
   position: absolute;
   top: 1rem;
   right: 1rem;
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(255, 255, 255, 0.95);
   padding: 0.5rem 1rem;
   border-radius: 2rem;
   font-size: 0.875rem;
@@ -466,6 +471,7 @@ watch(
   gap: 0.25rem;
   backdrop-filter: blur(4px);
   z-index: 1;
+  color: #16a34a;
 }
 
 .project-info {
@@ -476,21 +482,18 @@ watch(
 }
 
 .project-name {
-  font-size: 16px;
+  color: #166534;
+  font-size: 1.125rem;
   font-weight: 600;
   margin: 0;
   line-height: 1.4;
 }
 
 .project-brief {
-  color: #666;
-  font-size: 14px;
+  color: #374151;
+  font-size: 0.875rem;
   margin: 0;
-  line-height: 1.4;
-  -webkit-line-clamp: 2;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+  line-height: 1.5;
 }
 
 .project-meta {
@@ -505,13 +508,13 @@ watch(
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  color: #6b7280;
+  color: #4b5563;
   font-size: 0.875rem;
-  padding: 0.25rem 0; /* 减小元信息项的内边距 */
+  padding: 0.25rem 0;
 }
 
 .meta-item i {
-  color: #3b82f6;
+  color: #16a34a;
   font-size: 1rem;
 }
 
@@ -529,23 +532,25 @@ watch(
 }
 
 .project-price .currency {
-  color: #6b7280;
+  color: #4b5563;
   font-size: 0.875rem;
 }
 
 .project-price .amount {
-  color: #3b82f6;
+  color: #16a34a;
   font-size: 1.5rem;
   font-weight: 600;
   line-height: 1;
 }
 
 .project-price .unit {
-  color: #6b7280;
+  color: #4b5563;
   font-size: 0.875rem;
 }
 
 .el-button--primary {
+  background-color: #16a34a;
+  border-color: #16a34a;
   height: 2.5rem;
   padding: 0 1.25rem;
   font-size: 0.875rem;
@@ -555,8 +560,10 @@ watch(
 }
 
 .el-button--primary:hover {
+  background-color: #15803d;
+  border-color: #15803d;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+  box-shadow: 0 4px 12px rgba(22, 163, 74, 0.2);
 }
 
 .search-filter-container {
@@ -565,13 +572,13 @@ watch(
   border-radius: 1rem;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
   transition: all 0.3s ease;
-  border: 1px solid #e5e7eb;
-  padding: 1.25rem;
+  border: 1px solid #dcfce7;
+  padding: 1.5rem;
 }
 
 .search-filter-container:hover {
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  border-color: #d1d5db;
+  box-shadow: 0 4px 20px rgba(22, 163, 74, 0.1);
+  border-color: #86efac;
 }
 
 .search-filter-container .el-row {
@@ -584,9 +591,9 @@ watch(
 
 .search-filter-container .el-input__inner,
 .search-filter-container .el-select .el-input__inner {
-  height: 2.5rem;
-  border-radius: 0.5rem;
-  border: 1px solid #e5e7eb;
+  height: 2.75rem;
+  border-radius: 0.75rem;
+  border: 1px solid #dcfce7;
   transition: all 0.3s ease;
   font-size: 0.875rem;
   padding: 0 1rem;
@@ -594,13 +601,13 @@ watch(
 
 .search-filter-container .el-input__inner:hover,
 .search-filter-container .el-select .el-input__inner:hover {
-  border-color: #3b82f6;
+  border-color: #16a34a;
 }
 
 .search-filter-container .el-input__inner:focus,
 .search-filter-container .el-select .el-input__inner:focus {
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+  border-color: #16a34a;
+  box-shadow: 0 0 0 2px rgba(22, 163, 74, 0.1);
 }
 
 .search-filter-container .el-input__prefix {
@@ -612,14 +619,31 @@ watch(
 }
 
 .pagination-container {
-  margin-top: 1rem;
-  padding-top: 1rem;
-  border-top: 1px solid #e5e7eb;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #dcfce7;
+}
+
+.el-pagination {
+  --el-pagination-button-bg-color: white;
+  --el-pagination-hover-color: #16a34a;
+  --el-pagination-button-color: #374151;
+  --el-pagination-button-disabled-bg-color: white;
+  --el-pagination-button-disabled-color: #9ca3af;
+}
+
+.el-pagination .el-pager li:not(.is-disabled).is-active {
+  background-color: #16a34a;
+  color: white;
+}
+
+.el-pagination .el-pager li:not(.is-disabled):hover {
+  color: #16a34a;
 }
 
 .project-card {
   transition: all 0.3s ease;
-  margin-bottom: 20px !important; /* 强制覆盖其他样式 */
+  margin-bottom: 20px !important;
   border-radius: 1rem;
   overflow: hidden;
   background-color: #ffffff;
@@ -628,13 +652,14 @@ watch(
   flex-direction: column;
   cursor: pointer;
   animation: fadeInUp 0.5s ease-out;
-  border: 1px solid #e5e7eb;
-  height: auto !important; /* 取消固定高度，改为自适应 */
+  border: 1px solid #dcfce7;
+  height: auto !important;
 }
 
 .project-card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 8px 24px rgba(22, 163, 74, 0.15);
+  border-color: #86efac;
 }
 
 .project-card:hover .project-image img {

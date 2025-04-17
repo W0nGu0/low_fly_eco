@@ -89,7 +89,11 @@
                 </div>
                 
                 <div class="order-price text-right">
-                  <div class="price-amount text-lg font-bold text-blue-600 mb-2">¥{{ order.amount }}</div>
+                  <div class="price-amount">
+                    <span class="currency">¥</span>
+                    <span class="amount">{{ order.amount }}</span>
+                    <span class="unit">{{ order.amount > 1 ? '元' : '元' }}</span>
+                  </div>
                   <div class="order-actions">
                     <el-button 
                       type="primary" 
@@ -546,7 +550,7 @@ onMounted(() => {
 }
 
 h1 {
-  color: #166534;
+  color: #15803d;
   font-size: 2rem;
   font-weight: 600;
   margin-bottom: 2rem;
@@ -556,7 +560,7 @@ h1 {
 .filters {
   background-color: white;
   border-radius: 1rem;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
   padding: 1.5rem;
   margin-bottom: 2rem;
   display: flex;
@@ -564,36 +568,40 @@ h1 {
   gap: 1rem;
   animation: fadeInUp 0.5s ease-out;
   transition: all 0.3s ease;
+  border: 1px solid #86efac;
 }
 
 .filters:hover {
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 20px rgba(22, 163, 74, 0.2);
+  border-color: #4ade80;
 }
 
 .order-card {
   background-color: white;
   border-radius: 1rem;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
   margin-bottom: 1.5rem;
   transition: all 0.3s ease;
   animation: fadeIn 0.5s ease-out;
+  border: 1px solid #86efac;
 }
 
 .order-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 20px rgba(22, 163, 74, 0.2);
+  border-color: #4ade80;
 }
 
 .order-header {
   padding: 1rem 1.5rem;
-  border-bottom: 1px solid #dcfce7;
+  border-bottom: 1px solid #86efac;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 .order-basic {
-  color: #374151;
+  color: #1f2937;
   font-size: 0.9rem;
 }
 
@@ -614,13 +622,15 @@ h1 {
   height: 120px;
   object-fit: cover;
   border-radius: 0.5rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   transition: all 0.3s ease;
+  border: 2px solid #86efac;
 }
 
 .order-project-image img:hover {
   transform: scale(1.05);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 12px rgba(22, 163, 74, 0.25);
+  border-color: #4ade80;
 }
 
 .order-details {
@@ -628,7 +638,7 @@ h1 {
 }
 
 .order-details h3 {
-  color: #166534;
+  color: #15803d;
   font-size: 1.25rem;
   font-weight: 600;
   margin-bottom: 1rem;
@@ -638,7 +648,7 @@ h1 {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
-  color: #374151;
+  color: #1f2937;
 }
 
 .info-item {
@@ -648,25 +658,50 @@ h1 {
 }
 
 .info-item i {
-  color: #16a34a;
+  color: #15803d;
 }
 
 .order-price {
-  text-align: right;
-  min-width: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  min-width: 120px;
 }
 
 .price-amount {
-  color: #16a34a;
+  color: #15803d;
   font-size: 1.5rem;
   font-weight: 600;
   margin-bottom: 1rem;
+  display: flex;
+  align-items: baseline;
+  gap: 0.25rem;
 }
 
-.order-actions {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+.price-amount .currency {
+  color: #15803d;
+  font-size: 1rem;
+}
+
+.price-amount .amount {
+  color: #15803d;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.price-amount .unit {
+  color: #4b5563;
+  font-size: 0.875rem;
+  margin-left: 0.25rem;
+}
+
+.order-price .order-actions {
+  width: 100%;
+}
+
+.order-actions .el-button + .el-button {
+  margin-left: 0;
+  margin-top: 0.5rem;
 }
 
 .order-actions .el-button {
@@ -674,61 +709,62 @@ h1 {
   border-radius: 0.5rem;
   font-weight: 500;
   transition: all 0.3s ease;
+  margin: 0;
 }
 
 .order-actions .el-button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(22, 163, 74, 0.2);
+  box-shadow: 0 4px 12px rgba(22, 163, 74, 0.25);
 }
 
 .el-button--primary {
-  background-color: #16a34a;
-  border-color: #16a34a;
+  background-color: #15803d;
+  border-color: #15803d;
 }
 
 .el-button--primary:hover {
-  background-color: #15803d;
-  border-color: #15803d;
+  background-color: #166534;
+  border-color: #166534;
 }
 
 .el-button--success {
-  background-color: #16a34a;
-  border-color: #16a34a;
-}
-
-.el-button--success:hover {
   background-color: #15803d;
   border-color: #15803d;
 }
 
+.el-button--success:hover {
+  background-color: #166534;
+  border-color: #166534;
+}
+
 .el-button--danger {
-  background-color: #ef4444;
-  border-color: #ef4444;
+  background-color: #b91c1c;
+  border-color: #b91c1c;
 }
 
 .el-button--danger:hover {
-  background-color: #dc2626;
-  border-color: #dc2626;
+  background-color: #991b1b;
+  border-color: #991b1b;
 }
 
 .el-button--warning {
-  background-color: #f59e0b;
-  border-color: #f59e0b;
-}
-
-.el-button--warning:hover {
   background-color: #d97706;
   border-color: #d97706;
 }
 
+.el-button--warning:hover {
+  background-color: #b45309;
+  border-color: #b45309;
+}
+
 .el-button--info {
-  background-color: #6b7280;
-  border-color: #6b7280;
+  background-color: #4b5563;
+  border-color: #4b5563;
 }
 
 .el-button--info:hover {
-  background-color: #4b5563;
-  border-color: #4b5563;
+  background-color: #374151;
+  border-color: #374151;
 }
 
 .pagination-container {
@@ -739,19 +775,19 @@ h1 {
 
 .el-pagination {
   --el-pagination-button-bg-color: white;
-  --el-pagination-hover-color: #16a34a;
-  --el-pagination-button-color: #374151;
+  --el-pagination-hover-color: #15803d;
+  --el-pagination-button-color: #1f2937;
   --el-pagination-button-disabled-bg-color: white;
-  --el-pagination-button-disabled-color: #9ca3af;
+  --el-pagination-button-disabled-color: #6b7280;
 }
 
 .el-pagination .el-pager li:not(.is-disabled).is-active {
-  background-color: #16a34a;
+  background-color: #15803d;
   color: white;
 }
 
 .el-pagination .el-pager li:not(.is-disabled):hover {
-  color: #16a34a;
+  color: #15803d;
 }
 
 @keyframes fadeIn {
@@ -792,6 +828,7 @@ h1 {
   
   .filters {
     flex-direction: column;
+    padding: 1rem;
   }
   
   .order-content {
