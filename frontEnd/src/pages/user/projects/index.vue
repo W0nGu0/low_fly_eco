@@ -426,10 +426,9 @@ watch(
 
 <style scoped>
 .project-image {
-  height: 240px;
+  height: 200px; /* 固定图片高度 */
   position: relative;
   overflow: hidden;
-  border-radius: 1rem 1rem 0 0;
 }
 
 .project-image img {
@@ -470,43 +469,36 @@ watch(
 }
 
 .project-info {
-  padding: 1rem;
+  padding: 12px;
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
-  gap: 0.5rem;
+  gap: 8px;
 }
 
 .project-name {
-  font-size: 1.25rem;
+  font-size: 16px;
   font-weight: 600;
-  color: #1f2937;
-  line-height: 1.4;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
   margin: 0;
+  line-height: 1.4;
 }
 
 .project-brief {
-  color: #4b5563;
-  font-size: 0.875rem;
-  line-height: 1.5;
-  height: 2.625rem;
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
+  color: #666;
+  font-size: 14px;
   margin: 0;
+  line-height: 1.4;
+  -webkit-line-clamp: 2;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .project-meta {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid #e5e7eb;
-  margin: 0;
+  gap: 12px;
+  margin: 4px 0;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #eee;
 }
 
 .meta-item {
@@ -515,6 +507,7 @@ watch(
   gap: 0.5rem;
   color: #6b7280;
   font-size: 0.875rem;
+  padding: 0.25rem 0; /* 减小元信息项的内边距 */
 }
 
 .meta-item i {
@@ -526,7 +519,7 @@ watch(
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 0.25rem;
+  margin-top: 8px;
 }
 
 .project-price {
@@ -626,17 +619,17 @@ watch(
 
 .project-card {
   transition: all 0.3s ease;
-  margin-bottom: 3rem;
+  margin-bottom: 20px !important; /* 强制覆盖其他样式 */
   border-radius: 1rem;
   overflow: hidden;
   background-color: #ffffff;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
-  height: 100%;
   display: flex;
   flex-direction: column;
   cursor: pointer;
   animation: fadeInUp 0.5s ease-out;
   border: 1px solid #e5e7eb;
+  height: auto !important; /* 取消固定高度，改为自适应 */
 }
 
 .project-card:hover {
@@ -653,7 +646,7 @@ watch(
 }
 
 .el-row {
-  margin-bottom: -3rem;
+  margin-bottom: -20px !important; /* 与卡片的margin-bottom保持一致 */
 }
 
 @media (max-width: 768px) {
@@ -667,7 +660,7 @@ watch(
   }
   
   .project-card {
-    margin-bottom: 2.5rem;
+    margin-bottom: 15px !important;
   }
   
   .project-info {
@@ -689,7 +682,11 @@ watch(
   }
   
   .el-row {
-    margin-bottom: -2.5rem;
+    margin-bottom: -15px !important;
+  }
+  
+  .project-image {
+    height: 180px;
   }
 }
 
