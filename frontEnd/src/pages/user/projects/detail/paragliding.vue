@@ -232,11 +232,17 @@ function handleBooking() {
     return;
   }
   
-  // 创建预订信息
+  // 创建预订信息，使用正确的日期格式
+  const formattedDate = bookingDate.value.toLocaleDateString('zh-CN', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit'
+  }).replace(/\//g, '-');
+
   const bookingInfo = {
-    projectId: 1,
+    projectId: 4,
     projectName: '悬崖滑翔伞体验',
-    date: bookingDate.value.toISOString().split('T')[0],
+    date: formattedDate,
     price: 1580,
     participants: participants.value,
     totalPrice: 1580 * participants.value,
@@ -248,9 +254,15 @@ function handleBooking() {
   // 显示成功消息
   ElMessage.success('预订信息已保存，正在跳转到预订页面...');
   
-  // 跳转到预订页面
+  // 跳转到预订页面，使用正确格式的日期
   setTimeout(() => {
-    router.push(`/user/booking/1?date=${bookingInfo.date}&participants=${participants.value}`);
+    router.push({
+      path: `/user/booking/4`,
+      query: {
+        date: formattedDate,
+        participants: participants.value
+      }
+    });
   }, 1500);
 }
 </script>

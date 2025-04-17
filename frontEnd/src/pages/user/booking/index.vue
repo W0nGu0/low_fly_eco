@@ -323,14 +323,14 @@ const orderNumber = ref('')
 // 项目信息（实际开发中应该从API获取）
 const project = reactive({
   id: props.id,
-  name: '城市热气球观光之旅',
-  description: '乘坐热气球，俯瞰整座城市的美景，体验自由飞翔的感觉',
-  coverImage: '/src/assets/images/projects/hot-air-balloon.jpg',
-  location: '北京市朝阳区奥林匹克公园',
-  duration: 60,
-  price: 688,
-  weekendPrice: 888,
-  holidayPrice: 1088
+  name: '',
+  description: '',
+  coverImage: '',
+  location: '',
+  duration: 0,
+  price: 0,
+  weekendPrice: 0,
+  holidayPrice: 0
 })
 
 // 预约信息
@@ -570,7 +570,7 @@ function goBack() {
 
 // 提交预约
 async function submitBooking() {
-  submitting.value = true
+  submitting.value = true;
   
   try {
     // 准备预约数据
@@ -591,25 +591,31 @@ async function submitBooking() {
         age: p.age,
         specialNeeds: p.specialNeeds || ''
       }))
-    }
-    
-    // 调用创建订单API
-    // 实际开发中应该调用API创建订单
-    // const result = await orderStore.createOrder(bookingData)
+    };
     
     // 模拟API调用
-    await new Promise(resolve => setTimeout(resolve, 1000))
+    await new Promise(resolve => setTimeout(resolve, 1000));
     
     // 生成模拟订单号
-    orderNumber.value = 'ORD' + Date.now().toString().slice(-8) + Math.floor(Math.random() * 1000)
+    orderNumber.value = 'ORD' + Date.now().toString().slice(-8) + Math.floor(Math.random() * 1000);
+    
+    // 存储订单信息到本地存储，供支付页面使用
+    const orderInfo = {
+      orderNumber: orderNumber.value,
+      projectName: project.name,
+      bookingTime: `${formatDate(bookingDate.value)} ${getTimeSlotText()}`,
+      peopleCount: peopleCount.value,
+      amount: totalPrice.value
+    };
+    localStorage.setItem('currentOrder', JSON.stringify(orderInfo));
     
     // 显示成功对话框
-    showSuccessDialog.value = true
+    showSuccessDialog.value = true;
     
   } catch (error) {
-    ElMessage.error(error.message || '提交预约失败，请稍后重试')
+    ElMessage.error(error.message || '提交预约失败，请稍后重试');
   } finally {
-    submitting.value = false
+    submitting.value = false;
   }
 }
 
@@ -643,19 +649,113 @@ function showPrivacy() {
   )
 }
 
+// 加载项目详情
+async function loadProjectDetails(projectId) {
+  try {
+    // 这里模拟从API获取数据
+    // 实际开发中应该调用后端API
+    const projectsData = {
+      '1': {
+        name: '城市热气球观光之旅',
+        description: '乘坐热气球，俯瞰整座城市的美景，体验自由飞翔的感觉',
+        coverImage: '/src/assets/images/projects/hot-air-balloon.jpg',
+        location: '北京市朝阳区奥林匹克公园',
+        duration: 60,
+        price: 688,
+        weekendPrice: 888,
+        holidayPrice: 1088
+      },
+      '2': {
+        name: '直升机空中游览',
+        description: '乘坐直升机，360度全方位欣赏城市景观',
+        coverImage: '/src/assets/images/projects/helicopter.jpg',
+        location: '北京市顺义区首都机场',
+        duration: 30,
+        price: 1280,
+        weekendPrice: 1480,
+        holidayPrice: 1680
+      },
+      '3': {
+        name: '专业无人机体验',
+        description: '体验专业无人机操控，拍摄航拍视频',
+        coverImage: '/src/assets/images/projects/drone.jpg',
+        location: '北京市海淀区奥林匹克森林公园',
+        duration: 120,
+        price: 399,
+        weekendPrice: 499,
+        holidayPrice: 599
+      },
+      '4': {
+        name: '悬崖滑翔伞体验',
+        description: '体验滑翔伞飞行的自由与刺激',
+        coverImage: '/src/assets/images/projects/paragliding.jpg',
+        location: '北京市怀柔区喇叭沟门满族乡',
+        duration: 45,
+        price: 1580,
+        weekendPrice: 1780,
+        holidayPrice: 1980
+      },
+      '5': {
+        name: '山地动力伞飞行',
+        description: '体验动力伞飞行的刺激与快感',
+        coverImage: '/src/assets/images/projects/powered-paragliding.jpg',
+        location: '北京市怀柔区喇叭沟门满族乡',
+        duration: 45,
+        price: 1580,
+        weekendPrice: 1780,
+        holidayPrice: 1980
+      },
+      '6': {
+        name: '高空跳伞体验',
+        description: '专业教练陪同，体验高空跳伞的极限运动',
+        coverImage: '/src/assets/images/projects/skydiving.jpg',
+        location: '北京市顺义区空军跳伞基地',
+        duration: 120,
+        price: 2980,
+        weekendPrice: 3280,
+        holidayPrice: 3580
+      }
+    }
+
+    const projectData = projectsData[projectId]
+    if (projectData) {
+      Object.assign(project, projectData)
+    } else {
+      ElMessage.error('项目不存在')
+      router.push('/user/projects')
+    }
+  } catch (error) {
+    console.error('加载项目详情失败:', error)
+    ElMessage.error('加载项目详情失败')
+  }
+}
+
 // 生命周期钩子
 onMounted(() => {
-  // 从URL参数中获取预选的日期
-  const dateParam = route.query.date
+  // 从URL参数中获取预选的日期和人数
+  const dateParam = route.query.date;
+  const participantsParam = route.query.participants;
+  
   if (dateParam) {
-    bookingDate.value = new Date(dateParam)
-    loadTimeSlots()
+    // 将日期字符串转换为Date对象
+    const [year, month, day] = dateParam.split('-');
+    bookingDate.value = new Date(year, month - 1, day);
+    loadTimeSlots();
+  }
+  
+  if (participantsParam) {
+    peopleCount.value = parseInt(participantsParam);
+    // 初始化参与者列表
+    while (participants.length < peopleCount.value) {
+      addParticipant();
+    }
+    // 重新计算价格
+    calculatePrice();
   }
   
   // 加载项目详情
-  // 实际开发中应该调用API获取项目详情
-  // loadProjectDetails(props.id)
-})
+  loadProjectDetails(props.id);
+});
 </script>
 
 <style scoped>
@@ -784,16 +884,52 @@ onMounted(() => {
   margin-top: 1rem;
 }
 
-.time-slot-button {
-  background-color: white;
-  border-radius: 0.5rem;
-  padding: 1rem;
+.time-slot-grid .el-radio-button__inner {
+  width: 100%;
+  height: 100%;
+  padding: 12px 8px;
+  white-space: normal;
   text-align: center;
+  border: 1px solid #86efac;
   transition: all 0.3s ease;
 }
 
-.time-slot-button:hover {
+.time-slot-grid .el-radio-button__inner:hover {
   background-color: #f0fdf4;
+}
+
+.time-slot-grid .el-radio-button__original-radio:checked + .el-radio-button__inner {
+  background-color: #15803d;
+  border-color: #15803d;
+  box-shadow: none;
+}
+
+.time-slot-grid .el-radio-button:first-child .el-radio-button__inner,
+.time-slot-grid .el-radio-button:last-child .el-radio-button__inner {
+  border-radius: 0.5rem;
+}
+
+.time-slot-grid .el-radio-button__inner:hover {
+  color: #15803d;
+}
+
+.time-slot-grid .el-radio-button__original-radio:checked + .el-radio-button__inner:hover {
+  color: white;
+}
+
+.time-slot-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.time-range {
+  font-weight: 500;
+}
+
+.availability-tag {
+  margin-top: 4px;
 }
 
 .price-summary {

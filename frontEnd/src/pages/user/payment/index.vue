@@ -121,7 +121,7 @@
       class="animate__animated animate__zoomIn">
       <div class="qrcode-content text-center">
         <div class="qrcode-image bg-gray-100 w-64 h-64 mx-auto mb-4 flex justify-center items-center rounded-lg shadow-sm">
-          <img src="/src/assets/images/payment/qrcode-alipay.png" alt="支付宝二维码" class="w-56 h-56">
+          <img src="/src/assets/images/payment/qrcode-2.jpg" alt="支付宝二维码" class="w-56 h-56">
         </div>
         <p class="text-gray-500 mb-2">请使用支付宝扫一扫</p>
         <p class="text-gray-400 text-sm">扫描二维码完成支付</p>
@@ -226,13 +226,13 @@ const cardRules = {
   ]
 }
 
-// 订单信息(实际应从API获取)
+// 订单信息(从localStorage获取)
 const orderInfo = reactive({
-  orderNumber: props.orderId,
-  projectName: '城市热气球观光之旅',
-  bookingTime: '2023-08-15 10:00-11:00',
-  peopleCount: 2,
-  amount: 1376
+  orderNumber: '',
+  projectName: '',
+  bookingTime: '',
+  peopleCount: 0,
+  amount: 0
 })
 
 // 格式化剩余时间
@@ -398,9 +398,12 @@ function goToHome() {
 
 // 生命周期钩子
 onMounted(() => {
-  // 加载订单详情
-  // 实际开发中应该调用API获取订单详情
-  // loadOrderDetails(props.orderId)
+  // 从localStorage获取订单信息
+  const savedOrder = localStorage.getItem('currentOrder')
+  if (savedOrder) {
+    const orderData = JSON.parse(savedOrder)
+    Object.assign(orderInfo, orderData)
+  }
   
   // 启动支付倒计时
   startTimer()
