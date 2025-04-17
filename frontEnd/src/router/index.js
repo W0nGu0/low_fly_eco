@@ -26,7 +26,7 @@ const routes = [
   {
     // 根路径重定向到用户首页
     path: '/',
-    redirect: '/user/home'
+    redirect: '/auth/login'
   },
   {
     // 用户相关路由
@@ -103,26 +103,26 @@ const routes = [
         path: 'payment/:orderId',
         name: 'Payment',
         component: () => import('../pages/user/payment/index.vue'),
-        meta: { title: '支付', requiresAuth: true },
+        meta: { title: '支付', requiresAuth: false },
         props: true
       },
       {
         path: 'profile',
         name: 'UserProfile',
         component: () => import('../pages/user/profile/index.vue'),
-        meta: { title: '个人信息', requiresAuth: true }
+        meta: { title: '个人信息', requiresAuth: false }
       },
       {
         path: 'orders',
         name: 'UserOrders',
         component: () => import('../pages/user/orders/index.vue'),
-        meta: { title: '我的订单', requiresAuth: true }
+        meta: { title: '我的订单', requiresAuth: false }
       },
       {
         path: 'feedback',
         name: 'UserFeedback',
         component: () => import('../pages/user/feedback/index.vue'),
-        meta: { title: '评价反馈', requiresAuth: true }
+        meta: { title: '评价反馈', requiresAuth: false }
       }
     ]
   },

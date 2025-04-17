@@ -1,10 +1,10 @@
 <template>
-  <div class="projects-page">
+  <div class="projects-page bg-gray-50 min-h-screen">
     <div class="container mx-auto px-4 py-8">
-      <h1 class="text-3xl font-bold mb-8">飞行体验项目</h1>
+      <h1 class="text-3xl font-bold mb-8 text-gray-800 animate__animated animate__fadeInDown">飞行体验项目</h1>
       
       <!-- 搜索和筛选区域 -->
-      <div class="search-filter-container card mb-8 p-6">
+      <div class="search-filter-container card mb-8 p-6 rounded-xl shadow-sm bg-white animate__animated animate__fadeInUp">
         <el-row :gutter="20">
           <el-col :xs="24" :md="6">
             <el-input
@@ -13,6 +13,7 @@
               prefix-icon="el-icon-search"
               clearable
               @input="handleSearch"
+              class="rounded-lg"
             />
           </el-col>
           <el-col :xs="24" :md="6">
@@ -22,6 +23,7 @@
               style="width: 100%"
               clearable
               @change="handleFilter"
+              class="rounded-lg"
             >
               <el-option
                 v-for="category in categories"
@@ -38,6 +40,7 @@
               style="width: 100%"
               clearable
               @change="handleFilter"
+              class="rounded-lg"
             >
               <el-option label="0-500元" value="0-500" />
               <el-option label="500-1000元" value="500-1000" />
@@ -51,6 +54,7 @@
               placeholder="排序方式"
               style="width: 100%"
               @change="handleSort"
+              class="rounded-lg"
             >
               <el-option label="推荐排序" value="recommended" />
               <el-option label="价格从低到高" value="price-asc" />
@@ -64,67 +68,70 @@
       
       <!-- 项目列表 -->
       <div class="projects-list">
-        <el-row :gutter="30">
+        <el-empty v-if="filteredProjects.length === 0" description="暂无符合条件的项目" class="py-12 animate__animated animate__fadeIn">
+          <el-button type="primary" @click="resetFilters">重置筛选条件</el-button>
+        </el-empty>
+        
+        <el-row :gutter="30" v-else>
           <el-col :xs="24" :sm="12" :lg="8" v-for="(project, index) in filteredProjects" :key="project.id">
-            <div class="project-card card mb-6 cursor-pointer" @click="goToDetail(project.id)">
-              <div class="project-image">
-                <img :src="getImageUrl(project.coverImage)" :alt="project.name" class="w-full h-full object-cover">
-                <div class="project-category-tag">{{ getCategoryName(project.categoryId) }}</div>
+            <div class="project-card card mb-6 rounded-xl shadow-sm bg-white hover:shadow-lg transition-all duration-300 cursor-pointer animate__animated animate__fadeInUp" 
+                 :style="{ animationDelay: `${index * 0.1}s` }" 
+                 @click="goToDetail(project.id)">
+              <div class="project-image relative overflow-hidden rounded-t-xl">
+                <img :src="getImageUrl(project.coverImage)" :alt="project.name" class="w-full h-48 object-cover transform hover:scale-105 transition-transform duration-500">
+                <div class="project-category-tag absolute top-3 left-3 bg-blue-500 text-white px-3 py-1 rounded-full text-sm font-medium shadow-md">
+                  {{ getCategoryName(project.categoryId) }}
+                </div>
+                <div class="project-rating absolute top-3 right-3 bg-white bg-opacity-90 px-2 py-1 rounded-full text-sm font-medium flex items-center shadow-md">
+                  <i class="el-icon-star-on text-yellow-500 mr-1"></i>
+                  <span>{{ project.rating }}</span>
+                </div>
               </div>
               <div class="project-info p-5">
-                <h3 class="project-name text-xl font-bold mb-2">{{ project.name }}</h3>
+                <h3 class="project-name text-xl font-bold mb-2 text-gray-800">{{ project.name }}</h3>
                 <p class="project-brief text-gray-600 mb-3 line-clamp-2">{{ project.brief }}</p>
                 <div class="project-meta flex flex-wrap gap-4 mb-3">
-                  <div class="meta-item flex items-center">
-                    <i class="el-icon-location"></i>
-                    <span class="ml-1">{{ project.location }}</span>
+                  <div class="meta-item flex items-center text-gray-500">
+                    <i class="el-icon-location text-blue-500 mr-1"></i>
+                    <span>{{ project.location }}</span>
                   </div>
-                  <div class="meta-item flex items-center">
-                    <i class="el-icon-time"></i>
-                    <span class="ml-1">{{ project.duration }}分钟</span>
+                  <div class="meta-item flex items-center text-gray-500">
+                    <i class="el-icon-time text-blue-500 mr-1"></i>
+                    <span>{{ project.duration }}分钟</span>
                   </div>
                 </div>
-                <div class="project-footer flex justify-between items-center">
+                <div class="project-footer flex justify-between items-center pt-3 border-t border-gray-100">
                   <div class="project-price">
                     <span class="text-gray-500">¥</span>
-                    <span class="text-2xl font-bold text-primary">{{ project.price }}</span>
+                    <span class="text-2xl font-bold text-blue-500">{{ project.price }}</span>
                     <span class="text-gray-500 text-sm">起</span>
                   </div>
-                  <div class="project-rating flex items-center">
-                    <span class="mr-1 text-warning">{{ project.rating }}</span>
-                    <el-rate
-                      v-model="project.rating"
-                      disabled
-                      :colors="rateColors"
-                      text-color="#ff9900"
-                      :score-template="project.rating"
-                    >
-                    </el-rate>
-                    <span class="ml-1 text-gray-500 text-sm">({{ project.reviewCount }})</span>
-                  </div>
+                  <el-button
+                    type="primary"
+                    size="small"
+                    class="bg-blue-500 hover:bg-blue-600 transition-colors"
+                    @click.stop="goToDetail(project.id)"
+                  >
+                    查看详情
+                  </el-button>
                 </div>
               </div>
             </div>
           </el-col>
         </el-row>
-        
-        <!-- 空状态 -->
-        <div v-if="filteredProjects.length === 0" class="empty-state text-center py-12">
-          <el-empty description="暂无符合条件的项目"></el-empty>
-        </div>
       </div>
       
       <!-- 分页 -->
-      <div class="pagination flex justify-center mt-8">
+      <div class="pagination-container flex justify-center mt-8 animate__animated animate__fadeInUp">
         <el-pagination
-          background
-          layout="prev, pager, next"
+          v-model:current-page="currentPage"
+          v-model:page-size="pageSize"
+          :page-sizes="[9, 18, 36, 72]"
+          layout="total, sizes, prev, pager, next, jumper"
           :total="totalProjects"
-          :page-size="pageSize"
-          :current-page="currentPage"
-          @current-change="handlePageChange"
-        >
-        </el-pagination>
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+        />
       </div>
     </div>
   </div>

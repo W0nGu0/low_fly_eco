@@ -1,10 +1,10 @@
 <template>
-  <div class="orders-page">
+  <div class="orders-page bg-gray-50 min-h-screen">
     <div class="container mx-auto px-4 py-8">
-      <h1 class="text-2xl font-bold mb-6">我的订单</h1>
+      <h1 class="text-3xl font-bold mb-8 text-gray-800 animate__animated animate__fadeInDown">我的订单</h1>
       
       <!-- 订单筛选 -->
-      <div class="filters mb-6 flex flex-wrap gap-4">
+      <div class="filters mb-8 flex flex-wrap gap-4 bg-white p-6 rounded-xl shadow-sm animate__animated animate__fadeInUp">
         <el-select v-model="statusFilter" placeholder="订单状态" class="w-36">
           <el-option label="全部订单" value=""></el-option>
           <el-option label="待支付" value="pending"></el-option>
@@ -36,277 +36,130 @@
           </template>
         </el-input>
         
-        <el-button type="primary" @click="searchOrders">搜索</el-button>
-        <el-button @click="resetFilters">重置</el-button>
+        <el-button type="primary" @click="searchOrders" class="bg-blue-500 hover:bg-blue-600 transition-colors">搜索</el-button>
+        <el-button @click="resetFilters" class="hover:bg-gray-100 transition-colors">重置</el-button>
       </div>
       
       <!-- 订单列表 -->
       <div class="orders-list mb-8">
-        <el-card v-for="order in filteredOrders" :key="order.id" class="mb-4" shadow="hover">
-          <div class="order-item">
-            <div class="order-header flex justify-between items-center mb-4 pb-3 border-b">
-              <div class="order-basic">
-                <span class="order-id text-gray-500 mr-3">订单号: {{ order.orderNumber }}</span>
-                <span class="order-date text-gray-500">下单时间: {{ order.createTime }}</span>
-              </div>
-              <div class="order-status">
-                <el-tag :type="getStatusTagType(order.status)">{{ getStatusText(order.status) }}</el-tag>
-              </div>
-            </div>
-            
-            <div class="order-content flex mb-4">
-              <div class="order-project-image mr-4 hidden sm:block">
-                <img :src="order.projectImage" alt="项目图片" class="w-24 h-24 object-cover rounded-md">
-              </div>
-              
-              <div class="order-details flex-1">
-                <h3 class="text-lg font-medium mb-2">{{ order.projectName }}</h3>
-                <div class="order-info text-sm text-gray-500 grid grid-cols-1 md:grid-cols-2 gap-2">
-                  <div class="info-item">预约时间: {{ order.bookingTime }}</div>
-                  <div class="info-item">参与人数: {{ order.peopleCount }}人</div>
-                  <div class="info-item">联系人: {{ order.contactName }}</div>
-                  <div class="info-item">联系电话: {{ order.contactPhone }}</div>
-                </div>
-              </div>
-              
-              <div class="order-price text-right">
-                <div class="price-amount text-lg font-bold text-primary mb-2">¥{{ order.amount }}</div>
-                <div class="order-actions">
-                  <el-button 
-                    type="primary" 
-                    size="small" 
-                    @click="viewOrderDetail(order.id)"
-                    class="mb-2 w-full">
-                    查看详情
-                  </el-button>
-                  
-                  <!-- 待支付状态显示去支付按钮 -->
-                  <el-button 
-                    v-if="order.status === 'pending'" 
-                    type="success" 
-                    size="small" 
-                    @click="goToPay(order.id)"
-                    class="mb-2 w-full">
-                    去支付
-                  </el-button>
-                  
-                  <!-- 待体验状态显示取消订单按钮 -->
-                  <el-button 
-                    v-if="order.status === 'booked'" 
-                    type="danger" 
-                    size="small" 
-                    @click="cancelOrder(order.id)"
-                    class="mb-2 w-full">
-                    取消订单
-                  </el-button>
-                  
-                  <!-- 已完成状态显示评价按钮 -->
-                  <el-button 
-                    v-if="order.status === 'completed' && !order.hasReview" 
-                    type="warning" 
-                    size="small" 
-                    @click="goToReview(order.id)"
-                    class="mb-2 w-full">
-                    去评价
-                  </el-button>
-                  
-                  <!-- 已完成状态显示查看凭证按钮 -->
-                  <el-button 
-                    v-if="['booked', 'completed'].includes(order.status)" 
-                    size="small" 
-                    @click="viewVoucher(order.id)"
-                    class="w-full">
-                    查看凭证
-                  </el-button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </el-card>
-        
-        <!-- 空状态 -->
-        <el-empty 
-          v-if="filteredOrders.length === 0" 
-          description="暂无订单数据">
+        <el-empty v-if="filteredOrders.length === 0" description="暂无订单" class="py-12">
+          <el-button type="primary" @click="goToProjects">去体验</el-button>
         </el-empty>
+        
+        <div v-else class="grid gap-6">
+          <el-card v-for="(order, index) in filteredOrders" :key="order.id" 
+            class="order-card hover:shadow-lg transition-shadow duration-300 animate__animated animate__fadeIn"
+            :style="{ animationDelay: `${index * 0.1}s` }">
+            <div class="order-item">
+              <div class="order-header flex justify-between items-center mb-4 pb-3 border-b">
+                <div class="order-basic">
+                  <span class="order-id text-gray-500 mr-3">订单号: {{ order.orderNumber }}</span>
+                  <span class="order-date text-gray-500">下单时间: {{ order.createTime }}</span>
+                </div>
+                <div class="order-status">
+                  <el-tag :type="getStatusTagType(order.status)" class="px-3 py-1">{{ getStatusText(order.status) }}</el-tag>
+                </div>
+              </div>
+              
+              <div class="order-content flex mb-4">
+                <div class="order-project-image mr-4 hidden sm:block">
+                  <img :src="order.projectImage" alt="项目图片" class="w-24 h-24 object-cover rounded-md shadow-sm">
+                </div>
+                
+                <div class="order-details flex-1">
+                  <h3 class="text-lg font-medium mb-2 text-gray-800">{{ order.projectName }}</h3>
+                  <div class="order-info text-sm text-gray-500 grid grid-cols-1 md:grid-cols-2 gap-2">
+                    <div class="info-item flex items-center">
+                      <i class="el-icon-time mr-1"></i>
+                      <span>预约时间: {{ order.bookingTime }}</span>
+                    </div>
+                    <div class="info-item flex items-center">
+                      <i class="el-icon-user mr-1"></i>
+                      <span>参与人数: {{ order.peopleCount }}人</span>
+                    </div>
+                    <div class="info-item flex items-center">
+                      <i class="el-icon-user mr-1"></i>
+                      <span>联系人: {{ order.contactName }}</span>
+                    </div>
+                    <div class="info-item flex items-center">
+                      <i class="el-icon-phone mr-1"></i>
+                      <span>联系电话: {{ order.contactPhone }}</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="order-price text-right">
+                  <div class="price-amount text-lg font-bold text-blue-600 mb-2">¥{{ order.amount }}</div>
+                  <div class="order-actions">
+                    <el-button 
+                      type="primary" 
+                      size="small" 
+                      @click="viewOrderDetail(order.id)"
+                      class="mb-2 w-full bg-blue-500 hover:bg-blue-600 transition-colors">
+                      查看详情
+                    </el-button>
+                    
+                    <!-- 待支付状态显示去支付按钮 -->
+                    <el-button 
+                      v-if="order.status === 'pending'" 
+                      type="success" 
+                      size="small" 
+                      @click="goToPay(order.id)"
+                      class="mb-2 w-full bg-green-500 hover:bg-green-600 transition-colors">
+                      去支付
+                    </el-button>
+                    
+                    <!-- 待体验状态显示取消订单按钮 -->
+                    <el-button 
+                      v-if="order.status === 'booked'" 
+                      type="danger" 
+                      size="small" 
+                      @click="cancelOrder(order.id)"
+                      class="mb-2 w-full bg-red-500 hover:bg-red-600 transition-colors">
+                      取消订单
+                    </el-button>
+                    
+                    <!-- 已完成状态显示评价按钮 -->
+                    <el-button 
+                      v-if="order.status === 'completed' && !order.hasReview" 
+                      type="warning" 
+                      size="small" 
+                      @click="goToReview(order.id)"
+                      class="mb-2 w-full bg-yellow-500 hover:bg-yellow-600 transition-colors">
+                      评价
+                    </el-button>
+                    
+                    <!-- 退款中状态显示查看退款进度按钮 -->
+                    <el-button 
+                      v-if="order.status === 'refunding'" 
+                      type="info" 
+                      size="small" 
+                      @click="viewRefundProgress(order.id)"
+                      class="mb-2 w-full bg-gray-500 hover:bg-gray-600 transition-colors">
+                      退款进度
+                    </el-button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </el-card>
+        </div>
       </div>
       
       <!-- 分页 -->
-      <div class="pagination flex justify-center">
+      <div class="pagination-container flex justify-center mt-8">
         <el-pagination
-          background
-          layout="prev, pager, next"
-          :total="total"
-          :page-size="pageSize"
-          :current-page="currentPage"
-          @current-change="handlePageChange">
-        </el-pagination>
+          v-model:current-page="currentPage"
+          v-model:page-size="pageSize"
+          :page-sizes="[10, 20, 50, 100]"
+          layout="total, sizes, prev, pager, next, jumper"
+          :total="totalOrders"
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+          class="animate__animated animate__fadeInUp"
+        />
       </div>
     </div>
-    
-    <!-- 订单详情对话框 -->
-    <el-dialog
-      v-model="showOrderDetail"
-      title="订单详情"
-      width="700px">
-      <div v-if="currentOrder" class="order-detail">
-        <el-descriptions title="基本信息" :column="2" border>
-          <el-descriptions-item label="订单号">{{ currentOrder.orderNumber }}</el-descriptions-item>
-          <el-descriptions-item label="订单状态">
-            <el-tag :type="getStatusTagType(currentOrder.status)">{{ getStatusText(currentOrder.status) }}</el-tag>
-          </el-descriptions-item>
-          <el-descriptions-item label="下单时间">{{ currentOrder.createTime }}</el-descriptions-item>
-          <el-descriptions-item label="支付时间" v-if="currentOrder.payTime">{{ currentOrder.payTime }}</el-descriptions-item>
-          <el-descriptions-item label="支付方式" v-if="currentOrder.payMethod">{{ getPaymentMethodText(currentOrder.payMethod) }}</el-descriptions-item>
-          <el-descriptions-item label="订单金额">¥{{ currentOrder.amount }}</el-descriptions-item>
-        </el-descriptions>
-        
-        <el-divider />
-        
-        <el-descriptions title="项目信息" :column="1" border>
-          <el-descriptions-item label="项目名称">{{ currentOrder.projectName }}</el-descriptions-item>
-          <el-descriptions-item label="预约时间">{{ currentOrder.bookingTime }}</el-descriptions-item>
-          <el-descriptions-item label="项目地点">{{ currentOrder.location }}</el-descriptions-item>
-        </el-descriptions>
-        
-        <el-divider />
-        
-        <el-descriptions title="联系人信息" :column="2" border>
-          <el-descriptions-item label="联系人">{{ currentOrder.contactName }}</el-descriptions-item>
-          <el-descriptions-item label="联系电话">{{ currentOrder.contactPhone }}</el-descriptions-item>
-          <el-descriptions-item label="紧急联系人">{{ currentOrder.emergencyContact }}</el-descriptions-item>
-          <el-descriptions-item label="紧急联系人电话">{{ currentOrder.emergencyPhone }}</el-descriptions-item>
-        </el-descriptions>
-        
-        <el-divider />
-        
-        <h3 class="text-lg font-medium mb-3">参与者信息</h3>
-        <el-table :data="currentOrder.participants" border style="width: 100%">
-          <el-table-column prop="name" label="姓名" width="120"></el-table-column>
-          <el-table-column prop="idCard" label="身份证号" width="180"></el-table-column>
-          <el-table-column prop="age" label="年龄" width="80"></el-table-column>
-          <el-table-column prop="specialNeeds" label="特殊需求"></el-table-column>
-        </el-table>
-        
-        <template v-if="currentOrder.refundInfo">
-          <el-divider />
-          
-          <el-descriptions title="退款信息" :column="1" border>
-            <el-descriptions-item label="退款状态">
-              <el-tag :type="getRefundStatusTagType(currentOrder.refundInfo.status)">
-                {{ getRefundStatusText(currentOrder.refundInfo.status) }}
-              </el-tag>
-            </el-descriptions-item>
-            <el-descriptions-item label="申请时间">{{ currentOrder.refundInfo.applyTime }}</el-descriptions-item>
-            <el-descriptions-item label="退款金额">¥{{ currentOrder.refundInfo.amount }}</el-descriptions-item>
-            <el-descriptions-item label="退款原因">{{ currentOrder.refundInfo.reason }}</el-descriptions-item>
-            <el-descriptions-item label="处理结果" v-if="currentOrder.refundInfo.result">
-              {{ currentOrder.refundInfo.result }}
-            </el-descriptions-item>
-          </el-descriptions>
-        </template>
-      </div>
-      <template #footer>
-        <span class="dialog-footer">
-          <el-button @click="showOrderDetail = false">关闭</el-button>
-          <el-button type="primary" @click="printOrderDetail">打印订单</el-button>
-        </span>
-      </template>
-    </el-dialog>
-    
-    <!-- 电子凭证对话框 -->
-    <el-dialog
-      v-model="showVoucher"
-      title="电子凭证"
-      width="350px"
-      center>
-      <div class="voucher-content text-center">
-        <div class="voucher-header mb-4">
-          <h3 class="text-xl font-bold mb-1">低空飞行体验凭证</h3>
-          <p class="text-gray-500">请在体验时出示此凭证</p>
-        </div>
-        
-        <div class="voucher-qrcode bg-gray-100 w-64 h-64 mx-auto mb-4 flex justify-center items-center">
-          <!-- 这里放置二维码图片 -->
-          <img :src="voucherQrCode" alt="验证二维码" class="w-56 h-56">
-        </div>
-        
-        <div class="voucher-info text-left mb-4">
-          <div class="info-item mb-2 flex">
-            <span class="label text-gray-500 w-20">项目名称：</span>
-            <span class="value flex-1">{{ voucherInfo.projectName }}</span>
-          </div>
-          <div class="info-item mb-2 flex">
-            <span class="label text-gray-500 w-20">体验时间：</span>
-            <span class="value flex-1">{{ voucherInfo.bookingTime }}</span>
-          </div>
-          <div class="info-item mb-2 flex">
-            <span class="label text-gray-500 w-20">人数：</span>
-            <span class="value flex-1">{{ voucherInfo.peopleCount }}人</span>
-          </div>
-          <div class="info-item mb-2 flex">
-            <span class="label text-gray-500 w-20">联系人：</span>
-            <span class="value flex-1">{{ voucherInfo.contactName }}</span>
-          </div>
-          <div class="info-item mb-2 flex">
-            <span class="label text-gray-500 w-20">订单号：</span>
-            <span class="value flex-1 font-mono">{{ voucherInfo.orderNumber }}</span>
-          </div>
-        </div>
-        
-        <div class="voucher-tips text-xs text-gray-500 mb-3">
-          <p>凭证有效期至体验当天结束</p>
-          <p>请保管好您的凭证，避免泄露</p>
-        </div>
-      </div>
-      <template #footer>
-        <div class="dialog-footer flex justify-center gap-4">
-          <el-button @click="showVoucher = false">关闭</el-button>
-          <el-button type="primary" @click="downloadVoucher">下载凭证</el-button>
-        </div>
-      </template>
-    </el-dialog>
-    
-    <!-- 退款申请对话框 -->
-    <el-dialog
-      v-model="showRefundDialog"
-      title="申请退款"
-      width="500px">
-      <el-form ref="refundFormRef" :model="refundForm" :rules="refundRules" label-width="100px">
-        <el-form-item label="退款原因" prop="reason">
-          <el-select v-model="refundForm.reason" placeholder="请选择退款原因" style="width: 100%;">
-            <el-option label="行程变更" value="行程变更"></el-option>
-            <el-option label="临时有事" value="临时有事"></el-option>
-            <el-option label="天气原因" value="天气原因"></el-option>
-            <el-option label="其他原因" value="其他原因"></el-option>
-          </el-select>
-        </el-form-item>
-        
-        <el-form-item label="详细说明" prop="description">
-          <el-input 
-            type="textarea" 
-            v-model="refundForm.description" 
-            placeholder="请详细说明退款原因（选填）"
-            :rows="3">
-          </el-input>
-        </el-form-item>
-        
-        <el-form-item label="退款金额">
-          <div class="refund-amount">
-            <span class="text-lg font-bold text-primary">¥{{ refundForm.amount }}</span>
-            <div class="text-xs text-gray-500 mt-1">
-              根据退款政策，当前可退款金额为原支付金额的{{ refundForm.percentage }}%
-            </div>
-          </div>
-        </el-form-item>
-      </el-form>
-      <template #footer>
-        <span class="dialog-footer">
-          <el-button @click="showRefundDialog = false">取消</el-button>
-          <el-button type="primary" @click="submitRefund" :loading="submitting">提交申请</el-button>
-        </span>
-      </template>
-    </el-dialog>
   </div>
 </template>
 

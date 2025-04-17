@@ -1,64 +1,70 @@
 <template>
-  <div class="payment-page">
+  <div class="payment-page bg-gray-50 min-h-screen">
     <div class="container mx-auto px-4 py-8">
       <div class="max-w-3xl mx-auto">
         <!-- 页面标题 -->
-        <div class="page-header mb-6 flex items-center justify-between">
-          <h1 class="text-2xl font-bold">订单支付</h1>
-          <div class="payment-timer flex items-center text-gray-500" v-if="timeLeft > 0">
-            <el-icon class="mr-1"><Timer /></el-icon>
-            <span>支付剩余时间: {{ formatTime(timeLeft) }}</span>
+        <div class="page-header mb-8 flex items-center justify-between animate__animated animate__fadeInDown">
+          <h1 class="text-3xl font-bold text-gray-800">订单支付</h1>
+          <div class="payment-timer flex items-center text-gray-500 bg-white px-4 py-2 rounded-full shadow-sm" v-if="timeLeft > 0">
+            <el-icon class="mr-1 text-red-500"><Timer /></el-icon>
+            <span>支付剩余时间: <span class="text-red-500 font-medium">{{ formatTime(timeLeft) }}</span></span>
           </div>
         </div>
         
         <!-- 订单信息 -->
-        <div class="order-info card p-6 mb-6">
-          <h2 class="text-lg font-semibold mb-4">订单信息</h2>
-          <el-descriptions :column="1" border>
-            <el-descriptions-item label="订单号">{{ orderInfo.orderNumber }}</el-descriptions-item>
-            <el-descriptions-item label="项目名称">{{ orderInfo.projectName }}</el-descriptions-item>
-            <el-descriptions-item label="预约时间">{{ orderInfo.bookingTime }}</el-descriptions-item>
-            <el-descriptions-item label="参与人数">{{ orderInfo.peopleCount }}人</el-descriptions-item>
-            <el-descriptions-item label="订单金额">
-              <span class="text-lg font-bold text-primary">¥{{ orderInfo.amount }}</span>
+        <div class="order-info card p-6 mb-8 rounded-xl shadow-sm bg-white animate__animated animate__fadeInUp">
+          <h2 class="text-xl font-semibold mb-4 text-gray-800 flex items-center">
+            <i class="el-icon-document mr-2 text-blue-500"></i>
+            订单信息
+          </h2>
+          <el-descriptions :column="1" border class="border rounded-lg overflow-hidden">
+            <el-descriptions-item label="订单号" label-class-name="bg-gray-50">{{ orderInfo.orderNumber }}</el-descriptions-item>
+            <el-descriptions-item label="项目名称" label-class-name="bg-gray-50">{{ orderInfo.projectName }}</el-descriptions-item>
+            <el-descriptions-item label="预约时间" label-class-name="bg-gray-50">{{ orderInfo.bookingTime }}</el-descriptions-item>
+            <el-descriptions-item label="参与人数" label-class-name="bg-gray-50">{{ orderInfo.peopleCount }}人</el-descriptions-item>
+            <el-descriptions-item label="订单金额" label-class-name="bg-gray-50">
+              <span class="text-xl font-bold text-blue-600">¥{{ orderInfo.amount }}</span>
             </el-descriptions-item>
           </el-descriptions>
         </div>
         
         <!-- 支付方式选择 -->
-        <div class="payment-methods card p-6 mb-6">
-          <h2 class="text-lg font-semibold mb-4">选择支付方式</h2>
+        <div class="payment-methods card p-6 mb-8 rounded-xl shadow-sm bg-white animate__animated animate__fadeInUp" style="animation-delay: 0.2s">
+          <h2 class="text-xl font-semibold mb-4 text-gray-800 flex items-center">
+            <i class="el-icon-wallet mr-2 text-blue-500"></i>
+            选择支付方式
+          </h2>
           
-          <el-radio-group v-model="paymentMethod" class="payment-radio-group">
-            <div class="payment-item mb-4 p-4 border rounded-lg cursor-pointer hover:border-blue-400 transition-colors"
-                :class="{ 'border-blue-500 bg-blue-50': paymentMethod === 'wechat' }"
+          <el-radio-group v-model="paymentMethod" class="payment-radio-group w-full">
+            <div class="payment-item mb-4 p-4 border rounded-lg cursor-pointer hover:border-blue-400 transition-all duration-300 hover:shadow-md"
+                :class="{ 'border-blue-500 bg-blue-50 shadow-md': paymentMethod === 'wechat' }"
                 @click="paymentMethod = 'wechat'">
-              <el-radio label="wechat">
+              <el-radio label="wechat" class="w-full">
                 <div class="flex items-center">
                   <img src="/src/assets/images/payment/wechat-pay.png" alt="微信支付" class="payment-icon w-8 h-8 mr-2">
-                  <span class="payment-name">微信支付</span>
+                  <span class="payment-name font-medium">微信支付</span>
                 </div>
               </el-radio>
             </div>
             
-            <div class="payment-item mb-4 p-4 border rounded-lg cursor-pointer hover:border-blue-400 transition-colors"
-                :class="{ 'border-blue-500 bg-blue-50': paymentMethod === 'alipay' }"
+            <div class="payment-item mb-4 p-4 border rounded-lg cursor-pointer hover:border-blue-400 transition-all duration-300 hover:shadow-md"
+                :class="{ 'border-blue-500 bg-blue-50 shadow-md': paymentMethod === 'alipay' }"
                 @click="paymentMethod = 'alipay'">
-              <el-radio label="alipay">
+              <el-radio label="alipay" class="w-full">
                 <div class="flex items-center">
                   <img src="/src/assets/images/payment/alipay.png" alt="支付宝" class="payment-icon w-8 h-8 mr-2">
-                  <span class="payment-name">支付宝</span>
+                  <span class="payment-name font-medium">支付宝</span>
                 </div>
               </el-radio>
             </div>
             
-            <div class="payment-item p-4 border rounded-lg cursor-pointer hover:border-blue-400 transition-colors"
-                :class="{ 'border-blue-500 bg-blue-50': paymentMethod === 'credit' }"
+            <div class="payment-item p-4 border rounded-lg cursor-pointer hover:border-blue-400 transition-all duration-300 hover:shadow-md"
+                :class="{ 'border-blue-500 bg-blue-50 shadow-md': paymentMethod === 'credit' }"
                 @click="paymentMethod = 'credit'">
-              <el-radio label="credit">
+              <el-radio label="credit" class="w-full">
                 <div class="flex items-center">
                   <img src="/src/assets/images/payment/credit-card.png" alt="银行卡" class="payment-icon w-8 h-8 mr-2">
-                  <span class="payment-name">银行卡支付</span>
+                  <span class="payment-name font-medium">银行卡支付</span>
                 </div>
               </el-radio>
             </div>
@@ -66,19 +72,22 @@
         </div>
         
         <!-- 支付按钮 -->
-        <div class="payment-action mb-6">
-          <el-button type="primary" size="large" class="w-full" @click="processPay" :loading="paying" :disabled="!paymentMethod">
+        <div class="payment-action mb-8 animate__animated animate__fadeInUp" style="animation-delay: 0.4s">
+          <el-button type="primary" size="large" class="w-full py-4 text-lg font-medium bg-blue-500 hover:bg-blue-600 transition-colors" @click="processPay" :loading="paying" :disabled="!paymentMethod">
             立即支付 ¥{{ orderInfo.amount }}
           </el-button>
-          <div class="text-center mt-3">
-            <el-link type="info" @click="cancelOrder">取消订单</el-link>
+          <div class="text-center mt-4">
+            <el-link type="info" @click="cancelOrder" class="text-gray-500 hover:text-gray-700 transition-colors">取消订单</el-link>
           </div>
         </div>
         
         <!-- 支付说明 -->
-        <div class="payment-tips text-sm text-gray-500">
-          <h3 class="font-medium mb-2">温馨提示：</h3>
-          <ul class="list-disc pl-5">
+        <div class="payment-tips text-sm text-gray-500 bg-white p-6 rounded-xl shadow-sm animate__animated animate__fadeInUp" style="animation-delay: 0.6s">
+          <h3 class="font-medium mb-3 text-gray-700 flex items-center">
+            <i class="el-icon-info mr-2 text-blue-500"></i>
+            温馨提示：
+          </h3>
+          <ul class="list-disc pl-5 space-y-2">
             <li>请在15分钟内完成支付，超时订单将自动取消</li>
             <li>支付成功后，系统将为您生成电子凭证，可在"我的订单"中查看</li>
             <li>如需帮助，请联系客服电话：400-123-4567</li>
@@ -92,92 +101,59 @@
       v-model="showWechatDialog"
       title="微信支付"
       width="350px"
-      center>
+      center
+      class="animate__animated animate__zoomIn">
       <div class="qrcode-content text-center">
-        <div class="qrcode-image bg-gray-100 w-64 h-64 mx-auto mb-4 flex justify-center items-center">
+        <div class="qrcode-image bg-gray-100 w-64 h-64 mx-auto mb-4 flex justify-center items-center rounded-lg shadow-sm">
           <img src="/src/assets/images/payment/qrcode-wechat.png" alt="微信支付二维码" class="w-56 h-56">
         </div>
         <p class="text-gray-500 mb-2">请使用微信扫一扫</p>
-        <p class="text-gray-500">扫码支付 <span class="text-primary font-bold">¥{{ orderInfo.amount }}</span></p>
-        <div class="countdown-timer mt-4">
-          <el-progress :percentage="qrCodeTimerPercentage" :show-text="false"></el-progress>
-          <div class="text-gray-500 text-sm mt-1">二维码有效时间：{{ formatTime(qrCodeTimeLeft) }}</div>
-        </div>
+        <p class="text-gray-400 text-sm">扫描二维码完成支付</p>
       </div>
     </el-dialog>
     
-    <!-- 支付宝二维码对话框 -->
+    <!-- 支付宝支付对话框 -->
     <el-dialog
       v-model="showAlipayDialog"
       title="支付宝支付"
       width="350px"
-      center>
+      center
+      class="animate__animated animate__zoomIn">
       <div class="qrcode-content text-center">
-        <div class="qrcode-image bg-gray-100 w-64 h-64 mx-auto mb-4 flex justify-center items-center">
+        <div class="qrcode-image bg-gray-100 w-64 h-64 mx-auto mb-4 flex justify-center items-center rounded-lg shadow-sm">
           <img src="/src/assets/images/payment/qrcode-alipay.png" alt="支付宝二维码" class="w-56 h-56">
         </div>
         <p class="text-gray-500 mb-2">请使用支付宝扫一扫</p>
-        <p class="text-gray-500">扫码支付 <span class="text-primary font-bold">¥{{ orderInfo.amount }}</span></p>
-        <div class="countdown-timer mt-4">
-          <el-progress :percentage="qrCodeTimerPercentage" :show-text="false"></el-progress>
-          <div class="text-gray-500 text-sm mt-1">二维码有效时间：{{ formatTime(qrCodeTimeLeft) }}</div>
-        </div>
+        <p class="text-gray-400 text-sm">扫描二维码完成支付</p>
       </div>
     </el-dialog>
     
     <!-- 银行卡支付对话框 -->
     <el-dialog
-      v-model="showCardDialog"
+      v-model="showCreditDialog"
       title="银行卡支付"
-      width="500px">
-      <el-form ref="cardFormRef" :model="cardForm" :rules="cardRules" label-width="100px">
-        <el-form-item label="持卡人姓名" prop="cardHolder">
-          <el-input v-model="cardForm.cardHolder" placeholder="请输入持卡人姓名"></el-input>
-        </el-form-item>
-        
-        <el-form-item label="卡号" prop="cardNumber">
-          <el-input v-model="cardForm.cardNumber" placeholder="请输入银行卡号" maxlength="19"></el-input>
-        </el-form-item>
-        
-        <el-form-item label="有效期" prop="expiryDate">
-          <el-input v-model="cardForm.expiryDate" placeholder="MM/YY" maxlength="5"></el-input>
-        </el-form-item>
-        
-        <el-form-item label="安全码" prop="cvv">
-          <el-input v-model="cardForm.cvv" placeholder="CVV" maxlength="3" show-password></el-input>
-        </el-form-item>
-      </el-form>
-      <template #footer>
-        <span class="dialog-footer">
-          <el-button @click="showCardDialog = false">取消</el-button>
-          <el-button type="primary" @click="handleCardPay" :loading="paying">确认支付</el-button>
-        </span>
-      </template>
-    </el-dialog>
-    
-    <!-- 支付成功对话框 -->
-    <el-dialog
-      v-model="showSuccessDialog"
-      title="支付成功"
-      width="400px"
-      center>
-      <div class="success-content text-center">
-        <div class="success-icon text-green-500 text-6xl mb-4">
-          <el-icon class="success-icon"><CircleCheck /></el-icon>
-        </div>
-        <h3 class="text-xl font-bold mb-3">支付成功</h3>
-        <p class="text-gray-500 mb-4">您的订单已支付成功，感谢您的预约！</p>
-        <div class="order-info mb-4">
-          <p class="text-gray-500">订单号：{{ orderInfo.orderNumber }}</p>
-          <p class="text-gray-500">支付金额：<span class="text-primary font-bold">¥{{ orderInfo.amount }}</span></p>
+      width="500px"
+      center
+      class="animate__animated animate__zoomIn">
+      <div class="credit-card-form">
+        <el-form :model="creditCardForm" label-width="100px">
+          <el-form-item label="持卡人姓名">
+            <el-input v-model="creditCardForm.name" placeholder="请输入持卡人姓名"></el-input>
+          </el-form-item>
+          <el-form-item label="卡号">
+            <el-input v-model="creditCardForm.number" placeholder="请输入银行卡号"></el-input>
+          </el-form-item>
+          <el-form-item label="有效期">
+            <el-input v-model="creditCardForm.expiry" placeholder="MM/YY"></el-input>
+          </el-form-item>
+          <el-form-item label="CVV码">
+            <el-input v-model="creditCardForm.cvv" placeholder="请输入CVV码" maxlength="4"></el-input>
+          </el-form-item>
+        </el-form>
+        <div class="text-center mt-4">
+          <el-button type="primary" @click="processCreditCardPay" :loading="paying">确认支付</el-button>
         </div>
       </div>
-      <template #footer>
-        <div class="dialog-footer flex justify-center gap-4">
-          <el-button @click="goToOrders">查看我的订单</el-button>
-          <el-button type="primary" @click="goToHome">返回首页</el-button>
-        </div>
-      </template>
     </el-dialog>
   </div>
 </template>

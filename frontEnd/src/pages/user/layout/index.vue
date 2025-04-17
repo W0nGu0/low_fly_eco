@@ -10,10 +10,17 @@
           </router-link>
         </div>
         <div class="nav-menu">
-          <el-menu mode="horizontal" :router="true" :default-active="activeMenu" class="menu">
+          <el-menu 
+            mode="horizontal" 
+            :router="true" 
+            :default-active="activeMenu" 
+            :ellipsis="false"
+            class="menu">
             <el-menu-item index="/user/home">首页</el-menu-item>
             <el-menu-item index="/user/projects">项目</el-menu-item>
-            <el-menu-item index="/user/about">关于我们</el-menu-item>
+            <el-menu-item index="/user/orders">预订记录</el-menu-item>
+            <el-menu-item index="/user/feedback">评价反馈</el-menu-item>
+            <el-menu-item index="/user/profile">个人中心</el-menu-item>
           </el-menu>
         </div>
         <div class="user-actions">
@@ -32,10 +39,6 @@
                 </el-dropdown-menu>
               </template>
             </el-dropdown>
-          </template>
-          <template v-else>
-            <el-button type="text" @click="login">登录</el-button>
-            <el-button type="primary" @click="register">注册</el-button>
           </template>
         </div>
       </div>
@@ -77,16 +80,15 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, ref, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
-import { ElMessageBox } from 'element-plus'
 import { getImageUrl } from '@/utils/imageHelper'
 
 const router = useRouter()
 const route = useRoute()
 
 // 模拟用户状态
-const isLoggedIn = ref(false)
+const isLoggedIn = ref(true)
 const username = ref('张三')
 const userAvatar = ref('/src/assets/images/users/user2.jpg')
 
@@ -97,41 +99,11 @@ const activeMenu = computed(() => {
   return route.path
 })
 
-// 登录和注册
-const login = () => {
-  router.push('/auth/login')
-}
-
-const register = () => {
-  router.push('/auth/register')
-}
-
-// 用户操作
-const handleCommand = (command) => {
-  switch (command) {
-    case 'profile':
-      router.push('/user/profile')
-      break
-    case 'orders':
-      router.push('/user/orders')
-      break
-    case 'feedback':
-      router.push('/user/feedback')
-      break
-    case 'logout':
-      ElMessageBox.confirm('确定要退出登录吗？', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        // 清除登录状态
-        isLoggedIn.value = false
-        // 跳转到首页
-        router.push('/user/home')
-      }).catch(() => {})
-      break
-  }
-}
+// 检查路由是否存在
+onMounted(() => {
+  // 确保所有的菜单项都有对应的路由
+  console.log('当前路由:', route.path)
+})
 </script>
 
 <style scoped>
@@ -180,9 +152,8 @@ const handleCommand = (command) => {
 }
 
 .nav-menu {
-  flex: 1;
-  display: flex;
-  justify-content: center;
+  margin-left: auto;
+  margin-right: 20px;
 }
 
 .menu {
@@ -264,5 +235,32 @@ const handleCommand = (command) => {
   text-align: center;
   color: #909399;
   font-size: 12px;
+}
+
+@media (max-width: 768px) {
+  .header-inner {
+    flex-direction: column;
+    height: auto;
+    padding: 10px 0;
+  }
+  
+  .logo {
+    margin-bottom: 10px;
+  }
+  
+  .nav-menu, .user-actions {
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
+  }
+  
+  .menu {
+    justify-content: center;
+  }
+  
+  .user-actions {
+    justify-content: center;
+    margin-top: 10px;
+  }
 }
 </style> 
