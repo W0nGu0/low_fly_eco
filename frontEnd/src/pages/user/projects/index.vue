@@ -4,7 +4,7 @@
       <h1 class="text-3xl font-bold mb-8 text-gray-800 animate__animated animate__fadeInDown">飞行体验项目</h1>
       
       <!-- 搜索和筛选区域 -->
-      <div class="search-filter-container card mb-8 p-6 rounded-xl shadow-sm bg-white animate__animated animate__fadeInUp">
+      <div class="search-filter-container mb-12 p-6 rounded-xl shadow-sm bg-white animate__animated animate__fadeInUp">
         <el-row :gutter="20">
           <el-col :xs="24" :md="6">
             <el-input
@@ -74,42 +74,41 @@
         
         <el-row :gutter="30" v-else>
           <el-col :xs="24" :sm="12" :lg="8" v-for="(project, index) in filteredProjects" :key="project.id">
-            <div class="project-card card mb-6 rounded-xl shadow-sm bg-white hover:shadow-lg transition-all duration-300 cursor-pointer animate__animated animate__fadeInUp" 
+            <div class="project-card" 
                  :style="{ animationDelay: `${index * 0.1}s` }" 
                  @click="goToDetail(project.id)">
-              <div class="project-image relative overflow-hidden rounded-t-xl">
-                <img :src="getImageUrl(project.coverImage)" :alt="project.name" class="w-full h-48 object-cover transform hover:scale-105 transition-transform duration-500">
-                <div class="project-category-tag absolute top-3 left-3 bg-blue-500 text-white px-3 py-1 rounded-full text-sm font-medium shadow-md">
+              <div class="project-image">
+                <img :src="getImageUrl(project.coverImage)" :alt="project.name">
+                <div class="project-category-tag">
                   {{ getCategoryName(project.categoryId) }}
                 </div>
-                <div class="project-rating absolute top-3 right-3 bg-white bg-opacity-90 px-2 py-1 rounded-full text-sm font-medium flex items-center shadow-md">
-                  <i class="el-icon-star-on text-yellow-500 mr-1"></i>
+                <div class="project-rating">
+                  <i class="el-icon-star-on text-yellow-500"></i>
                   <span>{{ project.rating }}</span>
                 </div>
               </div>
-              <div class="project-info p-5">
-                <h3 class="project-name text-xl font-bold mb-2 text-gray-800">{{ project.name }}</h3>
-                <p class="project-brief text-gray-600 mb-3 line-clamp-2">{{ project.brief }}</p>
-                <div class="project-meta flex flex-wrap gap-4 mb-3">
-                  <div class="meta-item flex items-center text-gray-500">
-                    <i class="el-icon-location text-blue-500 mr-1"></i>
+              <div class="project-info">
+                <h3 class="project-name">{{ project.name }}</h3>
+                <p class="project-brief">{{ project.brief }}</p>
+                <div class="project-meta">
+                  <div class="meta-item">
+                    <i class="el-icon-location"></i>
                     <span>{{ project.location }}</span>
                   </div>
-                  <div class="meta-item flex items-center text-gray-500">
-                    <i class="el-icon-time text-blue-500 mr-1"></i>
+                  <div class="meta-item">
+                    <i class="el-icon-time"></i>
                     <span>{{ project.duration }}分钟</span>
                   </div>
                 </div>
-                <div class="project-footer flex justify-between items-center pt-3 border-t border-gray-100">
+                <div class="project-footer">
                   <div class="project-price">
-                    <span class="text-gray-500">¥</span>
-                    <span class="text-2xl font-bold text-blue-500">{{ project.price }}</span>
-                    <span class="text-gray-500 text-sm">起</span>
+                    <span class="currency">¥</span>
+                    <span class="amount">{{ project.price }}</span>
+                    <span class="unit">起</span>
                   </div>
                   <el-button
                     type="primary"
                     size="small"
-                    class="bg-blue-500 hover:bg-blue-600 transition-colors"
                     @click.stop="goToDetail(project.id)"
                   >
                     查看详情
@@ -427,57 +426,281 @@ watch(
 
 <style scoped>
 .project-image {
-  height: 200px;
+  height: 240px;
   position: relative;
   overflow: hidden;
+  border-radius: 1rem 1rem 0 0;
+}
+
+.project-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
 }
 
 .project-category-tag {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 1rem;
+  left: 1rem;
   background-color: rgba(0, 0, 0, 0.6);
   color: #fff;
-  padding: 4px 10px;
-  border-radius: 20px;
-  font-size: 12px;
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  backdrop-filter: blur(4px);
+  z-index: 1;
 }
 
-.project-card:hover .project-image img {
-  transform: scale(1.05);
-  transition: transform 0.3s ease;
+.project-rating {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  backdrop-filter: blur(4px);
+  z-index: 1;
 }
 
-.meta-item {
-  font-size: 14px;
-  color: #666;
+.project-info {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: 0.5rem;
 }
 
-.meta-item i {
-  margin-right: 4px;
+.project-name {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1f2937;
+  line-height: 1.4;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0;
 }
 
-/* 多行文本省略 */
-.line-clamp-2 {
+.project-brief {
+  color: #4b5563;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  height: 2.625rem;
+  overflow: hidden;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+  margin: 0;
+}
+
+.project-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #e5e7eb;
+  margin: 0;
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #6b7280;
+  font-size: 0.875rem;
+}
+
+.meta-item i {
+  color: #3b82f6;
+  font-size: 1rem;
+}
+
+.project-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.25rem;
+}
+
+.project-price {
+  display: flex;
+  align-items: baseline;
+  gap: 0.25rem;
+}
+
+.project-price .currency {
+  color: #6b7280;
+  font-size: 0.875rem;
+}
+
+.project-price .amount {
+  color: #3b82f6;
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.project-price .unit {
+  color: #6b7280;
+  font-size: 0.875rem;
+}
+
+.el-button--primary {
+  height: 2.5rem;
+  padding: 0 1.25rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.el-button--primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+}
+
+.search-filter-container {
+  margin-bottom: 2rem;
+  background: white;
+  border-radius: 1rem;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  border: 1px solid #e5e7eb;
+  padding: 1.25rem;
+}
+
+.search-filter-container:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  border-color: #d1d5db;
+}
+
+.search-filter-container .el-row {
+  margin: -0.5rem;
+}
+
+.search-filter-container .el-col {
+  padding: 0.5rem;
+}
+
+.search-filter-container .el-input__inner,
+.search-filter-container .el-select .el-input__inner {
+  height: 2.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid #e5e7eb;
+  transition: all 0.3s ease;
+  font-size: 0.875rem;
+  padding: 0 1rem;
+}
+
+.search-filter-container .el-input__inner:hover,
+.search-filter-container .el-select .el-input__inner:hover {
+  border-color: #3b82f6;
+}
+
+.search-filter-container .el-input__inner:focus,
+.search-filter-container .el-select .el-input__inner:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+}
+
+.search-filter-container .el-input__prefix {
+  left: 12px;
+}
+
+.search-filter-container .el-input__inner::-webkit-input-placeholder {
+  color: #9ca3af;
+}
+
+.pagination-container {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.project-card {
+  transition: all 0.3s ease;
+  margin-bottom: 3rem;
+  border-radius: 1rem;
   overflow: hidden;
-  text-overflow: ellipsis;
+  background-color: #ffffff;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  animation: fadeInUp 0.5s ease-out;
+  border: 1px solid #e5e7eb;
 }
 
-.text-primary {
-  color: #409EFF;
+.project-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
 }
 
-.text-warning {
-  color: #E6A23C;
+.project-card:hover .project-image img {
+  transform: scale(1.1);
 }
 
-/* 响应式调整 */
+.projects-list {
+  margin-bottom: 3rem;
+}
+
+.el-row {
+  margin-bottom: -3rem;
+}
+
 @media (max-width: 768px) {
+  .search-filter-container {
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+  }
+  
   .search-filter-container .el-col {
-    margin-bottom: 10px;
+    padding: 0.375rem;
+  }
+  
+  .project-card {
+    margin-bottom: 2.5rem;
+  }
+  
+  .project-info {
+    padding: 0.875rem;
+    gap: 0.375rem;
+  }
+  
+  .project-meta {
+    padding-bottom: 0.375rem;
+    gap: 0.5rem;
+  }
+  
+  .project-footer {
+    margin-top: 0.25rem;
+  }
+  
+  .pagination-container {
+    margin-top: 0.75rem;
+  }
+  
+  .el-row {
+    margin-bottom: -2.5rem;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 </style>
