@@ -1,10 +1,10 @@
 <template>
-  <div class="payment-page bg-gray-50 min-h-screen">
+  <div class="payment-page bg-emerald-50 min-h-screen">
     <div class="container mx-auto px-4 py-8">
       <div class="max-w-3xl mx-auto">
         <!-- 页面标题 -->
         <div class="page-header mb-8 flex items-center justify-between animate__animated animate__fadeInDown">
-          <h1 class="text-3xl font-bold text-gray-800">订单支付</h1>
+          <h1 class="text-3xl font-bold text-emerald-800">订单支付</h1>
           <div class="payment-timer flex items-center text-gray-500 bg-white px-4 py-2 rounded-full shadow-sm" v-if="timeLeft > 0">
             <el-icon class="mr-1 text-red-500"><Timer /></el-icon>
             <span>支付剩余时间: <span class="text-red-500 font-medium">{{ formatTime(timeLeft) }}</span></span>
@@ -12,59 +12,48 @@
         </div>
         
         <!-- 订单信息 -->
-        <div class="order-info card p-6 mb-8 rounded-xl shadow-sm bg-white animate__animated animate__fadeInUp">
-          <h2 class="text-xl font-semibold mb-4 text-gray-800 flex items-center">
-            <i class="el-icon-document mr-2 text-blue-500"></i>
+        <div class="order-info card p-6 mb-8 rounded-xl shadow-sm bg-white animate__animated animate__fadeInUp hover:shadow-lg transition-all duration-300">
+          <h2 class="text-xl font-semibold mb-4 text-emerald-800 flex items-center">
+            <i class="el-icon-document mr-2 text-emerald-500"></i>
             订单信息
           </h2>
           <el-descriptions :column="1" border class="border rounded-lg overflow-hidden">
-            <el-descriptions-item label="订单号" label-class-name="bg-gray-50">{{ orderInfo.orderNumber }}</el-descriptions-item>
-            <el-descriptions-item label="项目名称" label-class-name="bg-gray-50">{{ orderInfo.projectName }}</el-descriptions-item>
-            <el-descriptions-item label="预约时间" label-class-name="bg-gray-50">{{ orderInfo.bookingTime }}</el-descriptions-item>
-            <el-descriptions-item label="参与人数" label-class-name="bg-gray-50">{{ orderInfo.peopleCount }}人</el-descriptions-item>
-            <el-descriptions-item label="订单金额" label-class-name="bg-gray-50">
-              <span class="text-xl font-bold text-blue-600">¥{{ orderInfo.amount }}</span>
+            <el-descriptions-item label="订单号" label-class-name="bg-emerald-50 text-emerald-800">{{ orderInfo.orderNumber }}</el-descriptions-item>
+            <el-descriptions-item label="项目名称" label-class-name="bg-emerald-50 text-emerald-800">{{ orderInfo.projectName }}</el-descriptions-item>
+            <el-descriptions-item label="预约时间" label-class-name="bg-emerald-50 text-emerald-800">{{ orderInfo.bookingTime }}</el-descriptions-item>
+            <el-descriptions-item label="参与人数" label-class-name="bg-emerald-50 text-emerald-800">{{ orderInfo.peopleCount }}人</el-descriptions-item>
+            <el-descriptions-item label="订单金额" label-class-name="bg-emerald-50 text-emerald-800">
+              <span class="text-xl font-bold text-emerald-600">¥{{ orderInfo.amount }}</span>
             </el-descriptions-item>
           </el-descriptions>
         </div>
         
         <!-- 支付方式选择 -->
-        <div class="payment-methods card p-6 mb-8 rounded-xl shadow-sm bg-white animate__animated animate__fadeInUp" style="animation-delay: 0.2s">
-          <h2 class="text-xl font-semibold mb-4 text-gray-800 flex items-center">
-            <i class="el-icon-wallet mr-2 text-blue-500"></i>
+        <div class="payment-methods card p-6 mb-8 rounded-xl shadow-sm bg-white animate__animated animate__fadeInUp hover:shadow-lg transition-all duration-300" style="animation-delay: 0.2s">
+          <h2 class="text-xl font-semibold mb-4 text-emerald-800 flex items-center">
+            <i class="el-icon-wallet mr-2 text-emerald-500"></i>
             选择支付方式
           </h2>
           
           <el-radio-group v-model="paymentMethod" class="payment-radio-group w-full">
-            <div class="payment-item mb-4 p-4 border rounded-lg cursor-pointer hover:border-blue-400 transition-all duration-300 hover:shadow-md"
-                :class="{ 'border-blue-500 bg-blue-50 shadow-md': paymentMethod === 'wechat' }"
+            <div class="payment-item mb-4 p-6 border rounded-lg cursor-pointer hover:border-emerald-400 transition-all duration-300 hover:shadow-md"
+                :class="{ 'border-emerald-500 bg-emerald-50 shadow-md': paymentMethod === 'wechat' }"
                 @click="paymentMethod = 'wechat'">
               <el-radio label="wechat" class="w-full">
                 <div class="flex items-center">
-                  <img src="/src/assets/images/payment/wechat-pay.png" alt="微信支付" class="payment-icon w-8 h-8 mr-2">
-                  <span class="payment-name font-medium">微信支付</span>
+                  <img src="/src/assets/images/payment/wechat-pay.png" alt="微信支付" class="payment-icon w-10 h-10 mr-3">
+                  <span class="payment-name text-lg font-medium text-gray-700">微信支付</span>
                 </div>
               </el-radio>
             </div>
             
-            <div class="payment-item mb-4 p-4 border rounded-lg cursor-pointer hover:border-blue-400 transition-all duration-300 hover:shadow-md"
-                :class="{ 'border-blue-500 bg-blue-50 shadow-md': paymentMethod === 'alipay' }"
+            <div class="payment-item p-6 border rounded-lg cursor-pointer hover:border-emerald-400 transition-all duration-300 hover:shadow-md"
+                :class="{ 'border-emerald-500 bg-emerald-50 shadow-md': paymentMethod === 'alipay' }"
                 @click="paymentMethod = 'alipay'">
               <el-radio label="alipay" class="w-full">
                 <div class="flex items-center">
-                  <img src="/src/assets/images/payment/alipay.png" alt="支付宝" class="payment-icon w-8 h-8 mr-2">
-                  <span class="payment-name font-medium">支付宝</span>
-                </div>
-              </el-radio>
-            </div>
-            
-            <div class="payment-item p-4 border rounded-lg cursor-pointer hover:border-blue-400 transition-all duration-300 hover:shadow-md"
-                :class="{ 'border-blue-500 bg-blue-50 shadow-md': paymentMethod === 'credit' }"
-                @click="paymentMethod = 'credit'">
-              <el-radio label="credit" class="w-full">
-                <div class="flex items-center">
-                  <img src="/src/assets/images/payment/credit-card.png" alt="银行卡" class="payment-icon w-8 h-8 mr-2">
-                  <span class="payment-name font-medium">银行卡支付</span>
+                  <img src="/src/assets/images/payment/alipay.png" alt="支付宝" class="payment-icon w-10 h-10 mr-3">
+                  <span class="payment-name text-lg font-medium text-gray-700">支付宝支付</span>
                 </div>
               </el-radio>
             </div>
@@ -73,7 +62,7 @@
         
         <!-- 支付按钮 -->
         <div class="payment-action mb-8 animate__animated animate__fadeInUp" style="animation-delay: 0.4s">
-          <el-button type="primary" size="large" class="w-full py-4 text-lg font-medium bg-blue-500 hover:bg-blue-600 transition-colors" @click="processPay" :loading="paying" :disabled="!paymentMethod">
+          <el-button type="success" size="large" class="w-full py-4 text-lg font-medium bg-emerald-500 hover:bg-emerald-600 transition-colors" @click="processPay" :loading="paying" :disabled="!paymentMethod">
             立即支付 ¥{{ orderInfo.amount }}
           </el-button>
           <div class="text-center mt-4">
@@ -82,9 +71,9 @@
         </div>
         
         <!-- 支付说明 -->
-        <div class="payment-tips text-sm text-gray-500 bg-white p-6 rounded-xl shadow-sm animate__animated animate__fadeInUp" style="animation-delay: 0.6s">
-          <h3 class="font-medium mb-3 text-gray-700 flex items-center">
-            <i class="el-icon-info mr-2 text-blue-500"></i>
+        <div class="payment-tips text-sm text-gray-600 bg-white p-6 rounded-xl shadow-sm animate__animated animate__fadeInUp hover:shadow-lg transition-all duration-300" style="animation-delay: 0.6s">
+          <h3 class="font-medium mb-3 text-emerald-800 flex items-center">
+            <i class="el-icon-info mr-2 text-emerald-500"></i>
             温馨提示：
           </h3>
           <ul class="list-disc pl-5 space-y-2">
@@ -104,11 +93,11 @@
       center
       class="animate__animated animate__zoomIn">
       <div class="qrcode-content text-center">
-        <div class="qrcode-image bg-gray-100 w-64 h-64 mx-auto mb-4 flex justify-center items-center rounded-lg shadow-sm">
+        <div class="qrcode-image bg-emerald-50 w-64 h-64 mx-auto mb-4 flex justify-center items-center rounded-lg shadow-sm">
           <img src="/src/assets/images/payment/qrcode-wechat.png" alt="微信支付二维码" class="w-56 h-56">
         </div>
-        <p class="text-gray-500 mb-2">请使用微信扫一扫</p>
-        <p class="text-gray-400 text-sm">扫描二维码完成支付</p>
+        <p class="text-gray-600 mb-2">请使用微信扫一扫</p>
+        <p class="text-gray-500 text-sm">扫描二维码完成支付</p>
       </div>
     </el-dialog>
     
@@ -120,39 +109,11 @@
       center
       class="animate__animated animate__zoomIn">
       <div class="qrcode-content text-center">
-        <div class="qrcode-image bg-gray-100 w-64 h-64 mx-auto mb-4 flex justify-center items-center rounded-lg shadow-sm">
-          <img src="/src/assets/images/payment/qrcode-2.jpg" alt="支付宝二维码" class="w-56 h-56">
+        <div class="qrcode-image bg-emerald-50 w-64 h-64 mx-auto mb-4 flex justify-center items-center rounded-lg shadow-sm">
+          <img src="/src/assets/images/payment/qrcode-alipay.png" alt="支付宝二维码" class="w-56 h-56">
         </div>
-        <p class="text-gray-500 mb-2">请使用支付宝扫一扫</p>
-        <p class="text-gray-400 text-sm">扫描二维码完成支付</p>
-      </div>
-    </el-dialog>
-    
-    <!-- 银行卡支付对话框 -->
-    <el-dialog
-      v-model="showCreditDialog"
-      title="银行卡支付"
-      width="500px"
-      center
-      class="animate__animated animate__zoomIn">
-      <div class="credit-card-form">
-        <el-form :model="creditCardForm" label-width="100px">
-          <el-form-item label="持卡人姓名">
-            <el-input v-model="creditCardForm.name" placeholder="请输入持卡人姓名"></el-input>
-          </el-form-item>
-          <el-form-item label="卡号">
-            <el-input v-model="creditCardForm.number" placeholder="请输入银行卡号"></el-input>
-          </el-form-item>
-          <el-form-item label="有效期">
-            <el-input v-model="creditCardForm.expiry" placeholder="MM/YY"></el-input>
-          </el-form-item>
-          <el-form-item label="CVV码">
-            <el-input v-model="creditCardForm.cvv" placeholder="请输入CVV码" maxlength="4"></el-input>
-          </el-form-item>
-        </el-form>
-        <div class="text-center mt-4">
-          <el-button type="primary" @click="processCreditCardPay" :loading="paying">确认支付</el-button>
-        </div>
+        <p class="text-gray-600 mb-2">请使用支付宝扫一扫</p>
+        <p class="text-gray-500 text-sm">扫描二维码完成支付</p>
       </div>
     </el-dialog>
   </div>
@@ -418,7 +379,6 @@ onBeforeUnmount(() => {
 
 <style scoped>
 .payment-page {
-  background-color: #f0fdf4;
   min-height: calc(100vh - 64px);
   padding: 2rem 0;
 }
@@ -430,9 +390,6 @@ onBeforeUnmount(() => {
 }
 
 .page-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   margin-bottom: 2rem;
   animation: fadeInDown 0.5s ease-out;
 }
@@ -451,22 +408,12 @@ onBeforeUnmount(() => {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  color: #374151;
   transition: all 0.3s ease;
 }
 
 .payment-timer:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-}
-
-.payment-timer .el-icon {
-  color: #ef4444;
-}
-
-.payment-timer span:last-child {
-  color: #ef4444;
-  font-weight: 500;
 }
 
 .order-info, .payment-methods, .payment-tips {
@@ -476,113 +423,62 @@ onBeforeUnmount(() => {
   padding: 1.5rem;
   margin-bottom: 2rem;
   transition: all 0.3s ease;
-  animation: fadeInUp 0.5s ease-out;
 }
 
 .order-info:hover, .payment-methods:hover, .payment-tips:hover {
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-}
-
-.order-info h2, .payment-methods h2, .payment-tips h3 {
-  color: #166534;
-  font-size: 1.25rem;
-  font-weight: 600;
-  margin-bottom: 1.5rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.order-info h2 i, .payment-methods h2 i, .payment-tips h3 i {
-  color: #16a34a;
-}
-
-.el-descriptions {
-  --el-descriptions-item-bordered-label-background: #f0fdf4;
-  --el-descriptions-border-color: #dcfce7;
-}
-
-.el-descriptions__label {
-  color: #374151;
-  font-weight: 500;
-}
-
-.el-descriptions__content {
-  color: #374151;
-}
-
-.el-descriptions__content .text-xl {
-  color: #16a34a;
-}
-
-.payment-radio-group {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+  transform: translateY(-4px);
+  box-shadow: 0 4px 20px rgba(22, 163, 74, 0.2);
 }
 
 .payment-item {
   border: 1px solid #dcfce7;
-  border-radius: 0.5rem;
-  padding: 1rem;
-  cursor: pointer;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
   transition: all 0.3s ease;
 }
 
 .payment-item:hover {
+  border-color: #4ade80;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(22, 163, 74, 0.1);
 }
 
-.payment-item.border-blue-500 {
-  border-color: #16a34a;
+.payment-item.border-emerald-500 {
+  border-color: #10b981;
   background-color: #f0fdf4;
 }
 
 .payment-icon {
-  width: 2rem;
-  height: 2rem;
+  width: 2.5rem;
+  height: 2.5rem;
   object-fit: contain;
+  transition: transform 0.3s ease;
 }
 
-.payment-name {
-  color: #374151;
-  font-weight: 500;
+.payment-item:hover .payment-icon {
+  transform: scale(1.1);
 }
 
-.payment-action {
-  margin-bottom: 2rem;
-  animation: fadeInUp 0.5s ease-out;
-}
-
-.el-button--primary {
-  background-color: #16a34a;
-  border-color: #16a34a;
-  height: 3rem;
+.el-button--success {
+  background-color: #10b981;
+  border-color: #10b981;
+  height: 3.5rem;
   font-size: 1.1rem;
   font-weight: 600;
   transition: all 0.3s ease;
 }
 
-.el-button--primary:hover {
-  background-color: #15803d;
-  border-color: #15803d;
+.el-button--success:hover {
+  background-color: #059669;
+  border-color: #059669;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(22, 163, 74, 0.2);
 }
 
-.el-button--primary:disabled {
+.el-button--success:disabled {
   background-color: #9ca3af;
   border-color: #9ca3af;
-}
-
-.payment-tips ul {
-  color: #374151;
-  line-height: 1.6;
-}
-
-.payment-tips li {
-  margin-bottom: 0.5rem;
 }
 
 .el-dialog {
@@ -604,42 +500,25 @@ onBeforeUnmount(() => {
 
 .qrcode-content {
   padding: 2rem;
-  text-align: center;
 }
 
 .qrcode-image {
   background-color: #f0fdf4;
-  border-radius: 0.5rem;
+  border-radius: 1rem;
   padding: 1rem;
   margin-bottom: 1rem;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
 }
 
-.credit-card-form {
-  padding: 1.5rem;
-}
-
-.credit-card-form .el-form-item__label {
-  color: #374151;
-  font-weight: 500;
-}
-
-.credit-card-form .el-input__inner {
-  border-color: #dcfce7;
-  border-radius: 0.5rem;
-}
-
-.credit-card-form .el-input__inner:focus {
-  border-color: #16a34a;
+.qrcode-image:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 20px rgba(22, 163, 74, 0.1);
 }
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 @keyframes fadeInDown {
@@ -664,17 +543,6 @@ onBeforeUnmount(() => {
   }
 }
 
-@keyframes zoomIn {
-  from {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
 @media (max-width: 768px) {
   .container {
     padding: 0 1rem;
@@ -691,7 +559,7 @@ onBeforeUnmount(() => {
     justify-content: center;
   }
   
-  .order-info, .payment-methods, .payment-tips {
+  .payment-item {
     padding: 1rem;
   }
 }

@@ -420,7 +420,24 @@ async function viewOrderDetail(orderId) {
 
 // 去支付
 function goToPay(orderId) {
-  router.push(`/user/payment?orderId=${orderId}`)
+  const order = orders.value.find(o => o.id === orderId)
+  if (!order) {
+    ElMessage.error('订单信息不存在')
+    return
+  }
+  
+  // 存储订单信息到本地存储，供支付页面使用
+  const orderInfo = {
+    orderNumber: order.orderNumber,
+    projectName: order.projectName,
+    bookingTime: order.bookingTime,
+    peopleCount: order.peopleCount,
+    amount: order.amount
+  }
+  localStorage.setItem('currentOrder', JSON.stringify(orderInfo))
+  
+  // 跳转到支付页面，使用订单号作为路由参数
+  router.push(`/user/payment/${order.orderNumber}`)
 }
 
 // 取消订单
