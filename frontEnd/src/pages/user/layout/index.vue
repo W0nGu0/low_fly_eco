@@ -180,11 +180,11 @@ onMounted(() => {
   flex: 1;
   padding-top: 20px;
   padding-bottom: 40px;
-  background-color: #aff18b; /* 浅绿色背景 */
+  background-color: #d1faba; /* 浅绿色背景 */
 }
 
 .footer {
-  background-color: #aff18b; /* 浅绿色背景 */
+  background-color: #d1faba; /* 浅绿色背景 */
   padding: 2rem 0 1rem;
   margin-top: 0; /* 移除顶部边距，避免与主内容区域之间有空隙 */
   border-top: 1px solid rgba(255, 255, 255, 0.2); /* 添加半透明的上边框以区分区域 */

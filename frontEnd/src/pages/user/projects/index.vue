@@ -426,7 +426,7 @@ watch(
 
 <style scoped>
 .projects-page {
-  /* 背景色已在布局文件中设置为 #aff18b */
+  /* 背景色已在布局文件中设置为 #d1faba */
   min-height: calc(100vh - 64px);
 }
 
