@@ -59,7 +59,7 @@
               <!-- 这里放置订单趋势图表，实际项目中可以使用 ECharts 等库 -->
               <div class="placeholder-chart">
                 <div class="chart-line" v-for="i in 8" :key="i"
-                     :style="{ height: Math.random() * 60 + 20 + 'px', animationDelay: i * 0.1 + 's' }"></div>
+                     :style="{ '--height': Math.random() * 60 + 20 + 'px', animationDelay: i * 0.1 + 's' }"></div>
               </div>
             </div>
           </el-card>
@@ -150,8 +150,8 @@
               </el-table-column>
               <el-table-column label="占比" width="200">
                 <template #default="{ row }">
-                  <el-progress 
-                    :percentage="row.percentage" 
+                  <el-progress
+                    :percentage="row.percentage"
                     :color="row.color"
                     :stroke-width="10"
                     :show-text="false">
