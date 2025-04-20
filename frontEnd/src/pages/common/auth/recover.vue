@@ -1,5 +1,5 @@
 <template>
-  <div class="recover-container">
+  <div class="recover-container fade-in card-gradient hover-lift">
     <h2 class="title">找回密码</h2>
     <p class="subtitle">请输入您的账号信息</p>
     
@@ -12,7 +12,7 @@
     >
       <!-- 注册方式选择 -->
       <el-form-item>
-        <el-radio-group v-model="recoverType" @change="handleRecoverTypeChange">
+        <el-radio-group v-model="recoverType" @change="handleRecoverTypeChange" class="recover-type-selector">
           <el-radio-button label="phone">手机找回</el-radio-button>
           <el-radio-button label="email">邮箱找回</el-radio-button>
         </el-radio-group>
@@ -22,10 +22,11 @@
       <el-form-item prop="phone" v-if="recoverType === 'phone'">
         <el-input 
           v-model="recoverForm.phone" 
-          placeholder="请输入注册手机号" 
+          placeholder="请输入注册手机号"
+          class="custom-input"
         >
           <template #prefix>
-            <el-icon><Iphone /></el-icon>
+            <el-icon class="input-icon"><Iphone /></el-icon>
           </template>
         </el-input>
       </el-form-item>
@@ -34,10 +35,11 @@
       <el-form-item prop="email" v-if="recoverType === 'email'">
         <el-input 
           v-model="recoverForm.email" 
-          placeholder="请输入注册邮箱" 
+          placeholder="请输入注册邮箱"
+          class="custom-input"
         >
           <template #prefix>
-            <el-icon><Message /></el-icon>
+            <el-icon class="input-icon"><Message /></el-icon>
           </template>
         </el-input>
       </el-form-item>
@@ -47,16 +49,18 @@
         <div class="code-input-group">
           <el-input 
             v-model="recoverForm.code" 
-            placeholder="请输入验证码" 
+            placeholder="请输入验证码"
+            class="custom-input"
           >
             <template #prefix>
-              <el-icon><Key /></el-icon>
+              <el-icon class="input-icon"><Key /></el-icon>
             </template>
           </el-input>
           <el-button 
             type="primary" 
             :disabled="isCodeSending || countdown > 0" 
             @click="sendVerificationCode"
+            class="code-button btn-hover"
           >
             {{ countdown > 0 ? `重新发送(${countdown}s)` : '发送验证码' }}
           </el-button>
@@ -70,9 +74,10 @@
           type="password" 
           placeholder="请设置新密码" 
           show-password
+          class="custom-input"
         >
           <template #prefix>
-            <el-icon><Lock /></el-icon>
+            <el-icon class="input-icon"><Lock /></el-icon>
           </template>
         </el-input>
       </el-form-item>
@@ -85,26 +90,31 @@
           placeholder="请确认新密码" 
           show-password
           @keyup.enter="handleRecover"
+          class="custom-input"
         >
           <template #prefix>
-            <el-icon><Lock /></el-icon>
+            <el-icon class="input-icon"><Lock /></el-icon>
           </template>
         </el-input>
       </el-form-item>
       
-      <el-button 
-        type="primary" 
-        :loading="isLoading" 
-        class="recover-button" 
+      <button 
+        type="button" 
+        :disabled="isLoading" 
+        class="recover-button btn-gradient-primary btn-hover" 
         @click="handleRecover"
       >
-        重置密码
-      </el-button>
+        <span v-if="isLoading" class="loading-spinner"></span>
+        <span>重置密码</span>
+      </button>
     </el-form>
     
     <div class="other-links">
       <p>
-        <router-link to="/auth/login" class="login-link">返回登录</router-link>
+        <router-link to="/auth/login" class="login-link link-hover">
+          <el-icon><ArrowLeft /></el-icon>
+          返回登录
+        </router-link>
       </p>
     </div>
   </div>
@@ -332,23 +342,78 @@ const onUnmounted = () => {
 .recover-container {
   width: 100%;
   max-width: 400px;
+  margin: 0 auto;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(82, 196, 26, 0.1);
+  background: linear-gradient(135deg, #d4e7ba, #d2ecc3);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(82, 196, 26, 0.15);
+  position: relative;
+  z-index: 10;
 }
 
 .title {
-  font-size: 24px;
+  font-size: 2rem;
   font-weight: 600;
-  margin-bottom: 8px;
+  margin-bottom: 0.75rem;
+  text-align: center;
   color: #333;
+  line-height: 1.2;
 }
 
 .subtitle {
-  font-size: 14px;
+  font-size: 0.875rem;
   color: #666;
-  margin-bottom: 30px;
+  margin-bottom: 2rem;
+  text-align: center;
 }
 
 .recover-form {
-  margin-bottom: 20px;
+  margin-bottom: 1.5rem;
+}
+
+.recover-type-selector {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+:deep(.el-radio-group) {
+  width: 100%;
+  display: flex;
+}
+
+:deep(.el-radio-button) {
+  flex: 1;
+}
+
+:deep(.el-radio-button__inner) {
+  width: 100%;
+  border-color: rgba(82, 196, 26, 0.3);
+  background-color: rgba(255, 255, 255, 0.6);
+  color: #666;
+  transition: all 0.3s;
+}
+
+.custom-input {
+  --el-input-border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+:deep(.el-input__wrapper) {
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(82, 196, 26, 0.3);
+  transition: all 0.3s;
+}
+
+:deep(.el-input__wrapper:hover) {
+  border-color: var(--el-color-primary);
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+.input-icon {
+  font-size: 1.2rem;
+  color: #666;
 }
 
 .code-input-group {
@@ -360,27 +425,97 @@ const onUnmounted = () => {
   flex: 1;
 }
 
-.code-input-group .el-button {
+.code-button {
   white-space: nowrap;
+  border-radius: 8px;
+  background: var(--el-color-primary);
+  border: none;
+  color: white;
+  padding: 0 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.code-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .recover-button {
   width: 100%;
-  padding: 12px 0;
-  font-size: 16px;
-  margin-top: 10px;
+  padding: 12px;
+  font-size: 1rem;
+  font-weight: 500;
+  color: white;
+  background: linear-gradient(135deg, #52c41a, #52c41a);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 1rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.recover-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(82, 196, 26, 0.2);
+}
+
+.recover-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.loading-spinner {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 1s linear infinite;
+  margin-right: 0.5rem;
 }
 
 .other-links {
   text-align: center;
-  margin-top: 20px;
-  color: #666;
-  font-size: 14px;
+  margin-top: 1.5rem;
 }
 
 .login-link {
-  color: #409EFF;
+  color: var(--el-color-primary);
   text-decoration: none;
-  font-weight: 500;
+  font-size: 0.875rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.3s ease;
+}
+
+.login-link:hover {
+  opacity: 0.8;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.btn-hover {
+  transition: all 0.3s ease;
+}
+
+.btn-hover:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 </style>
+

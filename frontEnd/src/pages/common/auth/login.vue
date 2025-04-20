@@ -51,7 +51,10 @@
 
       <div class="login-options">
         <el-checkbox v-model="rememberMe">记住我</el-checkbox>
-        <router-link to="/auth/forgot-password" class="forgot-link link-hover">忘记密码?</router-link>
+        <router-link to="/auth/recover" class="forgot-link link-hover">
+          <el-icon><QuestionFilled /></el-icon>
+          忘记密码?
+        </router-link>
       </div>
 
       <button
@@ -65,6 +68,31 @@
       </button>
     </el-form>
 
+    <!-- 添加分割线和第三方登录选项 -->
+    <div class="divider">
+      <span>其他登录方式</span>
+    </div>
+
+    <div class="third-party-login">
+      <el-button 
+        class="third-party-btn wechat" 
+        circle
+        @click="handleThirdPartyLogin('wechat')" 
+        title="微信登录"
+      >
+        <el-icon><ChatRound /></el-icon>
+      </el-button>
+      
+      <el-button 
+        class="third-party-btn alipay" 
+        circle
+        @click="handleThirdPartyLogin('alipay')" 
+        title="支付宝登录"
+      >
+        <el-icon><Money /></el-icon>
+      </el-button>
+    </div>
+
     <div class="other-links">
       <p>
         还没有账号?
@@ -77,8 +105,14 @@
 <script setup>
 import { ref, reactive } from 'vue'
 import { useRouter } from 'vue-router'
-import { ElMessage } from 'element-plus'
-import { User, Lock } from '@element-plus/icons-vue'
+import { ElMessage, ElNotification } from 'element-plus'
+import { 
+  User, 
+  Lock, 
+  QuestionFilled,
+  ChatRound,  // 用作微信图标
+  Money       // 用作支付宝图标
+} from '@element-plus/icons-vue'
 import { useUserStore } from '@/store/user'
 // 暂时注释掉主题切换组件
 // import ThemeSwitcher from '@/components/ThemeSwitcher.vue'
@@ -154,6 +188,16 @@ const handleLogin = async () => {
     } finally {
       isLoading.value = false
     }
+  })
+}
+
+// 第三方登录处理方法
+const handleThirdPartyLogin = (platform) => {
+  ElNotification({
+    title: '功能开发中',
+    message: `${platform === 'wechat' ? '微信' : '支付宝'}登录功能即将上线`,
+    type: 'info',
+    duration: 2000
   })
 }
 </script>
@@ -297,18 +341,26 @@ const handleLogin = async () => {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1.25rem;
+  margin-bottom: 1rem;
 }
 
 .forgot-link {
-  color: var(--primary-500);
+  color: var(--el-color-primary);
   text-decoration: none;
   font-size: 0.875rem;
-  transition: color 0.2s ease;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
 .forgot-link:hover {
-  color: var(--primary-600);
+  opacity: 0.8;
+  text-decoration: underline;
+}
+
+.forgot-link .el-icon {
+  font-size: 14px;
 }
 
 .login-button {
@@ -343,22 +395,71 @@ const handleLogin = async () => {
   to { transform: rotate(360deg); }
 }
 
-.other-links {
+.divider {
+  position: relative;
   text-align: center;
-  margin-top: 1.5rem;
+  margin: 20px 0;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 45%;
+  height: 1px;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.divider::before {
+  left: 0;
+}
+
+.divider::after {
+  right: 0;
+}
+
+.divider span {
+  background-color: white;
+  padding: 0 10px;
   color: #666;
-  font-size: 0.875rem;
+  font-size: 14px;
 }
 
-.register-link {
-  color: var(--primary-500);
-  text-decoration: none;
-  font-weight: 500;
-  transition: color 0.2s ease;
+.third-party-login {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin: 20px 0;
 }
 
-.register-link:hover {
-  color: var(--primary-600);
+.third-party-btn {
+  width: 40px !important;
+  height: 40px !important;
+  padding: 0 !important;
+  font-size: 20px !important;
+}
+
+.third-party-btn.wechat {
+  background-color: #07C160 !important;
+  border-color: #07C160 !important;
+  color: white !important;
+}
+
+.third-party-btn.wechat:hover {
+  background-color: #06ae56 !important;
+  border-color: #06ae56 !important;
+}
+
+.third-party-btn.alipay {
+  background-color: #1677FF !important;
+  border-color: #1677FF !important;
+  color: white !important;
+}
+
+.third-party-btn.alipay:hover {
+  background-color: #0e66e0 !important;
+  border-color: #0e66e0 !important;
 }
 
 /* 添加动画效果 */
@@ -418,3 +519,6 @@ const handleLogin = async () => {
   border-radius: 0 4px 4px 0;
 }
 </style>
+
+
+

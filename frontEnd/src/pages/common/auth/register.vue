@@ -1,5 +1,5 @@
 <template>
-  <div class="register-container">
+  <div class="register-container fade-in card-gradient hover-lift">
     <h2 class="title">用户注册</h2>
     <p class="subtitle">创建您的账号，开始低空飞行体验</p>
     
@@ -14,17 +14,18 @@
       <el-form-item prop="username">
         <el-input 
           v-model="registerForm.username" 
-          placeholder="请输入用户名" 
+          placeholder="请输入用户名"
+          class="custom-input"
         >
           <template #prefix>
-            <el-icon><User /></el-icon>
+            <el-icon class="input-icon"><User /></el-icon>
           </template>
         </el-input>
       </el-form-item>
       
       <!-- 注册方式选择 -->
       <el-form-item>
-        <el-radio-group v-model="registerType" @change="handleRegisterTypeChange">
+        <el-radio-group v-model="registerType" @change="handleRegisterTypeChange" class="register-type-selector">
           <el-radio-button label="phone">手机注册</el-radio-button>
           <el-radio-button label="email">邮箱注册</el-radio-button>
         </el-radio-group>
@@ -34,10 +35,11 @@
       <el-form-item prop="phone" v-if="registerType === 'phone'">
         <el-input 
           v-model="registerForm.phone" 
-          placeholder="请输入手机号" 
+          placeholder="请输入手机号"
+          class="custom-input"
         >
           <template #prefix>
-            <el-icon><Iphone /></el-icon>
+            <el-icon class="input-icon"><Iphone /></el-icon>
           </template>
         </el-input>
       </el-form-item>
@@ -46,10 +48,11 @@
       <el-form-item prop="email" v-if="registerType === 'email'">
         <el-input 
           v-model="registerForm.email" 
-          placeholder="请输入有效邮箱" 
+          placeholder="请输入邮箱"
+          class="custom-input"
         >
           <template #prefix>
-            <el-icon><Message /></el-icon>
+            <el-icon class="input-icon"><Message /></el-icon>
           </template>
         </el-input>
       </el-form-item>
@@ -59,16 +62,18 @@
         <div class="code-input-group">
           <el-input 
             v-model="registerForm.code" 
-            placeholder="请输入验证码" 
+            placeholder="请输入验证码"
+            class="custom-input"
           >
             <template #prefix>
-              <el-icon><Key /></el-icon>
+              <el-icon class="input-icon"><Key /></el-icon>
             </template>
           </el-input>
           <el-button 
             type="primary" 
             :disabled="isCodeSending || countdown > 0" 
             @click="sendVerificationCode"
+            class="code-button btn-hover"
           >
             {{ countdown > 0 ? `重新发送(${countdown}s)` : '发送验证码' }}
           </el-button>
@@ -82,9 +87,10 @@
           type="password" 
           placeholder="请设置密码" 
           show-password
+          class="custom-input"
         >
           <template #prefix>
-            <el-icon><Lock /></el-icon>
+            <el-icon class="input-icon"><Lock /></el-icon>
           </template>
         </el-input>
       </el-form-item>
@@ -96,42 +102,41 @@
           type="password" 
           placeholder="请确认密码" 
           show-password
-          @keyup.enter="handleRegister"
+          class="custom-input"
         >
           <template #prefix>
-            <el-icon><Lock /></el-icon>
+            <el-icon class="input-icon"><Lock /></el-icon>
           </template>
         </el-input>
       </el-form-item>
       
       <!-- 用户协议 -->
       <el-form-item prop="agreement">
-        <el-checkbox v-model="registerForm.agreement">
+        <el-checkbox v-model="registerForm.agreement" class="agreement-checkbox">
           我已阅读并同意
-          <el-link type="primary" @click.stop="showAgreement">
-            《用户协议》
-          </el-link>
+          <a href="javascript:;" @click="showAgreement" class="link-hover">《用户协议》</a>
           和
-          <el-link type="primary" @click.stop="showPrivacy">
-            《隐私政策》
-          </el-link>
+          <a href="javascript:;" @click="showPrivacy" class="link-hover">《隐私政策》</a>
         </el-checkbox>
       </el-form-item>
       
-      <el-button 
-        type="primary" 
-        :loading="isLoading" 
-        class="register-button" 
+      <button 
+        type="button" 
+        :disabled="isLoading" 
+        class="register-button btn-gradient-primary btn-hover" 
         @click="handleRegister"
       >
-        注册
-      </el-button>
+        <span v-if="isLoading" class="loading-spinner"></span>
+        <span>注册</span>
+      </button>
     </el-form>
     
     <div class="other-links">
       <p>
-        已有账号? 
-        <router-link to="/auth/login" class="login-link">立即登录</router-link>
+        已有账号？
+        <router-link to="/auth/login" class="login-link link-hover">
+          立即登录
+        </router-link>
       </p>
     </div>
   </div>
@@ -387,23 +392,78 @@ const onUnmounted = () => {
 .register-container {
   width: 100%;
   max-width: 400px;
+  margin: 0 auto;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(82, 196, 26, 0.1);
+  background: linear-gradient(135deg, #d4e7ba, #d2ecc3);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(82, 196, 26, 0.15);
+  position: relative;
+  z-index: 10;
 }
 
 .title {
-  font-size: 24px;
+  font-size: 2rem;
   font-weight: 600;
-  margin-bottom: 8px;
+  margin-bottom: 0.75rem;
+  text-align: center;
   color: #333;
+  line-height: 1.2;
 }
 
 .subtitle {
-  font-size: 14px;
+  font-size: 0.875rem;
   color: #666;
-  margin-bottom: 30px;
+  margin-bottom: 2rem;
+  text-align: center;
 }
 
 .register-form {
-  margin-bottom: 20px;
+  margin-bottom: 1.5rem;
+}
+
+.register-type-selector {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+:deep(.el-radio-group) {
+  width: 100%;
+  display: flex;
+}
+
+:deep(.el-radio-button) {
+  flex: 1;
+}
+
+:deep(.el-radio-button__inner) {
+  width: 100%;
+  border-color: rgba(82, 196, 26, 0.3);
+  background-color: rgba(255, 255, 255, 0.6);
+  color: #666;
+  transition: all 0.3s;
+}
+
+.custom-input {
+  --el-input-border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+:deep(.el-input__wrapper) {
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(82, 196, 26, 0.3);
+  transition: all 0.3s;
+}
+
+:deep(.el-input__wrapper:hover) {
+  border-color: var(--el-color-primary);
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+.input-icon {
+  font-size: 1.2rem;
+  color: #666;
 }
 
 .code-input-group {
@@ -415,27 +475,40 @@ const onUnmounted = () => {
   flex: 1;
 }
 
-.code-input-group .el-button {
+.code-button {
   white-space: nowrap;
+  border-radius: 8px;
+  background: var(--el-color-primary);
+  border: none;
+  color: white;
+  padding: 0 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.code-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.agreement-checkbox {
+  font-size: 0.875rem;
+}
+
+.agreement-checkbox a {
+  color: var(--el-color-primary);
+  text-decoration: none;
+}
+
+.agreement-checkbox a:hover {
+  opacity: 0.8;
 }
 
 .register-button {
   width: 100%;
-  padding: 12px 0;
-  font-size: 16px;
-  margin-top: 10px;
-}
-
-.other-links {
-  text-align: center;
-  margin-top: 20px;
-  color: #666;
-  font-size: 14px;
-}
-
-.login-link {
-  color: #409EFF;
-  text-decoration: none;
+  padding: 12px;
+  font-size: 1rem;
   font-weight: 500;
-}
-</style>
+  color: white;
+  background: linear-gradient(135deg, #52c41a, #52c4
+
+
