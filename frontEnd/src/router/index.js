@@ -17,9 +17,13 @@ import AdminLayout from '@/pages/admin/layout/index.vue'
 import AdminLogin from '@/pages/admin/login/index.vue'
 
 // 布局组件
-const AuthLayout = () => import('../pages/common/auth/Layout.vue')
+import AuthLayout from '../pages/common/auth/Layout.vue'
 // 登录页面
-const Login = () => import('../pages/common/auth/login.vue')
+import Login from '../pages/common/auth/login.vue'
+// 注册页面
+import Register from '../pages/common/auth/register.vue'
+// 找回密码页面
+import Recover from '../pages/common/auth/recover.vue'
 
 // 路由配置
 const routes = [
@@ -223,13 +227,13 @@ const routes = [
       {
         path: 'register',
         name: 'Register',
-        component: () => import('../pages/common/auth/register.vue'),
+        component: Register,
         meta: { title: '注册' }
       },
       {
         path: 'recover',
         name: 'Recover',
-        component: () => import('../pages/common/auth/recover.vue'),
+        component: Recover,
         meta: { title: '找回密码' }
       }
     ]
@@ -256,24 +260,24 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   // 设置页面标题
   document.title = to.meta.title ? `${to.meta.title} - 低空飞行体验` : '低空飞行体验'
-  
+
   // 特殊处理 - 如果是访问管理端控制台，直接放行
   if (to.name === 'AdminDashboard') {
     next();
     return;
   }
-  
+
   // 管理端权限验证
   if (to.meta.requiresAuth) {
     // 预约页面和项目详情页不需要登录，便于测试
-    if (to.name === 'UserProjectDetail' || to.name === 'ParaglidingDetail' || 
-        to.name === 'DroneDetail' || to.name === 'HotAirBalloonDetail' || 
-        to.name === 'HelicopterDetail' || to.name === 'PoweredParaglidingDetail' || 
+    if (to.name === 'UserProjectDetail' || to.name === 'ParaglidingDetail' ||
+        to.name === 'DroneDetail' || to.name === 'HotAirBalloonDetail' ||
+        to.name === 'HelicopterDetail' || to.name === 'PoweredParaglidingDetail' ||
         to.name === 'SkydivingDetail' || to.name.startsWith('Booking')) {
       next();
       return;
     }
-    
+
     const token = localStorage.getItem('admin_token') || localStorage.getItem('user_token');
     if (!token) {
       // 区分用户和管理员
@@ -285,7 +289,7 @@ router.beforeEach((to, from, next) => {
       return;
     }
   }
-  
+
   next();
 })
 

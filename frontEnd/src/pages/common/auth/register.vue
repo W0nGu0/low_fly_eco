@@ -2,18 +2,18 @@
   <div class="register-container fade-in card-gradient hover-lift">
     <h2 class="title">用户注册</h2>
     <p class="subtitle">创建您的账号，开始低空飞行体验</p>
-    
-    <el-form 
-      ref="registerFormRef" 
-      :model="registerForm" 
-      :rules="registerRules" 
-      class="register-form" 
+
+    <el-form
+      ref="registerFormRef"
+      :model="registerForm"
+      :rules="registerRules"
+      class="register-form"
       @submit.prevent="handleRegister"
     >
       <!-- 用户名 -->
       <el-form-item prop="username">
-        <el-input 
-          v-model="registerForm.username" 
+        <el-input
+          v-model="registerForm.username"
           placeholder="请输入用户名"
           class="custom-input"
         >
@@ -22,7 +22,7 @@
           </template>
         </el-input>
       </el-form-item>
-      
+
       <!-- 注册方式选择 -->
       <el-form-item>
         <el-radio-group v-model="registerType" @change="handleRegisterTypeChange" class="register-type-selector">
@@ -30,11 +30,11 @@
           <el-radio-button label="email">邮箱注册</el-radio-button>
         </el-radio-group>
       </el-form-item>
-      
+
       <!-- 手机号 -->
       <el-form-item prop="phone" v-if="registerType === 'phone'">
-        <el-input 
-          v-model="registerForm.phone" 
+        <el-input
+          v-model="registerForm.phone"
           placeholder="请输入手机号"
           class="custom-input"
         >
@@ -43,11 +43,11 @@
           </template>
         </el-input>
       </el-form-item>
-      
+
       <!-- 邮箱 -->
       <el-form-item prop="email" v-if="registerType === 'email'">
-        <el-input 
-          v-model="registerForm.email" 
+        <el-input
+          v-model="registerForm.email"
           placeholder="请输入邮箱"
           class="custom-input"
         >
@@ -56,12 +56,12 @@
           </template>
         </el-input>
       </el-form-item>
-      
+
       <!-- 验证码 -->
       <el-form-item prop="code" v-if="registerType !== ''">
         <div class="code-input-group">
-          <el-input 
-            v-model="registerForm.code" 
+          <el-input
+            v-model="registerForm.code"
             placeholder="请输入验证码"
             class="custom-input"
           >
@@ -69,9 +69,9 @@
               <el-icon class="input-icon"><Key /></el-icon>
             </template>
           </el-input>
-          <el-button 
-            type="primary" 
-            :disabled="isCodeSending || countdown > 0" 
+          <el-button
+            type="primary"
+            :disabled="isCodeSending || countdown > 0"
             @click="sendVerificationCode"
             class="code-button btn-hover"
           >
@@ -79,13 +79,13 @@
           </el-button>
         </div>
       </el-form-item>
-      
+
       <!-- 密码 -->
       <el-form-item prop="password">
-        <el-input 
-          v-model="registerForm.password" 
-          type="password" 
-          placeholder="请设置密码" 
+        <el-input
+          v-model="registerForm.password"
+          type="password"
+          placeholder="请设置密码"
           show-password
           class="custom-input"
         >
@@ -94,13 +94,13 @@
           </template>
         </el-input>
       </el-form-item>
-      
+
       <!-- 确认密码 -->
       <el-form-item prop="confirmPassword">
-        <el-input 
-          v-model="registerForm.confirmPassword" 
-          type="password" 
-          placeholder="请确认密码" 
+        <el-input
+          v-model="registerForm.confirmPassword"
+          type="password"
+          placeholder="请确认密码"
           show-password
           class="custom-input"
         >
@@ -109,7 +109,7 @@
           </template>
         </el-input>
       </el-form-item>
-      
+
       <!-- 用户协议 -->
       <el-form-item prop="agreement">
         <el-checkbox v-model="registerForm.agreement" class="agreement-checkbox">
@@ -119,18 +119,18 @@
           <a href="javascript:;" @click="showPrivacy" class="link-hover">《隐私政策》</a>
         </el-checkbox>
       </el-form-item>
-      
-      <button 
-        type="button" 
-        :disabled="isLoading" 
-        class="register-button btn-gradient-primary btn-hover" 
+
+      <button
+        type="button"
+        :disabled="isLoading"
+        class="register-button btn-gradient-primary btn-hover"
         @click="handleRegister"
       >
         <span v-if="isLoading" class="loading-spinner"></span>
         <span>注册</span>
       </button>
     </el-form>
-    
+
     <div class="other-links">
       <p>
         已有账号？
@@ -202,35 +202,35 @@ const registerRules = reactive({
   password: [
     { required: true, message: '请设置密码', trigger: 'blur' },
     { min: 6, max: 20, message: '密码长度应在6-20个字符之间', trigger: 'blur' },
-    { 
-      pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[\S]{6,20}$/, 
-      message: '密码必须包含大小写字母和数字', 
-      trigger: 'blur' 
+    {
+      pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[\S]{6,20}$/,
+      message: '密码必须包含大小写字母和数字',
+      trigger: 'blur'
     }
   ],
   confirmPassword: [
     { required: true, message: '请确认密码', trigger: 'blur' },
-    { 
+    {
       validator: (rule, value, callback) => {
         if (value !== registerForm.password) {
           callback(new Error('两次输入的密码不一致'))
         } else {
           callback()
         }
-      }, 
-      trigger: 'blur' 
+      },
+      trigger: 'blur'
     }
   ],
   agreement: [
-    { 
+    {
       validator: (rule, value, callback) => {
         if (!value) {
           callback(new Error('请阅读并同意用户协议和隐私政策'))
         } else {
           callback()
         }
-      }, 
-      trigger: 'change' 
+      },
+      trigger: 'change'
     }
   ]
 })
@@ -276,10 +276,10 @@ const sendVerificationCode = async () => {
     // 这里应该调用实际的API发送验证码
     // const contact = registerType.value === 'phone' ? registerForm.phone : registerForm.email
     // await sendCode({ type: registerType.value, contact })
-    
+
     // 模拟发送成功
     await new Promise(resolve => setTimeout(resolve, 1000))
-    
+
     // 开始倒计时
     startCountdown()
     ElMessage.success(`验证码已发送至${registerType.value === 'phone' ? '手机' : '邮箱'}`)
@@ -338,12 +338,12 @@ const startCountdown = () => {
 const handleRegister = async () => {
   // 表单验证
   if (!registerFormRef.value) return
-  
+
   await registerFormRef.value.validate(async (valid) => {
     if (!valid) {
       return false
     }
-    
+
     isLoading.value = true
     try {
       // 准备注册数据
@@ -352,16 +352,16 @@ const handleRegister = async () => {
         password: registerForm.password,
         code: registerForm.code
       }
-      
+
       if (registerType.value === 'phone') {
         registerData.phone = registerForm.phone
       } else {
         registerData.email = registerForm.email
       }
-      
+
       // 调用注册接口
       await userStore.register(registerData)
-      
+
       ElMessage.success('注册成功，请登录')
       router.push('/auth/login')
     } catch (error) {
@@ -509,6 +509,58 @@ const onUnmounted = () => {
   font-size: 1rem;
   font-weight: 500;
   color: white;
-  background: linear-gradient(135deg, #52c41a, #52c4
+  background: linear-gradient(135deg, #52c41a, #52c41a);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
 
+.register-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
 
+.register-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.loading-spinner {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.other-links {
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 0.875rem;
+}
+
+.login-link {
+  color: var(--el-color-primary);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.login-link:hover {
+  text-decoration: underline;
+}
+
+/* 响应式样式 */
+@media (max-width: 768px) {
+  .register-container {
+    max-width: 100%;
+    margin: 0 1rem;
+  }
+}
+</style>
