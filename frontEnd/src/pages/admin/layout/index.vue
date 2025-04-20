@@ -1,107 +1,105 @@
 <template>
-  <div class="admin-layout">
-    <el-container class="container">
-      <!-- 侧边栏 -->
-      <el-aside :width="isCollapse ? '64px' : '220px'" class="aside">
-        <div class="logo">
-          <img :src="logoUrl" alt="低空飞行体验" class="logo-img">
-          <span class="logo-text" v-if="!isCollapse">管理系统</span>
+  <el-container class="admin-layout">
+    <!-- 侧边栏 -->
+    <el-aside :width="isCollapse ? '64px' : '220px'" class="aside">
+      <div class="logo">
+        <img :src="logoUrl" alt="低空飞行体验" class="logo-img">
+        <span class="logo-text" v-if="!isCollapse">管理系统</span>
+      </div>
+      <el-menu
+        :default-active="activeMenu"
+        background-color="#304156"
+        text-color="#bfcbd9"
+        active-text-color="#1890ff"
+        :collapse="isCollapse"
+        router
+        unique-opened
+        class="menu"
+      >
+        <el-menu-item index="/admin/dashboard">
+          <el-icon><DataLine /></el-icon>
+          <template #title>控制台</template>
+        </el-menu-item>
+
+        <el-sub-menu index="1">
+          <template #title>
+            <el-icon><Goods /></el-icon>
+            <span>项目管理</span>
+          </template>
+          <el-menu-item index="/admin/projects">项目列表</el-menu-item>
+          <el-menu-item index="/admin/projects/create">新增项目</el-menu-item>
+        </el-sub-menu>
+
+        <el-sub-menu index="2">
+          <template #title>
+            <el-icon><Document /></el-icon>
+            <span>订单管理</span>
+          </template>
+          <el-menu-item index="/admin/orders">订单列表</el-menu-item>
+          <el-menu-item index="/admin/orders/statistics">订单统计</el-menu-item>
+        </el-sub-menu>
+
+        <el-sub-menu index="3">
+          <template #title>
+            <el-icon><User /></el-icon>
+            <span>用户管理</span>
+          </template>
+          <el-menu-item index="/admin/users">用户列表</el-menu-item>
+        </el-sub-menu>
+
+        <el-menu-item index="/admin/reviews">
+          <el-icon><ChatDotRound /></el-icon>
+          <template #title>评价管理</template>
+        </el-menu-item>
+
+        <el-menu-item index="/admin/settings">
+          <el-icon><Setting /></el-icon>
+          <template #title>系统设置</template>
+        </el-menu-item>
+      </el-menu>
+    </el-aside>
+
+    <!-- 主要内容区 -->
+    <el-container class="main-container">
+      <!-- 头部 -->
+      <el-header class="header">
+        <div class="header-left">
+          <el-icon class="toggle-sidebar" @click="toggleSidebar">
+            <Fold v-if="!isCollapse" />
+            <Expand v-else />
+          </el-icon>
+          <el-breadcrumb separator="/">
+            <el-breadcrumb-item :to="{ path: '/admin/dashboard' }">控制台</el-breadcrumb-item>
+            <el-breadcrumb-item v-if="currentRoute.meta && currentRoute.meta.title">
+              {{ currentRoute.meta.title }}
+            </el-breadcrumb-item>
+          </el-breadcrumb>
         </div>
-        <el-menu
-          :default-active="activeMenu"
-          background-color="#304156"
-          text-color="#bfcbd9"
-          active-text-color="#1890ff"
-          :collapse="isCollapse"
-          router
-          unique-opened
-          class="menu"
-        >
-          <el-menu-item index="/admin/dashboard">
-            <el-icon><DataLine /></el-icon>
-            <template #title>控制台</template>
-          </el-menu-item>
-
-          <el-sub-menu index="1">
-            <template #title>
-              <el-icon><Goods /></el-icon>
-              <span>项目管理</span>
+        <div class="header-right">
+          <el-dropdown @command="handleCommand">
+            <div class="user-info">
+              <el-avatar :src="adminAvatar" size="small"></el-avatar>
+              <span class="username">{{ adminName }}</span>
+            </div>
+            <template #dropdown>
+              <el-dropdown-menu>
+                <el-dropdown-item command="profile">个人信息</el-dropdown-item>
+                <el-dropdown-item command="password">修改密码</el-dropdown-item>
+                <el-dropdown-item divided command="logout">退出登录</el-dropdown-item>
+              </el-dropdown-menu>
             </template>
-            <el-menu-item index="/admin/projects">项目列表</el-menu-item>
-            <el-menu-item index="/admin/projects/create">新增项目</el-menu-item>
-          </el-sub-menu>
+          </el-dropdown>
+        </div>
+      </el-header>
 
-          <el-sub-menu index="2">
-            <template #title>
-              <el-icon><Document /></el-icon>
-              <span>订单管理</span>
-            </template>
-            <el-menu-item index="/admin/orders">订单列表</el-menu-item>
-            <el-menu-item index="/admin/orders/statistics">订单统计</el-menu-item>
-          </el-sub-menu>
-
-          <el-sub-menu index="3">
-            <template #title>
-              <el-icon><User /></el-icon>
-              <span>用户管理</span>
-            </template>
-            <el-menu-item index="/admin/users">用户列表</el-menu-item>
-          </el-sub-menu>
-
-          <el-menu-item index="/admin/reviews">
-            <el-icon><ChatDotRound /></el-icon>
-            <template #title>评价管理</template>
-          </el-menu-item>
-
-          <el-menu-item index="/admin/settings">
-            <el-icon><Setting /></el-icon>
-            <template #title>系统设置</template>
-          </el-menu-item>
-        </el-menu>
-      </el-aside>
-
-      <!-- 主要内容区 -->
-      <el-container class="main-container">
-        <!-- 头部 -->
-        <el-header class="header">
-          <div class="header-left">
-            <el-icon class="toggle-sidebar" @click="toggleSidebar">
-              <Fold v-if="!isCollapse" />
-              <Expand v-else />
-            </el-icon>
-            <el-breadcrumb separator="/">
-              <el-breadcrumb-item :to="{ path: '/admin/dashboard' }">控制台</el-breadcrumb-item>
-              <el-breadcrumb-item v-if="currentRoute.meta && currentRoute.meta.title">
-                {{ currentRoute.meta.title }}
-              </el-breadcrumb-item>
-            </el-breadcrumb>
-          </div>
-          <div class="header-right">
-            <el-dropdown @command="handleCommand">
-              <div class="user-info">
-                <el-avatar :src="adminAvatar" size="small"></el-avatar>
-                <span class="username">{{ adminName }}</span>
-              </div>
-              <template #dropdown>
-                <el-dropdown-menu>
-                  <el-dropdown-item command="profile">个人信息</el-dropdown-item>
-                  <el-dropdown-item command="password">修改密码</el-dropdown-item>
-                  <el-dropdown-item divided command="logout">退出登录</el-dropdown-item>
-                </el-dropdown-menu>
-              </template>
-            </el-dropdown>
-          </div>
-        </el-header>
-
-        <!-- 内容 -->
-        <el-main class="main">
-          <div class="content-wrapper w-full h-full">
-            <router-view></router-view>
-          </div>
-        </el-main>
-      </el-container>
+      <!-- 内容 -->
+      <el-main class="main">
+        <div class="content-wrapper w-full h-full">
+          <router-view></router-view>
+        </div>
+      </el-main>
     </el-container>
-  </div>
+  </el-container>
 </template>
 
 <script setup>
@@ -165,18 +163,12 @@ const handleCommand = (command) => {
 .admin-layout {
   height: 100vh;
   width: 100vw;
-  display: flex;
   overflow: hidden;
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-}
-
-.container {
-  height: 100%;
-  width: 100%;
 }
 
 .aside {
@@ -264,6 +256,7 @@ const handleCommand = (command) => {
   flex: 1;
   display: flex;
   overflow: hidden;
+  min-width: 0; /* 防止内容溢出 */
 }
 
 .main {
@@ -275,7 +268,8 @@ const handleCommand = (command) => {
   width: 100%;
   box-sizing: border-box;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
+  min-width: 0; /* 防止内容溢出 */
 }
 
 .content-wrapper {
@@ -286,6 +280,8 @@ const handleCommand = (command) => {
   width: 100%;
   display: flex;
   flex-direction: column;
+  flex: 1;
+  min-width: 0; /* 防止内容溢出 */
 }
 
 :deep(.el-menu-item.is-active) {
