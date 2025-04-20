@@ -1,8 +1,8 @@
 <template>
-  <div class="orders-page bg-gray-50 min-h-screen">
+  <div class="orders-page min-h-screen">
     <div class="container mx-auto px-4 py-8">
       <h1 class="text-3xl font-bold mb-8 text-gray-800 animate__animated animate__fadeInDown">我的订单</h1>
-      
+
       <!-- 订单筛选 -->
       <div class="filters mb-8 flex flex-wrap gap-4 bg-white p-6 rounded-xl shadow-sm animate__animated animate__fadeInUp">
         <el-select v-model="statusFilter" placeholder="订单状态" class="w-36">
@@ -14,7 +14,7 @@
           <el-option label="退款中" value="refunding"></el-option>
           <el-option label="已退款" value="refunded"></el-option>
         </el-select>
-        
+
         <el-date-picker
           v-model="dateRange"
           type="daterange"
@@ -25,7 +25,7 @@
           value-format="YYYY-MM-DD"
           class="w-72">
         </el-date-picker>
-        
+
         <el-input
           v-model="searchKeyword"
           placeholder="搜索订单号/项目名称"
@@ -35,19 +35,19 @@
             <el-icon><Search /></el-icon>
           </template>
         </el-input>
-        
+
         <el-button type="primary" @click="searchOrders" class="bg-blue-500 hover:bg-blue-600 transition-colors">搜索</el-button>
         <el-button @click="resetFilters" class="hover:bg-gray-100 transition-colors">重置</el-button>
       </div>
-      
+
       <!-- 订单列表 -->
       <div class="orders-list mb-8">
         <el-empty v-if="filteredOrders.length === 0" description="暂无订单" class="py-12">
           <el-button type="primary" @click="goToProjects">去体验</el-button>
         </el-empty>
-        
+
         <div v-else class="grid gap-6">
-          <el-card v-for="(order, index) in filteredOrders" :key="order.id" 
+          <el-card v-for="(order, index) in filteredOrders" :key="order.id"
             class="order-card hover:shadow-lg transition-shadow duration-300 animate__animated animate__fadeIn"
             :style="{ animationDelay: `${index * 0.1}s` }">
             <div class="order-item">
@@ -60,12 +60,12 @@
                   <el-tag :type="getStatusTagType(order.status)" class="px-3 py-1">{{ getStatusText(order.status) }}</el-tag>
                 </div>
               </div>
-              
+
               <div class="order-content flex mb-4">
                 <div class="order-project-image mr-4 hidden sm:block">
                   <img :src="order.projectImage" alt="项目图片" class="w-24 h-24 object-cover rounded-md shadow-sm">
                 </div>
-                
+
                 <div class="order-details flex-1">
                   <h3 class="text-lg font-medium mb-2 text-gray-800">{{ order.projectName }}</h3>
                   <div class="order-info text-sm text-gray-500 grid grid-cols-1 md:grid-cols-2 gap-2">
@@ -87,7 +87,7 @@
                     </div>
                   </div>
                 </div>
-                
+
                 <div class="order-price text-right">
                   <div class="price-amount">
                     <span class="currency">¥</span>
@@ -95,49 +95,49 @@
                     <span class="unit">{{ order.amount > 1 ? '元' : '元' }}</span>
                   </div>
                   <div class="order-actions">
-                    <el-button 
-                      type="primary" 
-                      size="small" 
+                    <el-button
+                      type="primary"
+                      size="small"
                       @click="viewOrderDetail(order.id)"
                       class="mb-2 w-full bg-blue-500 hover:bg-blue-600 transition-colors">
                       查看详情
                     </el-button>
-                    
+
                     <!-- 待支付状态显示去支付按钮 -->
-                    <el-button 
-                      v-if="order.status === 'pending'" 
-                      type="success" 
-                      size="small" 
+                    <el-button
+                      v-if="order.status === 'pending'"
+                      type="success"
+                      size="small"
                       @click="goToPay(order.id)"
                       class="mb-2 w-full bg-green-500 hover:bg-green-600 transition-colors">
                       去支付
                     </el-button>
-                    
+
                     <!-- 待体验状态显示取消订单按钮 -->
-                    <el-button 
-                      v-if="order.status === 'booked'" 
-                      type="danger" 
-                      size="small" 
+                    <el-button
+                      v-if="order.status === 'booked'"
+                      type="danger"
+                      size="small"
                       @click="cancelOrder(order.id)"
                       class="mb-2 w-full bg-red-500 hover:bg-red-600 transition-colors">
                       取消订单
                     </el-button>
-                    
+
                     <!-- 已完成状态显示评价按钮 -->
-                    <el-button 
-                      v-if="order.status === 'completed' && !order.hasReview" 
-                      type="warning" 
-                      size="small" 
+                    <el-button
+                      v-if="order.status === 'completed' && !order.hasReview"
+                      type="warning"
+                      size="small"
                       @click="goToReview(order.id)"
                       class="mb-2 w-full bg-yellow-500 hover:bg-yellow-600 transition-colors">
                       评价
                     </el-button>
-                    
+
                     <!-- 退款中状态显示查看退款进度按钮 -->
-                    <el-button 
-                      v-if="order.status === 'refunding'" 
-                      type="info" 
-                      size="small" 
+                    <el-button
+                      v-if="order.status === 'refunding'"
+                      type="info"
+                      size="small"
                       @click="viewRefundProgress(order.id)"
                       class="mb-2 w-full bg-gray-500 hover:bg-gray-600 transition-colors">
                       退款进度
@@ -149,7 +149,7 @@
           </el-card>
         </div>
       </div>
-      
+
       <!-- 分页 -->
       <div class="pagination-container flex justify-center mt-8">
         <el-pagination
@@ -296,10 +296,10 @@ async function loadOrders() {
     // const result = await orderStore.getUserOrders(params)
     // orders.value = result.data
     // total.value = result.total
-    
+
     // 模拟数据
     await new Promise(resolve => setTimeout(resolve, 500))
-    
+
     orders.value = [
       {
         id: 1,
@@ -342,7 +342,7 @@ async function loadOrders() {
         amount: 1197
       }
     ]
-    
+
     total.value = 3
   } catch (error) {
     ElMessage.error(error.message || '加载订单失败')
@@ -378,10 +378,10 @@ async function viewOrderDetail(orderId) {
     // 实际项目中应调用API获取订单详情
     // const result = await orderStore.getOrderById(orderId)
     // currentOrder.value = result.data
-    
+
     // 模拟数据
     const order = orders.value.find(o => o.id === orderId)
-    
+
     currentOrder.value = {
       ...order,
       payTime: order.status !== 'pending' ? '2023-08-10 14:45:22' : null,
@@ -411,7 +411,7 @@ async function viewOrderDetail(orderId) {
         result: order.status === 'refunded' ? '退款已完成' : null
       } : null
     }
-    
+
     showOrderDetail.value = true
   } catch (error) {
     ElMessage.error(error.message || '获取订单详情失败')
@@ -425,7 +425,7 @@ function goToPay(orderId) {
     ElMessage.error('订单信息不存在')
     return
   }
-  
+
   // 存储订单信息到本地存储，供支付页面使用
   const orderInfo = {
     orderNumber: order.orderNumber,
@@ -435,7 +435,7 @@ function goToPay(orderId) {
     amount: order.amount
   }
   localStorage.setItem('currentOrder', JSON.stringify(orderInfo))
-  
+
   // 跳转到支付页面，使用订单号作为路由参数
   router.push(`/user/payment/${order.orderNumber}`)
 }
@@ -454,12 +454,12 @@ function cancelOrder(orderId) {
     try {
       // 实际项目中应调用API取消订单
       // await orderStore.cancelOrder(orderId)
-      
+
       // 模拟API调用
       await new Promise(resolve => setTimeout(resolve, 500))
-      
+
       ElMessage.success('订单已取消')
-      
+
       // 刷新订单列表
       loadOrders()
     } catch (error) {
@@ -472,10 +472,10 @@ function cancelOrder(orderId) {
 function applyRefund(orderId) {
   const order = orders.value.find(o => o.id === orderId)
   if (!order) return
-  
+
   refundForm.orderId = orderId
   refundForm.amount = order.amount * (refundForm.percentage / 100)
-  
+
   showRefundDialog.value = true
 }
 
@@ -492,17 +492,17 @@ async function submitRefund() {
         //   description: refundForm.description,
         //   amount: refundForm.amount
         // })
-        
+
         // 模拟API调用
         await new Promise(resolve => setTimeout(resolve, 800))
-        
+
         ElMessage.success('退款申请已提交，请等待处理')
         showRefundDialog.value = false
-        
+
         // 重置表单
         refundForm.reason = ''
         refundForm.description = ''
-        
+
         // 刷新订单列表
         loadOrders()
       } catch (error) {
@@ -523,7 +523,7 @@ function goToReview(orderId) {
 function viewVoucher(orderId) {
   const order = orders.value.find(o => o.id === orderId)
   if (!order) return
-  
+
   voucherInfo.value = {
     projectName: order.projectName,
     bookingTime: order.bookingTime,
@@ -531,7 +531,7 @@ function viewVoucher(orderId) {
     contactName: order.contactName,
     orderNumber: order.orderNumber
   }
-  
+
   showVoucher.value = true
 }
 
@@ -555,7 +555,7 @@ onMounted(() => {
 
 <style scoped>
 .orders-page {
-  background-color: #f0fdf4;
+  /* 背景色已在布局文件中设置为 #d1faba */
   min-height: calc(100vh - 64px);
   padding: 2rem 0;
 }
@@ -836,24 +836,24 @@ h1 {
   .container {
     padding: 0 1rem;
   }
-  
+
   .filters {
     flex-direction: column;
     padding: 1rem;
   }
-  
+
   .order-content {
     flex-direction: column;
   }
-  
+
   .order-project-image {
     display: none;
   }
-  
+
   .order-info {
     grid-template-columns: 1fr;
   }
-  
+
   .order-price {
     text-align: left;
     margin-top: 1rem;

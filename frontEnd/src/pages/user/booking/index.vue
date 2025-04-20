@@ -6,7 +6,7 @@
         <el-step title="填写信息" icon="User"></el-step>
         <el-step title="提交预约" icon="Check"></el-step>
       </el-steps>
-      
+
       <div class="booking-content card p-6">
         <!-- 步骤一：选择时间 -->
         <div v-if="activeStep === 0">
@@ -14,7 +14,7 @@
             <h2 class="text-xl font-bold">选择预约时间</h2>
             <p class="text-gray-500 mt-2">请选择您想要体验的日期和时间段</p>
           </div>
-          
+
           <div class="project-info-card bg-gray-50 p-4 rounded-lg mb-6">
             <div class="flex items-center">
               <div class="project-image mr-4">
@@ -35,7 +35,7 @@
               </div>
             </div>
           </div>
-          
+
           <el-row :gutter="20">
             <el-col :xs="24" :md="12">
               <div class="date-selection mb-6">
@@ -51,7 +51,7 @@
                 </el-date-picker>
               </div>
             </el-col>
-            
+
             <el-col :xs="24" :md="12">
               <div class="people-selection mb-6">
                 <h3 class="text-md font-semibold mb-3">参与人数</h3>
@@ -65,7 +65,7 @@
               </div>
             </el-col>
           </el-row>
-          
+
           <div class="time-slots mb-6">
             <h3 class="text-md font-semibold mb-3">选择时间段</h3>
             <el-alert
@@ -97,7 +97,7 @@
               </el-radio-group>
             </div>
           </div>
-          
+
           <div class="price-summary bg-gray-50 p-4 rounded-lg mb-6">
             <div class="flex justify-between items-center">
               <div>
@@ -110,100 +110,100 @@
               </div>
             </div>
           </div>
-          
+
           <div class="step-actions flex justify-between mt-6">
             <el-button @click="goBack">取消</el-button>
             <el-button type="primary" @click="nextStep" :disabled="!canProceed">下一步</el-button>
           </div>
         </div>
-        
+
         <!-- 步骤二：填写信息 -->
         <div v-if="activeStep === 1">
           <div class="step-header mb-6">
             <h2 class="text-xl font-bold">填写参与者信息</h2>
             <p class="text-gray-500 mt-2">请填写参与者的详细信息，以便我们为您提供更好的服务</p>
           </div>
-          
+
           <el-form ref="participantForm" :model="participantInfo" :rules="participantRules" label-position="top">
             <el-form-item label="联系人姓名" prop="contactName">
               <el-input v-model="participantInfo.contactName" placeholder="请输入联系人姓名"></el-input>
             </el-form-item>
-            
+
             <el-form-item label="联系电话" prop="contactPhone">
               <el-input v-model="participantInfo.contactPhone" placeholder="请输入联系电话"></el-input>
             </el-form-item>
-            
+
             <el-form-item label="紧急联系人" prop="emergencyContact">
               <el-input v-model="participantInfo.emergencyContact" placeholder="请输入紧急联系人姓名"></el-input>
             </el-form-item>
-            
+
             <el-form-item label="紧急联系人电话" prop="emergencyPhone">
               <el-input v-model="participantInfo.emergencyPhone" placeholder="请输入紧急联系人电话"></el-input>
             </el-form-item>
-            
+
             <el-divider content-position="center">参与者信息</el-divider>
-            
+
             <div v-for="(participant, index) in participants" :key="index" class="participant-item mb-4 p-4 border rounded-lg">
               <div class="participant-header flex justify-between items-center mb-3">
                 <h3 class="text-md font-semibold">参与者 {{ index + 1 }}</h3>
-                <el-button 
-                  v-if="participants.length > 1" 
-                  type="danger" 
-                  size="small" 
-                  icon="Delete" 
+                <el-button
+                  v-if="participants.length > 1"
+                  type="danger"
+                  size="small"
+                  icon="Delete"
                   @click="removeParticipant(index)">
                   移除
                 </el-button>
               </div>
-              
-              <el-form-item 
-                :label="'姓名'" 
+
+              <el-form-item
+                :label="'姓名'"
                 :prop="'participants.' + index + '.name'"
                 :rules="{ required: true, message: '请输入参与者姓名', trigger: 'blur' }">
                 <el-input v-model="participant.name" placeholder="请输入参与者姓名"></el-input>
               </el-form-item>
-              
-              <el-form-item 
-                :label="'身份证号'" 
+
+              <el-form-item
+                :label="'身份证号'"
                 :prop="'participants.' + index + '.idCard'"
                 :rules="{ required: true, pattern: /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/, message: '请输入正确的身份证号', trigger: 'blur' }">
                 <el-input v-model="participant.idCard" placeholder="请输入身份证号（用于保险）"></el-input>
               </el-form-item>
-              
+
               <el-form-item label="年龄" :prop="'participants.' + index + '.age'">
                 <el-input-number v-model="participant.age" :min="1" :max="100" style="width: 100%;"></el-input-number>
               </el-form-item>
-              
+
               <el-form-item label="特殊需求" :prop="'participants.' + index + '.specialNeeds'">
-                <el-input 
-                  type="textarea" 
-                  v-model="participant.specialNeeds" 
+                <el-input
+                  type="textarea"
+                  v-model="participant.specialNeeds"
                   placeholder="如有特殊需求，请在此说明（如行动不便、过敏史等）"
                   :rows="2">
                 </el-input>
               </el-form-item>
             </div>
-            
+
             <div class="add-participant mb-4">
-              <el-button 
-                v-if="participants.length < peopleCount" 
-                type="primary" 
-                plain 
-                icon="Plus" 
+              <el-button
+                v-if="participants.length < peopleCount"
+                type="primary"
+                plain
+                icon="Plus"
                 @click="addParticipant">
                 添加参与者
               </el-button>
             </div>
-            
+
             <el-form-item label="备注信息" prop="remark">
-              <el-input 
-                type="textarea" 
-                v-model="participantInfo.remark" 
+              <el-input
+                type="textarea"
+                v-model="participantInfo.remark"
                 placeholder="如有其他要求，请在此说明"
                 :rows="3">
               </el-input>
             </el-form-item>
-            
+
             <el-form-item>
               <el-checkbox v-model="participantInfo.agreement">
                 我已阅读并同意
@@ -213,20 +213,20 @@
               </el-checkbox>
             </el-form-item>
           </el-form>
-          
+
           <div class="step-actions flex justify-between mt-6">
             <el-button @click="prevStep">上一步</el-button>
             <el-button type="primary" @click="validateForm">下一步</el-button>
           </div>
         </div>
-        
+
         <!-- 步骤三：提交预约 -->
         <div v-if="activeStep === 2">
           <div class="step-header mb-6 text-center">
             <h2 class="text-xl font-bold">确认预约信息</h2>
             <p class="text-gray-500 mt-2">请仔细核对您的预约信息，确认无误后提交</p>
           </div>
-          
+
           <div class="confirmation-info card p-6 mb-6">
             <el-descriptions title="预约信息" :column="1" border>
               <el-descriptions-item label="项目名称">{{ project.name }}</el-descriptions-item>
@@ -240,7 +240,7 @@
               <el-descriptions-item label="备注信息">{{ participantInfo.remark || '无' }}</el-descriptions-item>
             </el-descriptions>
           </div>
-          
+
           <div class="participants-summary mb-6">
             <h3 class="text-lg font-semibold mb-3">参与者信息</h3>
             <el-table :data="participants" border style="width: 100%">
@@ -250,7 +250,7 @@
               <el-table-column prop="specialNeeds" label="特殊需求"></el-table-column>
             </el-table>
           </div>
-          
+
           <div class="notice-box bg-gray-50 p-4 rounded-lg mb-6">
             <h3 class="text-md font-semibold mb-2">注意事项</h3>
             <ul class="text-sm text-gray-600 list-disc pl-4">
@@ -261,7 +261,7 @@
               <li>如遇恶劣天气等不可抗因素，我们有权取消活动，将为您安排改期或全额退款。</li>
             </ul>
           </div>
-          
+
           <div class="step-actions flex justify-between mt-6">
             <el-button @click="prevStep">上一步</el-button>
             <el-button type="primary" @click="submitBooking" :loading="submitting">确认提交</el-button>
@@ -269,7 +269,7 @@
         </div>
       </div>
     </div>
-    
+
     <!-- 提交成功对话框 -->
     <el-dialog
       v-model="showSuccessDialog"
@@ -409,33 +409,33 @@ function disabledDate(time) {
   today.setHours(0, 0, 0, 0)
   const thirtyDaysLater = new Date(today)
   thirtyDaysLater.setDate(today.getDate() + 30)
-  
+
   return time.getTime() < today.getTime() || time.getTime() > thirtyDaysLater.getTime()
 }
 
 // 加载时间段
 function loadTimeSlots() {
   if (!bookingDate.value) return
-  
+
   // 这里模拟从API获取数据
   // 实际开发中应该调用API获取指定日期的可用时间段
-  
+
   const isWeekend = isWeekendDay(bookingDate.value)
   const slots = []
-  
+
   // 模拟时间段数据
   const startTimes = ['09:00', '10:00', '11:00', '13:00', '14:00', '15:00', '16:00']
-  
+
   startTimes.forEach((time, index) => {
     // 计算结束时间（假设每个时间段为1小时）
     const parts = time.split(':')
     const hour = parseInt(parts[0])
     let endHour = hour + 1
     let endTime = endHour.toString().padStart(2, '0') + ':00'
-    
+
     // 随机生成可用状态（周末的可用率较低）
     const available = isWeekend ? Math.random() > 0.7 : Math.random() > 0.3
-    
+
     slots.push({
       id: index + 1,
       startTime: time,
@@ -445,7 +445,7 @@ function loadTimeSlots() {
       bookedCount: Math.floor(Math.random() * 15)
     })
   })
-  
+
   timeSlots.value = slots
   selectedTimeSlot.value = '' // 重置选择
 }
@@ -459,13 +459,13 @@ function isWeekendDay(date) {
 // 获取单价（根据日期判断是否是周末或节假日）
 function getUnitPrice() {
   if (!bookingDate.value) return project.price
-  
+
   if (isWeekendDay(bookingDate.value)) {
     return project.weekendPrice
   }
-  
+
   // 这里可以添加节假日判断逻辑
-  
+
   return project.price
 }
 
@@ -478,23 +478,23 @@ function calculatePrice() {
 // 获取选中的时间段文本
 function getTimeSlotText() {
   if (!selectedTimeSlot.value) return '未选择'
-  
+
   const slot = timeSlots.value.find(s => s.id === selectedTimeSlot.value)
   if (slot) {
     return `${slot.startTime}-${slot.endTime}`
   }
-  
+
   return '未选择'
 }
 
 // 格式化日期
 function formatDate(date) {
   if (!date) return ''
-  
+
   const year = date.getFullYear()
   const month = (date.getMonth() + 1).toString().padStart(2, '0')
   const day = date.getDate().toString().padStart(2, '0')
-  
+
   return `${year}-${month}-${day}`
 }
 
@@ -526,7 +526,7 @@ function validateForm() {
         ElMessage.warning(`请添加所有参与者信息，还需添加${peopleCount.value - participants.length}人`)
         return
       }
-      
+
       // 验证参与者信息
       let isValid = true
       participants.forEach((participant, index) => {
@@ -535,7 +535,7 @@ function validateForm() {
           ElMessage.error(`参与者${index + 1}的姓名和身份证号不能为空`)
         }
       })
-      
+
       if (isValid) {
         nextStep()
       }
@@ -551,11 +551,11 @@ function nextStep() {
     ElMessage.warning('请先完成当前步骤的必填项')
     return
   }
-  
+
   if (activeStep.value === 0) {
     calculatePrice() // 重新计算价格
   }
-  
+
   activeStep.value++
 }
 
@@ -574,7 +574,7 @@ function goBack() {
 // 提交预约
 async function submitBooking() {
   submitting.value = true;
-  
+
   try {
     // 准备预约数据
     const bookingData = {
@@ -595,13 +595,13 @@ async function submitBooking() {
         specialNeeds: p.specialNeeds || ''
       }))
     };
-    
+
     // 模拟API调用
     await new Promise(resolve => setTimeout(resolve, 1000));
-    
+
     // 生成模拟订单号
     orderNumber.value = 'ORD' + Date.now().toString().slice(-8) + Math.floor(Math.random() * 1000);
-    
+
     // 存储订单信息到本地存储，供支付页面使用
     const orderInfo = {
       orderNumber: orderNumber.value,
@@ -611,10 +611,10 @@ async function submitBooking() {
       amount: totalPrice.value
     };
     localStorage.setItem('currentOrder', JSON.stringify(orderInfo));
-    
+
     // 显示成功对话框
     showSuccessDialog.value = true;
-    
+
   } catch (error) {
     ElMessage.error(error.message || '提交预约失败，请稍后重试');
   } finally {
@@ -737,18 +737,18 @@ async function loadProjectDetails(projectId) {
 onMounted(async () => {
   // 先加载项目详情
   await loadProjectDetails(props.id);
-  
+
   // 从URL参数中获取预选的日期和人数
   const dateParam = route.query.date;
   const participantsParam = route.query.participants;
-  
+
   if (dateParam) {
     // 将日期字符串转换为Date对象
     const [year, month, day] = dateParam.split('-');
     bookingDate.value = new Date(year, month - 1, day);
     loadTimeSlots();
   }
-  
+
   if (participantsParam) {
     peopleCount.value = parseInt(participantsParam);
     // 初始化参与者列表
@@ -761,7 +761,7 @@ onMounted(async () => {
 
 <style scoped>
 .booking-page {
-  background-color: #f0fdf4;
+  /* 背景色已在布局文件中设置为 #d1faba */
   min-height: calc(100vh - 64px);
 }
 
@@ -1036,25 +1036,25 @@ onMounted(async () => {
   .container {
     padding: 1rem;
   }
-  
+
   .booking-content {
     padding: 1rem;
   }
-  
+
   .project-info-card {
     padding: 1rem;
   }
-  
+
   .project-info-card .project-image {
     width: 60px;
     height: 60px;
   }
-  
+
   .step-actions {
     flex-direction: column;
     gap: 1rem;
   }
-  
+
   .step-actions .el-button {
     width: 100%;
   }

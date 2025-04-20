@@ -3,7 +3,7 @@
     <div class="container mx-auto px-4 py-8">
       <div class="max-w-3xl mx-auto">
         <h1 class="text-2xl font-bold mb-6">评价与反馈</h1>
-        
+
         <!-- 订单信息 -->
         <el-card class="mb-6" v-if="order">
           <div class="order-info">
@@ -32,15 +32,15 @@
             </div>
           </div>
         </el-card>
-        
+
         <!-- 评价表单 -->
-        <el-form 
-          ref="reviewFormRef" 
-          :model="reviewForm" 
-          :rules="reviewRules" 
+        <el-form
+          ref="reviewFormRef"
+          :model="reviewForm"
+          :rules="reviewRules"
           label-position="top"
           class="review-form p-6 bg-white rounded-lg shadow-sm">
-          
+
           <!-- 整体评分 -->
           <el-form-item label="整体评分" prop="rating" class="mb-6">
             <div class="flex items-center">
@@ -53,7 +53,7 @@
               </el-rate>
             </div>
           </el-form-item>
-          
+
           <!-- 项目体验评分 -->
           <div class="detailed-rating mb-6">
             <h3 class="text-lg font-semibold mb-3">细项评分</h3>
@@ -75,7 +75,7 @@
               </el-col>
             </el-row>
           </div>
-          
+
           <!-- 评价内容 -->
           <el-form-item label="评价内容" prop="content" class="mb-6">
             <el-input
@@ -87,7 +87,7 @@
               show-word-limit>
             </el-input>
           </el-form-item>
-          
+
           <!-- 快速评价标签 -->
           <div class="quick-tags mb-6">
             <div class="text-sm text-gray-500 mb-2">快速评价（点击添加）</div>
@@ -102,7 +102,7 @@
               </el-tag>
             </div>
           </div>
-          
+
           <!-- 上传照片 -->
           <el-form-item label="上传照片（可选）" class="mb-6">
             <el-upload
@@ -134,27 +134,27 @@
               支持jpg、png、gif格式，单张不超过5MB，最多可上传6张
             </div>
           </el-form-item>
-          
+
           <!-- 是否匿名评价 -->
           <el-form-item class="mb-6">
             <el-checkbox v-model="reviewForm.isAnonymous">匿名评价</el-checkbox>
           </el-form-item>
-          
+
           <!-- 提交按钮 -->
           <el-form-item>
             <el-button type="primary" @click="submitReview" :loading="submitting" class="w-full">提交评价</el-button>
           </el-form-item>
         </el-form>
-        
+
         <!-- 我的评价列表 -->
         <div class="my-reviews mt-10">
           <h2 class="text-xl font-bold mb-4">我的评价</h2>
-          
+
           <el-tabs v-model="reviewsActiveTab">
             <el-tab-pane label="全部评价" name="all">
               <div class="reviews-list">
                 <el-empty v-if="myReviews.length === 0" description="暂无评价"></el-empty>
-                
+
                 <div v-for="(review, index) in myReviews" :key="index" class="review-item card p-4 mb-4">
                   <div class="review-header flex justify-between items-center mb-3">
                     <div class="project-info">
@@ -165,14 +165,14 @@
                       <el-rate v-model="review.rating" disabled></el-rate>
                     </div>
                   </div>
-                  
+
                   <div class="review-content mb-3">
                     <div class="review-text mb-3">{{ review.content }}</div>
-                    
+
                     <div class="review-tags flex flex-wrap gap-1 mb-3" v-if="review.tags.length > 0">
                       <el-tag v-for="tag in review.tags" :key="tag" size="small" effect="plain">{{ tag }}</el-tag>
                     </div>
-                    
+
                     <div class="review-images flex flex-wrap gap-2" v-if="review.images.length > 0">
                       <div v-for="(img, imgIndex) in review.images" :key="imgIndex" class="review-image-item">
                         <el-image
@@ -183,7 +183,7 @@
                       </div>
                     </div>
                   </div>
-                  
+
                   <div class="merchant-reply bg-gray-50 p-3 rounded-lg" v-if="review.merchantReply">
                     <div class="reply-header text-sm font-medium mb-1">商家回复：</div>
                     <div class="reply-content text-sm">{{ review.merchantReply }}</div>
@@ -191,11 +191,11 @@
                 </div>
               </div>
             </el-tab-pane>
-            
+
             <el-tab-pane label="待评价" name="pending">
               <div class="pending-reviews-list">
                 <el-empty v-if="pendingReviews.length === 0" description="暂无待评价订单"></el-empty>
-                
+
                 <div v-for="(order, index) in pendingReviews" :key="index" class="pending-review-item card p-4 mb-4">
                   <div class="flex justify-between items-center">
                     <div class="order-info">
@@ -214,12 +214,12 @@
         </div>
       </div>
     </div>
-    
+
     <!-- 图片预览 -->
     <el-dialog v-model="showImagePreview" title="图片预览" width="50%">
       <img :src="previewUrl" alt="Preview" style="width: 100%;">
     </el-dialog>
-    
+
     <!-- 评价成功对话框 -->
     <el-dialog
       v-model="showSuccessDialog"
@@ -263,7 +263,7 @@ const rateTexts = ['非常差', '较差', '一般', '不错', '很棒']
 
 // 快速评价标签
 const quickTags = [
-  '服务热情', '体验好', '风景美', '安全有保障', '专业细致', 
+  '服务热情', '体验好', '风景美', '安全有保障', '专业细致',
   '价格合理', '交通便利', '氛围好', '设备完善', '适合拍照',
   '值得推荐', '性价比高', '干净整洁', '讲解详细', '准时出行'
 ]
@@ -357,7 +357,7 @@ function handleImageChange(file, fileList) {
     }
     return
   }
-  
+
   // 检查文件类型
   const acceptTypes = ['image/jpeg', 'image/png', 'image/gif']
   if (!acceptTypes.includes(file.type)) {
@@ -368,7 +368,7 @@ function handleImageChange(file, fileList) {
     }
     return
   }
-  
+
   reviewForm.images = fileList
 }
 
@@ -391,7 +391,7 @@ async function submitReview() {
   reviewFormRef.value.validate(async (valid) => {
     if (valid) {
       submitting.value = true
-      
+
       try {
         // 实际项目中应调用API提交评价
         // 准备评价数据
@@ -406,13 +406,13 @@ async function submitReview() {
           isAnonymous: reviewForm.isAnonymous,
           images: reviewForm.images.map(img => img.raw) // 实际上传应该使用FormData
         }
-        
+
         // 模拟API调用
         await new Promise(resolve => setTimeout(resolve, 1000))
-        
+
         // 显示成功对话框
         showSuccessDialog.value = true
-        
+
         // 重置表单
         resetForm()
       } catch (error) {
@@ -440,10 +440,10 @@ function resetForm() {
 function goToReview(orderId) {
   // 重置当前页面状态
   resetForm()
-  
+
   // 模拟加载订单数据
   loadOrderData(orderId)
-  
+
   // 滚动到页面顶部
   window.scrollTo({
     top: 0,
@@ -454,7 +454,7 @@ function goToReview(orderId) {
 // 加载订单数据
 function loadOrderData(orderId) {
   const pendingOrder = pendingReviews.value.find(o => o.id === orderId)
-  
+
   if (pendingOrder) {
     order.value = {
       id: pendingOrder.id,
@@ -484,7 +484,7 @@ function goToProjects() {
 onMounted(() => {
   // 从URL参数获取订单ID
   const orderId = route.query.orderId
-  
+
   if (orderId) {
     // 加载订单数据
     loadOrderData(Number(orderId))
@@ -494,7 +494,7 @@ onMounted(() => {
 
 <style scoped>
 .feedback-page {
-  background-color: #f0fdf4;
+  /* 背景色已在布局文件中设置为 #d1faba */
   min-height: calc(100vh - 64px);
   padding: 2rem 0;
 }
@@ -850,19 +850,19 @@ h1 {
   .container {
     padding: 0 1rem;
   }
-  
+
   .order-detail {
     flex-direction: column;
   }
-  
+
   .order-image {
     display: none;
   }
-  
+
   .review-form {
     padding: 1.5rem;
   }
-  
+
   .el-form-item {
     margin-bottom: 1.5rem;
   }
