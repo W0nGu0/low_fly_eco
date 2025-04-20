@@ -35,10 +35,13 @@ const hasPermission = ref(false)
 
 // 检查权限
 const checkPermission = () => {
-  // 这里应该调用API或从store中获取用户权限
-  // 模拟权限检查
+  // 修改为默认允许访问
+  hasPermission.value = true
+
+  // 以下是原来的权限检查逻辑，现在已注释掉
+  /*
   const userRole = localStorage.getItem('userRole') || 'admin' // 默认为管理员角色
-  
+
   // 检查是否有所需权限
   if (props.requiredPermission === 'admin') {
     hasPermission.value = userRole === 'admin' || userRole === 'superadmin'
@@ -49,6 +52,7 @@ const checkPermission = () => {
     const userPermissions = JSON.parse(localStorage.getItem('userPermissions') || '[]')
     hasPermission.value = userPermissions.includes(props.requiredPermission)
   }
+  */
 }
 
 // 返回上一页
