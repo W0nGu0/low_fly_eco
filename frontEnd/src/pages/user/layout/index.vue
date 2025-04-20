@@ -10,10 +10,10 @@
           </router-link>
         </div>
         <div class="nav-menu">
-          <el-menu 
-            mode="horizontal" 
-            :router="true" 
-            :default-active="activeMenu" 
+          <el-menu
+            mode="horizontal"
+            :router="true"
+            :default-active="activeMenu"
             :ellipsis="false"
             class="menu">
             <el-menu-item index="/user/home">首页</el-menu-item>
@@ -43,12 +43,12 @@
         </div>
       </div>
     </header>
-    
+
     <!-- 主要内容 -->
     <main class="main-content">
       <router-view></router-view>
     </main>
-    
+
     <!-- 页脚 -->
     <footer class="footer">
       <div class="container">
@@ -180,12 +180,14 @@ onMounted(() => {
   flex: 1;
   padding-top: 20px;
   padding-bottom: 40px;
+  background-color: #aff18b; /* 浅绿色背景 */
 }
 
 .footer {
-  background-color: #f0fdf4;
+  background-color: #aff18b; /* 浅绿色背景 */
   padding: 2rem 0 1rem;
-  margin-top: 2rem;
+  margin-top: 0; /* 移除顶部边距，避免与主内容区域之间有空隙 */
+  border-top: 1px solid rgba(255, 255, 255, 0.2); /* 添加半透明的上边框以区分区域 */
 }
 
 .footer-content {
@@ -213,13 +215,13 @@ onMounted(() => {
 .social-icons {
   display: flex;
   gap: 1rem;
-  
+
   i {
     color: #047857;
     font-size: 1.5rem;
     cursor: pointer;
     transition: color 0.3s ease;
-    
+
     &:hover {
       color: #10b981;
     }
@@ -229,12 +231,13 @@ onMounted(() => {
 .footer-bottom {
   margin-top: 1.5rem;
   padding-top: 1rem;
-  border-top: 1px solid #d1fae5;
+  border-top: 1px solid rgba(255, 255, 255, 0.3); /* 半透明的边框颜色 */
   text-align: center;
-  
+
   p {
-    color: #6b7280;
+    color: #4d7a30; /* 调整文字颜色，使其更清晰 */
     font-size: 0.875rem;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5); /* 添加文字阴影提高可读性 */
   }
 }
 
@@ -244,24 +247,24 @@ onMounted(() => {
     height: auto;
     padding: 10px 0;
   }
-  
+
   .logo {
     margin-bottom: 10px;
   }
-  
+
   .nav-menu, .user-actions {
     margin-left: 0;
     margin-right: 0;
     width: 100%;
   }
-  
+
   .menu {
     justify-content: center;
   }
-  
+
   .user-actions {
     justify-content: center;
     margin-top: 10px;
   }
 }
-</style> 
+</style>

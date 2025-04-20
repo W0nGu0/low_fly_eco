@@ -1,15 +1,15 @@
 <template>
-  <div class="profile-container bg-emerald-50 min-h-screen">
+  <div class="profile-container min-h-screen">
     <div class="container mx-auto px-4 py-8">
       <h1 class="text-3xl font-bold mb-8 text-emerald-800 animate__animated animate__fadeInDown">个人中心</h1>
-      
+
       <el-row :gutter="30">
         <!-- 左侧个人信息卡片 -->
         <el-col :md="8" :sm="24">
           <div class="profile-card card p-6 mb-6 rounded-xl shadow-sm bg-white animate__animated animate__fadeInLeft hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
             <div class="user-avatar-container text-center mb-6">
-              <el-avatar 
-                :size="120" 
+              <el-avatar
+                :size="120"
                 :src="userInfo.avatar"
                 @error="handleAvatarError"
                 class="border-4 border-emerald-100 shadow-md hover:border-emerald-200 transition-all duration-300">
@@ -49,22 +49,22 @@
               </p>
             </div>
             <div class="user-actions mt-6 flex flex-col gap-3">
-              <el-button 
-                type="success" 
-                @click="showEditProfileDialog = true" 
+              <el-button
+                type="success"
+                @click="showEditProfileDialog = true"
                 class="w-full py-3 bg-emerald-500 hover:bg-emerald-600 transition-colors">
                 <i class="el-icon-edit mr-1"></i>编辑个人信息
               </el-button>
-              <el-button 
-                type="warning" 
-                @click="showChangePasswordDialog = true" 
+              <el-button
+                type="warning"
+                @click="showChangePasswordDialog = true"
                 class="w-full py-3 bg-amber-500 hover:bg-amber-600 transition-colors">
                 <i class="el-icon-lock mr-1"></i>修改密码
               </el-button>
             </div>
           </div>
         </el-col>
-        
+
         <!-- 右侧内容 -->
         <el-col :md="16" :sm="24">
           <!-- 统计卡片 -->
@@ -99,10 +99,10 @@
               </el-col>
             </el-row>
           </div>
-          
+
           <!-- 间距 div -->
           <div style="height: 2.5rem;"></div>
-          
+
           <!-- 最近预订 -->
           <div class="recent-orders card p-6 rounded-xl shadow-sm bg-white animate__animated animate__fadeInUp hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
             <div class="section-header flex justify-between items-center mb-4">
@@ -114,9 +114,9 @@
                 查看全部 <i class="el-icon-arrow-right ml-1"></i>
               </router-link>
             </div>
-            <el-table 
-              :data="recentOrders" 
-              style="width: 100%" 
+            <el-table
+              :data="recentOrders"
+              style="width: 100%"
               class="border rounded-lg overflow-hidden"
               :row-class-name="tableRowClassName"
             >
@@ -162,10 +162,10 @@
               </el-table-column>
             </el-table>
           </div>
-          
+
           <!-- 间距 div -->
           <div style="height: 2.5rem;"></div>
-          
+
           <!-- 我的评价 -->
           <div class="my-reviews card p-6 rounded-xl shadow-sm bg-white animate__animated animate__fadeInUp hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
             <div class="section-header flex justify-between items-center mb-4">
@@ -177,14 +177,14 @@
                 查看全部 <i class="el-icon-arrow-right ml-1"></i>
               </router-link>
             </div>
-            
+
             <div v-if="recentReviews.length === 0" class="empty-reviews py-8 text-center">
               <el-empty description="暂无评价记录"></el-empty>
             </div>
-            
+
             <div v-else class="reviews-list">
-              <div v-for="(review, index) in recentReviews" 
-                   :key="index" 
+              <div v-for="(review, index) in recentReviews"
+                   :key="index"
                    class="review-item p-4 border-b last:border-b-0 hover:bg-emerald-50 transition-colors animate__animated animate__fadeIn"
                    :style="{ animationDelay: `${index * 0.2}s` }">
                 <div class="review-header flex justify-between items-start mb-2">
@@ -216,7 +216,7 @@
         </el-col>
       </el-row>
     </div>
-    
+
     <!-- 编辑个人信息对话框 -->
     <el-dialog
       v-model="showEditProfileDialog"
@@ -248,7 +248,7 @@
         </span>
       </template>
     </el-dialog>
-    
+
     <!-- 修改密码对话框 -->
     <el-dialog
       v-model="showChangePasswordDialog"
@@ -483,16 +483,16 @@ const initEditForm = () => {
 // 保存个人信息
 const submitEditProfile = async () => {
   if (!editProfileFormRef.value) return
-  
+
   try {
     submitting.value = true
     await editProfileFormRef.value.validate()
-    
+
     // TODO: 调用接口保存数据
     userInfo.value.nickname = editProfileForm.nickname
     userInfo.value.phone = editProfileForm.phone
     userInfo.value.email = editProfileForm.email
-    
+
     ElMessage.success('个人信息保存成功')
     showEditProfileDialog.value = false
   } catch (error) {
@@ -505,11 +505,11 @@ const submitEditProfile = async () => {
 // 修改密码
 const submitChangePassword = async () => {
   if (!changePasswordFormRef.value) return
-  
+
   try {
     submitting.value = true
     await changePasswordFormRef.value.validate()
-    
+
     // TODO: 调用接口修改密码
     ElMessage.success('密码修改成功，请重新登录')
     showChangePasswordDialog.value = false
@@ -551,6 +551,7 @@ onMounted(() => {
 <style scoped>
 .profile-container {
   min-height: calc(100vh - 64px - 180px);
+  /* 背景色已在布局文件中设置为 #aff18b */
 }
 
 .card {
@@ -578,6 +579,7 @@ onMounted(() => {
 .line-clamp-2 {
   display: -webkit-box;
   -webkit-line-clamp: 2;
+  line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;

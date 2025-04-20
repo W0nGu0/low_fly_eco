@@ -1,10 +1,10 @@
 <template>
-  <div class="projects-page bg-emerald-50 min-h-screen">
+  <div class="projects-page min-h-screen">
     <div class="container mx-auto px-4 py-8">
       <h1 class="text-3xl font-bold mb-8 text-emerald-800 animate__animated animate__fadeInDown">飞行体验项目</h1>
-      
+
       <!-- 搜索和筛选区域 -->
-      <div class="search-filter-container mb-12 p-6 rounded-xl shadow-sm bg-white animate__animated animate__fadeInUp">
+      <div class="search-filter-container mb-12 p-6 rounded-xl shadow-sm bg-white bg-opacity-80 animate__animated animate__fadeInUp">
         <el-row :gutter="20">
           <el-col :xs="24" :md="6">
             <el-input
@@ -65,17 +65,17 @@
           </el-col>
         </el-row>
       </div>
-      
+
       <!-- 项目列表 -->
       <div class="projects-list">
         <el-empty v-if="filteredProjects.length === 0" description="暂无符合条件的项目" class="py-12 animate__animated animate__fadeIn">
           <el-button type="primary" @click="resetFilters">重置筛选条件</el-button>
         </el-empty>
-        
+
         <el-row :gutter="30" v-else>
           <el-col :xs="24" :sm="12" :lg="8" v-for="(project, index) in filteredProjects" :key="project.id">
-            <div class="project-card" 
-                 :style="{ animationDelay: `${index * 0.1}s` }" 
+            <div class="project-card"
+                 :style="{ animationDelay: `${index * 0.1}s` }"
                  @click="goToDetail(project.id)">
               <div class="project-image">
                 <img :src="getImageUrl(project.coverImage)" :alt="project.name">
@@ -119,7 +119,7 @@
           </el-col>
         </el-row>
       </div>
-      
+
       <!-- 分页 -->
       <div class="pagination-container flex justify-center mt-8 animate__animated animate__fadeInUp">
         <el-pagination
@@ -281,21 +281,21 @@ const rateColors = ['#F7BA2A', '#F7BA2A', '#F7BA2A']
 // 计算属性：筛选后的项目
 const filteredProjects = computed(() => {
   let results = [...allProjects.value]
-  
+
   // 搜索过滤
   if (searchQuery.value) {
     const query = searchQuery.value.toLowerCase()
-    results = results.filter(project => 
-      project.name.toLowerCase().includes(query) || 
+    results = results.filter(project =>
+      project.name.toLowerCase().includes(query) ||
       project.brief.toLowerCase().includes(query)
     )
   }
-  
+
   // 分类过滤
   if (categoryFilter.value) {
     results = results.filter(project => project.categoryId === categoryFilter.value)
   }
-  
+
   // 价格过滤
   if (priceFilter.value) {
     const [min, max] = priceFilter.value.split('-')
@@ -306,7 +306,7 @@ const filteredProjects = computed(() => {
       results = results.filter(project => project.price >= Number(min.replace('+', '')))
     }
   }
-  
+
   // 排序
   switch (sortOption.value) {
     case 'price-asc':
@@ -330,7 +330,7 @@ const filteredProjects = computed(() => {
         return b.rating - a.rating
       })
   }
-  
+
   return results
 })
 
@@ -346,17 +346,17 @@ function getCategoryName(categoryId) {
 // 搜索、筛选和排序方法
 function handleSearch() {
   currentPage.value = 1
-  filterProjects()
+  // 使用计算属性自动过滤，无需调用额外函数
 }
 
 function handleFilter() {
   currentPage.value = 1
-  filterProjects()
+  // 使用计算属性自动过滤，无需调用额外函数
 }
 
 function handleSort() {
   currentPage.value = 1
-  filterProjects()
+  // 使用计算属性自动过滤，无需调用额外函数
 }
 
 function handlePageChange(page) {
@@ -395,7 +395,7 @@ function initFromUrlParams() {
   if (route.query.category) {
     categoryFilter.value = Number(route.query.category)
   }
-  
+
   if (route.query.search) {
     searchQuery.value = route.query.search
   }
@@ -405,10 +405,10 @@ function initFromUrlParams() {
 onMounted(() => {
   // 从URL参数初始化筛选
   initFromUrlParams()
-  
+
   // 处理项目列表中的图片路径
   allProjects.value = processArrayImageUrls(allProjects.value, ['coverImage']);
-  
+
   // 这里应该调用API获取项目列表
   // projectStore.fetchProjects().then(() => {
   //   allProjects.value = projectStore.projects
@@ -426,7 +426,7 @@ watch(
 
 <style scoped>
 .projects-page {
-  background-color: #f0fdf4;
+  /* 背景色已在布局文件中设置为 #aff18b */
   min-height: calc(100vh - 64px);
 }
 
@@ -568,12 +568,13 @@ watch(
 
 .search-filter-container {
   margin-bottom: 2rem;
-  background: white;
+  background: rgba(255, 255, 255, 0.85);
   border-radius: 1rem;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
   transition: all 0.3s ease;
   border: 1px solid #dcfce7;
   padding: 1.5rem;
+  backdrop-filter: blur(5px);
 }
 
 .search-filter-container:hover {
@@ -622,6 +623,10 @@ watch(
   margin-top: 2rem;
   padding-top: 1.5rem;
   border-top: 1px solid #dcfce7;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 0.75rem;
+  padding: 1rem;
+  backdrop-filter: blur(5px);
 }
 
 .el-pagination {
@@ -646,7 +651,7 @@ watch(
   margin-bottom: 20px !important;
   border-radius: 1rem;
   overflow: hidden;
-  background-color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.85);
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
@@ -654,12 +659,14 @@ watch(
   animation: fadeInUp 0.5s ease-out;
   border: 1px solid #dcfce7;
   height: auto !important;
+  backdrop-filter: blur(5px);
 }
 
 .project-card:hover {
   transform: translateY(-8px);
   box-shadow: 0 8px 24px rgba(22, 163, 74, 0.15);
   border-color: #86efac;
+  background-color: rgba(255, 255, 255, 0.95);
 }
 
 .project-card:hover .project-image img {
@@ -679,37 +686,37 @@ watch(
     margin-bottom: 1.5rem;
     padding: 1rem;
   }
-  
+
   .search-filter-container .el-col {
     padding: 0.375rem;
   }
-  
+
   .project-card {
     margin-bottom: 15px !important;
   }
-  
+
   .project-info {
     padding: 0.875rem;
     gap: 0.375rem;
   }
-  
+
   .project-meta {
     padding-bottom: 0.375rem;
     gap: 0.5rem;
   }
-  
+
   .project-footer {
     margin-top: 0.25rem;
   }
-  
+
   .pagination-container {
     margin-top: 0.75rem;
   }
-  
+
   .el-row {
     margin-bottom: -15px !important;
   }
-  
+
   .project-image {
     height: 180px;
   }
