@@ -1,16 +1,16 @@
 <template>
-  <div class="admin-reviews-page w-full h-full flex flex-col">
-    <h1>评价管理</h1>
-    <p>管理员评价管理页面</p>
+  <div class="admin-settings-page w-full h-full flex flex-col">
+    <h1>系统设置</h1>
+    <p>管理员系统设置页面</p>
   </div>
 </template>
 
 <script setup>
-// 管理员评价管理页面
+// 管理员系统设置页面
 </script>
 
 <style scoped>
-.admin-reviews-page {
+.admin-settings-page {
   padding: 20px;
   width: 100%;
   height: 100%;

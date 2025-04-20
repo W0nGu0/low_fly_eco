@@ -1,5 +1,5 @@
 <template>
-  <div class="project-list-container animate__animated animate__fadeIn">
+  <div class="project-list-container animate__animated animate__fadeIn w-full h-full flex flex-col">
     <div class="page-header">
       <div class="title-section">
         <h2 class="page-title">项目管理</h2>
@@ -42,8 +42,8 @@
     </el-card>
 
     <!-- 项目表格 -->
-    <el-card class="table-card" shadow="hover" v-loading="loading">
-      <el-table :data="projectList" style="width: 100%" border stripe highlight-current-row>
+    <el-card class="table-card flex-1" shadow="hover" v-loading="loading">
+      <el-table :data="projectList" style="width: 100%" border stripe highlight-current-row :max-height="tableHeight">
         <el-table-column type="index" width="60" align="center" label="#"></el-table-column>
         <el-table-column label="项目信息" min-width="300">
           <template #default="{ row }">
@@ -124,7 +124,7 @@
 </template>
 
 <script setup>
-import { ref, reactive, onMounted, computed } from 'vue'
+import { ref, reactive, onMounted, computed, nextTick } from 'vue'
 import { useRouter } from 'vue-router'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { View, Edit, Delete, Plus, Refresh } from '@element-plus/icons-vue'
@@ -136,6 +136,7 @@ const currentPage = ref(1)
 const pageSize = ref(10)
 const totalProjects = ref(0)
 const projectList = ref([])
+const tableHeight = ref('calc(100vh - 280px)') // 动态计算表格高度
 
 // 分类选项
 const categoryOptions = [
@@ -181,7 +182,7 @@ const getProjectList = async () => {
     // 这里应该是实际的API调用
     // 现在使用模拟数据
     await new Promise(resolve => setTimeout(resolve, 800)) // 模拟网络延迟
-    
+
     // 模拟数据
     const mockProjects = [
       {
@@ -241,11 +242,11 @@ const getProjectList = async () => {
         createdAt: '2023-06-10'
       }
     ]
-    
+
     // 处理图片路径
     projectList.value = processArrayImageUrls(mockProjects, ['coverImage'])
     totalProjects.value = mockProjects.length
-    
+
   } catch (error) {
     ElMessage.error(`获取项目列表失败: ${error.message || '未知错误'}`)
   } finally {
@@ -327,6 +328,14 @@ onMounted(() => {
 <style scoped>
 .project-list-container {
   padding: 20px;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  box-sizing: border-box;
+  max-width: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .page-header {
@@ -372,6 +381,8 @@ onMounted(() => {
 
 .table-card {
   margin-bottom: 20px;
+  width: 100%;
+  flex: 1;
 }
 
 .pagination-container {

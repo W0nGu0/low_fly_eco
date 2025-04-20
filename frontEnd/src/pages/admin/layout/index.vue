@@ -21,7 +21,7 @@
             <el-icon><DataLine /></el-icon>
             <template #title>控制台</template>
           </el-menu-item>
-          
+
           <el-sub-menu index="1">
             <template #title>
               <el-icon><Goods /></el-icon>
@@ -30,7 +30,7 @@
             <el-menu-item index="/admin/projects">项目列表</el-menu-item>
             <el-menu-item index="/admin/projects/create">新增项目</el-menu-item>
           </el-sub-menu>
-          
+
           <el-sub-menu index="2">
             <template #title>
               <el-icon><Document /></el-icon>
@@ -39,7 +39,7 @@
             <el-menu-item index="/admin/orders">订单列表</el-menu-item>
             <el-menu-item index="/admin/orders/statistics">订单统计</el-menu-item>
           </el-sub-menu>
-          
+
           <el-sub-menu index="3">
             <template #title>
               <el-icon><User /></el-icon>
@@ -47,19 +47,19 @@
             </template>
             <el-menu-item index="/admin/users">用户列表</el-menu-item>
           </el-sub-menu>
-          
+
           <el-menu-item index="/admin/reviews">
             <el-icon><ChatDotRound /></el-icon>
             <template #title>评价管理</template>
           </el-menu-item>
-          
+
           <el-menu-item index="/admin/settings">
             <el-icon><Setting /></el-icon>
             <template #title>系统设置</template>
           </el-menu-item>
         </el-menu>
       </el-aside>
-      
+
       <!-- 主要内容区 -->
       <el-container class="main-container">
         <!-- 头部 -->
@@ -92,10 +92,12 @@
             </el-dropdown>
           </div>
         </el-header>
-        
+
         <!-- 内容 -->
         <el-main class="main">
-          <router-view></router-view>
+          <div class="content-wrapper w-full h-full">
+            <router-view></router-view>
+          </div>
         </el-main>
       </el-container>
     </el-container>
@@ -107,9 +109,9 @@ import { ref, computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { ElMessageBox } from 'element-plus'
 import { getImageUrl } from '@/utils/imageHelper'
-import { 
-  DataLine, Goods, Document, User, ChatDotRound, 
-  Setting, Fold, Expand 
+import {
+  DataLine, Goods, Document, User, ChatDotRound,
+  Setting, Fold, Expand
 } from '@element-plus/icons-vue'
 
 const router = useRouter()
@@ -162,8 +164,14 @@ const handleCommand = (command) => {
 <style scoped>
 .admin-layout {
   height: 100vh;
+  width: 100vw;
   display: flex;
   overflow: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 
 .container {
@@ -252,13 +260,32 @@ const handleCommand = (command) => {
 .main-container {
   flex-direction: column;
   height: 100%;
+  width: 100%;
+  flex: 1;
+  display: flex;
+  overflow: hidden;
 }
 
 .main {
   background-color: #f0f2f5;
-  padding: 20px;
+  padding: 0;
   overflow-y: auto;
   flex: 1;
+  height: calc(100vh - 60px); /* 减去头部高度 */
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+}
+
+.content-wrapper {
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 :deep(.el-menu-item.is-active) {

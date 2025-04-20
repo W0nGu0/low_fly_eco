@@ -5,11 +5,11 @@
       <el-button type="primary" @click="goBack">返回项目列表</el-button>
     </div>
 
-    <el-form 
-      ref="formRef" 
-      :model="projectForm" 
-      :rules="rules" 
-      label-width="120px" 
+    <el-form
+      ref="formRef"
+      :model="projectForm"
+      :rules="rules"
+      label-width="120px"
       class="project-form"
       :hide-required-asterisk="false"
     >
@@ -367,22 +367,22 @@ const handleTagClose = (tag) => {
 // 提交表单
 const submitForm = async () => {
   if (!formRef.value) return
-  
+
   await formRef.value.validate(async (valid, fields) => {
     if (valid) {
       submitting.value = true
       try {
         // 模拟提交请求
         await new Promise(resolve => setTimeout(resolve, 1000))
-        
+
         // 构建要提交的数据
         const formData = {
           ...projectForm,
           suitableTags: dynamicTags.value
         }
-        
+
         console.log('提交的数据:', formData)
-        
+
         ElMessage.success('项目创建成功')
         router.push('/admin/projects')
       } catch (error) {
@@ -422,6 +422,11 @@ const goBack = () => {
 <style scoped>
 .project-create-container {
   padding: 20px;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  box-sizing: border-box;
+  max-width: 100%;
 }
 
 .page-header {
@@ -487,4 +492,4 @@ const goBack = () => {
   font-size: 12px;
   margin-top: 5px;
 }
-</style> 
+</style>

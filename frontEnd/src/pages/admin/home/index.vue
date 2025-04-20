@@ -4,7 +4,7 @@
       <h2>欢迎使用低空飞行体验管理系统</h2>
       <p>今天是 {{ currentDate }}，{{ greeting }}</p>
     </div>
-    
+
     <el-row :gutter="20" class="stat-cards">
       <el-col :span="6" v-for="(card, index) in statCards" :key="index">
         <el-card shadow="hover" class="stat-card">
@@ -20,7 +20,7 @@
         </el-card>
       </el-col>
     </el-row>
-    
+
     <el-row :gutter="20" class="chart-section">
       <el-col :span="12">
         <el-card shadow="hover" class="chart-card">
@@ -48,7 +48,7 @@
         </el-card>
       </el-col>
     </el-row>
-    
+
     <el-card shadow="hover" class="recent-orders-card">
       <template #header>
         <div class="card-header">
@@ -205,6 +205,11 @@ const viewAllOrders = () => {
 <style scoped>
 .admin-home-container {
   padding: 20px;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  box-sizing: border-box;
+  max-width: 100%;
 }
 
 .welcome-section {
@@ -294,4 +299,4 @@ const viewAllOrders = () => {
 .recent-orders-card {
   margin-bottom: 24px;
 }
-</style> 
+</style>

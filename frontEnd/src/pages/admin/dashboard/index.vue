@@ -1,8 +1,8 @@
 <template>
-  <div class="dashboard-container">
-    <el-row :gutter="20" class="animate__animated animate__fadeIn">
+  <div class="dashboard-container w-full h-full flex flex-col">
+    <el-row :gutter="20" class="animate__animated animate__fadeIn w-full">
       <el-col :xs="24" :sm="12" :md="6" v-for="(card, index) in cardData" :key="index">
-        <el-card class="dashboard-card" shadow="hover" 
+        <el-card class="dashboard-card" shadow="hover"
                  :style="{ 'animation-delay': index * 0.1 + 's' }">
           <div class="dashboard-card-content">
             <div class="card-icon" :style="{ backgroundColor: card.color }">
@@ -24,7 +24,7 @@
       </el-col>
     </el-row>
 
-    <el-row :gutter="20" class="chart-row animate__animated animate__fadeIn">
+    <el-row :gutter="20" class="chart-row animate__animated animate__fadeIn w-full">
       <!-- 订单趋势图 -->
       <el-col :xs="24" :lg="16">
         <el-card class="chart-card" shadow="hover">
@@ -41,7 +41,7 @@
           <div class="chart-container">
             <!-- 这里放置订单趋势图表，实际项目中可以使用 ECharts 等库 -->
             <div class="placeholder-chart">
-              <div class="chart-line" v-for="i in 8" :key="i" 
+              <div class="chart-line" v-for="i in 8" :key="i"
                    :style="{ height: Math.random() * 60 + 20 + 'px', animationDelay: i * 0.1 + 's' }"></div>
             </div>
           </div>
@@ -70,8 +70,8 @@
           <div class="chart-container">
             <!-- 这里放置项目占比图表，实际项目中可以使用 ECharts 等库 -->
             <div class="placeholder-pie">
-              <div class="pie-segment" v-for="(item, i) in pieData" :key="i" 
-                   :style="{ 
+              <div class="pie-segment" v-for="(item, i) in pieData" :key="i"
+                   :style="{
                      backgroundColor: item.color,
                      width: item.value + '%',
                      height: item.value + '%',
@@ -91,7 +91,7 @@
       </el-col>
     </el-row>
 
-    <el-row :gutter="20" class="animate__animated animate__fadeIn" style="animation-delay: 0.3s">
+    <el-row :gutter="20" class="animate__animated animate__fadeIn w-full" style="animation-delay: 0.3s">
       <!-- 最新订单 -->
       <el-col :xs="24" :lg="12">
         <el-card class="list-card" shadow="hover">
@@ -102,7 +102,7 @@
             </div>
           </template>
           <div class="list-container">
-            <el-table :data="latestOrders" style="width: 100%" :header-cell-style="{ background: '#f5f7fa' }">
+            <el-table :data="latestOrders" style="width: 100%" :header-cell-style="{ background: '#f5f7fa' }" fit>
               <el-table-column prop="id" label="订单ID" width="80"></el-table-column>
               <el-table-column prop="customerName" label="客户"></el-table-column>
               <el-table-column prop="projectName" label="项目"></el-table-column>
@@ -305,6 +305,14 @@ function getStatusType(status) {
 <style scoped>
 .dashboard-container {
   padding: 20px;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  box-sizing: border-box;
+  max-width: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .dashboard-card {
@@ -385,6 +393,7 @@ function getStatusType(status) {
   margin-bottom: 20px;
   border-radius: 8px;
   overflow: hidden;
+  width: 100%;
 }
 
 .chart-header {
@@ -396,6 +405,7 @@ function getStatusType(status) {
 .chart-container {
   padding: 15px;
   height: calc(100% - 30px);
+  width: 100%;
 }
 
 .placeholder-chart {
@@ -484,6 +494,7 @@ function getStatusType(status) {
   margin-bottom: 20px;
   border-radius: 8px;
   overflow: hidden;
+  width: 100%;
 }
 
 .list-container {
@@ -571,12 +582,12 @@ function getStatusType(status) {
     padding-left: 0;
     margin-top: 20px;
   }
-  
+
   .placeholder-pie {
     width: 120px;
     height: 120px;
   }
-  
+
   .pie-center {
     width: 60px;
     height: 60px;
