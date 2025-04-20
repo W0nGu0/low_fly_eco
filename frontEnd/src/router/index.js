@@ -192,6 +192,13 @@ const routes = [
         name: 'AdminReviews',
         meta: { title: '评价管理', requiresAuth: false }
       },
+      {
+        path: 'reviews/detail/:id',
+        component: () => import('@/pages/admin/reviews/detail.vue'),
+        name: 'AdminReviewDetail',
+        meta: { title: '评价详情', requiresAuth: false },
+        props: true
+      },
       // 系统设置
       {
         path: 'settings',
