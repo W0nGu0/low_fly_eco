@@ -171,6 +171,13 @@ const routes = [
         name: 'AdminOrderStatistics',
         meta: { title: '订单统计', requiresAuth: false }
       },
+      {
+        path: 'orders/detail/:id',
+        component: () => import('@/pages/admin/orders/detail.vue'),
+        name: 'AdminOrderDetail',
+        meta: { title: '订单详情', requiresAuth: false },
+        props: true
+      },
       // 用户管理
       {
         path: 'users',
